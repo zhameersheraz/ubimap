@@ -23,6 +23,14 @@
   to = "/index.html"
   status = 200
 
+# The NASA POWER proxy. The API sends no CORS headers, so a browser on another origin
+# cannot call it directly. This is the only server side piece of UbiMap.
+[[redirects]]
+  from = "/api/power/*"
+  to = "/.netlify/functions/power/:splat"
+  status = 200
+  force = true
+
 [[headers]]
   for = "/assets/*"
   [headers.values]

@@ -498,6 +498,12 @@ table.prov tr.nonprod td { background: rgba(226, 112, 95, .08); }
 .pin-readout { font-family: var(--mono); font-size: .8rem; color: var(--text); margin: 10px 0 0; }
 .pin-readout .dim { color: var(--dim); }
 
+/* ---------- live check ---------- */
+.livecheck { margin-top: 10px; }
+.livecheck-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.livecheck-table { margin-top: 10px; font-size: .8rem; max-width: 380px; }
+.livecheck-table td { font-family: var(--mono); }
+
 /* ---------- footer ---------- */
 .foot { margin-top: 28px; border-top: 1px solid var(--rule); padding-top: 13px; }
 

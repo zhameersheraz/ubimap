@@ -6,6 +6,7 @@ import {
 } from './components/Panels.jsx';
 import SatelliteVsGroundPanel from './components/SatelliteVsGroundPanel.jsx';
 import RainfallCrossCheck from './components/RainfallCrossCheck.jsx';
+import LiveCheck from './components/LiveCheck.jsx';
 import { AGRONOMY, DEMO_FIELD, GRID_META, nearestCell, provenanceRows } from './engine/grid.js';
 import validationData from '../data/validation_results.json';
 import { evaluateCell, monthlyProfile, classifySeasons, longestDryRun } from './engine/suitability.js';
@@ -268,6 +269,15 @@ export default function App() {
           </div>
 
           <ReadinessCard lang={lang} result={result} />
+          <section className="card livecard">
+            <h2>{lang === 'bis' ? 'Live nga check' : 'Live check'}</h2>
+            <p className="dim small">
+              {lang === 'bis'
+                ? 'Ang mga numero sa screen gikan sa NASA POWER, gi-fetch sulod. I-check nato kung naa pa gyud nga live ang NASA para sa imong uma karon.'
+                : 'The numbers on screen came from NASA POWER, fetched when the grid was built. This asks the NASA POWER API right now, for your field.'}
+            </p>
+            {nearest && <LiveCheck lang={lang} lat={nearest.cell.lat} lon={nearest.cell.lon} />}
+          </section>
           <RotationCompare lang={lang} rotationResult={rotationResult} priorities={farmer.priorities} />
           <PlantingCalendar lang={lang} profile={result.profile} plan={plan} />
 
