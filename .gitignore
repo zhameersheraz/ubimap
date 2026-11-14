@@ -1,0 +1,19 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+.tmp-test/
+
+# the NASA POWER proxy cache
+.cache/
+
+# editor and OS noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# python
+__pycache__/
+*.pyc

@@ -1,0 +1,18 @@
+{
+  "name": "UbiMap - NASA data for ube farmers",
+  "short_name": "UbiMap",
+  "description": "Satellite-guided ube rotation planning for smallholder farmers in Zamboanga del Sur, Philippines, using NASA Earth observations.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f6f4ee",
+  "theme_color": "#12240f",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

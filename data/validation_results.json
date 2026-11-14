@@ -1,0 +1,2263 @@
+{
+ "meta": {
+  "purpose": "Validation of the UbiMap suitability model against PSA production statistics for Ubi [Greater yam]",
+  "psa_source": "Philippine Statistics Authority OpenSTAT, crops production tables 0082E4EVCP3.px (volume) and 0112E4EAHM3.px (area), 2025 annual",
+  "psa_api": "https://openstat.psa.gov.ph/PXWeb/api/v1/en/DB/2E/CS/",
+  "retrieved_utc": "2026-11-14T16:18:52.748332+00:00",
+  "retrieved_philippine": "2026-11-15T00:18:52.748354+08:00",
+  "points": 110,
+  "note": "One row per sampled point inside each province. The engine scores every point, then the province score is the mean.",
+  "slope_source": "NASA SRTM 30 m via opentopodata srtm30m, five point gradient over about 555 m",
+  "imerg_rainfall_note": "Province level GPM IMERG monthly climatology applied to each point of that province. 85 of 110 points received it. Provinces with no IMERG province level data: Apayao, Basilan, Dinagat, Sorsogon, Surigao del Norte.",
+  "scored_utc": "2026-11-14T18:34:13.011Z",
+  "statistics": {
+   "pearson_score_vs_yield": 0.3233,
+   "spearman_score_vs_yield": 0.2982,
+   "pearson_score_vs_log_volume": 0.4832,
+   "spearman_score_vs_log_volume": 0.3271,
+   "pearson_score_vs_rainfall": -0.7334,
+   "mean_score_producers": 68.09,
+   "mean_score_non_producers": 63.45,
+   "n_producers": 18,
+   "n_non_producers": 4,
+   "comparison_si_vs_traditional": {
+    "method": "leave one province out over the ube producing provinces",
+    "n": 18,
+    "traditional_ahp": {
+     "r2": -0.1345,
+     "rmse_tha": 5.613
+    },
+    "si_ridge_regression": {
+     "r2": -0.518,
+     "rmse_tha": 6.492
+    }
+   }
+  }
+ },
+ "provinces": [
+  {
+   "province": "Basilan",
+   "group": "non_producers",
+   "scores": [
+    80.6,
+    81.8,
+    81.3,
+    81.8,
+    81.8
+   ],
+   "psa_volume_mt": 0,
+   "psa_area_ha": 0,
+   "yield_t_ha": null,
+   "annual_mm": [
+    1906.3,
+    2022.3,
+    1598,
+    2022.3,
+    2022.3
+   ],
+   "score_mean": 81.5,
+   "score_min": 80.6,
+   "score_max": 81.8,
+   "annual_mm_mean": 1914,
+   "n_points": 5
+  },
+  {
+   "province": "La Union",
+   "group": "producers",
+   "scores": [
+    76.8,
+    77.4,
+    70.6,
+    76.1,
+    75
+   ],
+   "psa_volume_mt": 310.96,
+   "psa_area_ha": 16,
+   "yield_t_ha": 19.435,
+   "annual_mm": [
+    2445.2,
+    2445.2,
+    2445.2,
+    2445.2,
+    2445.2
+   ],
+   "score_mean": 75.2,
+   "score_min": 70.6,
+   "score_max": 77.4,
+   "annual_mm_mean": 2445,
+   "n_points": 5
+  },
+  {
+   "province": "Lanao del Norte",
+   "group": "producers",
+   "scores": [
+    74.3,
+    79.1,
+    74.3,
+    73,
+    74.3
+   ],
+   "psa_volume_mt": 727.36,
+   "psa_area_ha": 327.62,
+   "yield_t_ha": 2.2201330810084854,
+   "annual_mm": [
+    2081.7,
+    2081.7,
+    2081.7,
+    2081.7,
+    2081.7
+   ],
+   "score_mean": 75,
+   "score_min": 73,
+   "score_max": 79.1,
+   "annual_mm_mean": 2082,
+   "n_points": 5
+  },
+  {
+   "province": "Bohol",
+   "group": "producers",
+   "scores": [
+    74.1,
+    78.5,
+    74.1,
+    74.1,
+    73.3
+   ],
+   "psa_volume_mt": 3931.23,
+   "psa_area_ha": 297.03,
+   "yield_t_ha": 13.235127764872237,
+   "annual_mm": [
+    2246,
+    2246,
+    2246,
+    2246,
+    2246
+   ],
+   "score_mean": 74.8,
+   "score_min": 73.3,
+   "score_max": 78.5,
+   "annual_mm_mean": 2246,
+   "n_points": 5
+  },
+  {
+   "province": "Batangas",
+   "group": "producers",
+   "scores": [
+    71.1,
+    77.7,
+    75.9,
+    71.1,
+    71.1
+   ],
+   "psa_volume_mt": 203,
+   "psa_area_ha": 48,
+   "yield_t_ha": 4.229166666666667,
+   "annual_mm": [
+    2262.5,
+    2262.5,
+    2262.5,
+    2262.5,
+    2262.5
+   ],
+   "score_mean": 73.4,
+   "score_min": 71.1,
+   "score_max": 77.7,
+   "annual_mm_mean": 2263,
+   "n_points": 5
+  },
+  {
+   "province": "Zamboanga Sibugay",
+   "group": "producers",
+   "scores": [
+    72.1,
+    73.8,
+    78.2,
+    69.9,
+    72.1
+   ],
+   "psa_volume_mt": 39.8,
+   "psa_area_ha": 20.1,
+   "yield_t_ha": 1.9800995024875618,
+   "annual_mm": [
+    2123.3,
+    2123.3,
+    2123.3,
+    2123.3,
+    2123.3
+   ],
+   "score_mean": 73.2,
+   "score_min": 69.9,
+   "score_max": 78.2,
+   "annual_mm_mean": 2123,
+   "n_points": 5
+  },
+  {
+   "province": "Negros Oriental",
+   "group": "producers",
+   "scores": [
+    72.4,
+    68.2,
+    72.5,
+    76,
+    74
+   ],
+   "psa_volume_mt": 227,
+   "psa_area_ha": 38,
+   "yield_t_ha": 5.973684210526316,
+   "annual_mm": [
+    2078.9,
+    2078.9,
+    2078.9,
+    2078.9,
+    2078.9
+   ],
+   "score_mean": 72.6,
+   "score_min": 68.2,
+   "score_max": 76,
+   "annual_mm_mean": 2079,
+   "n_points": 5
+  },
+  {
+   "province": "Cebu",
+   "group": "producers",
+   "scores": [
+    70.9,
+    71.5,
+    74.2,
+    71.5,
+    71.5
+   ],
+   "psa_volume_mt": 185,
+   "psa_area_ha": 29.5,
+   "yield_t_ha": 6.271186440677966,
+   "annual_mm": [
+    2334.4,
+    2334.4,
+    2334.4,
+    2334.4,
+    2334.4
+   ],
+   "score_mean": 71.9,
+   "score_min": 70.9,
+   "score_max": 74.2,
+   "annual_mm_mean": 2334,
+   "n_points": 5
+  },
+  {
+   "province": "Cagayan",
+   "group": "producers",
+   "scores": [
+    73,
+    73.2,
+    73.4,
+    64.1,
+    72.3
+   ],
+   "psa_volume_mt": 1009.9,
+   "psa_area_ha": 198.21,
+   "yield_t_ha": 5.095101155340295,
+   "annual_mm": [
+    2273.6,
+    2273.6,
+    2273.6,
+    2273.6,
+    2273.6
+   ],
+   "score_mean": 71.2,
+   "score_min": 64.1,
+   "score_max": 73.4,
+   "annual_mm_mean": 2274,
+   "n_points": 5
+  },
+  {
+   "province": "Lanao del Sur",
+   "group": "producers",
+   "scores": [
+    70.7,
+    71.9,
+    64.2,
+    73,
+    68.5
+   ],
+   "psa_volume_mt": 435.27,
+   "psa_area_ha": 24.1,
+   "yield_t_ha": 18.060995850622405,
+   "annual_mm": [
+    2370.4,
+    2370.4,
+    2370.4,
+    2370.4,
+    2370.4
+   ],
+   "score_mean": 69.7,
+   "score_min": 64.2,
+   "score_max": 73,
+   "annual_mm_mean": 2370,
+   "n_points": 5
+  },
+  {
+   "province": "Nueva Vizcaya",
+   "group": "producers",
+   "scores": [
+    65.9,
+    70.3,
+    68.2,
+    75.2,
+    66
+   ],
+   "psa_volume_mt": 235,
+   "psa_area_ha": 35,
+   "yield_t_ha": 6.714285714285714,
+   "annual_mm": [
+    2294.9,
+    2294.9,
+    2294.9,
+    2294.9,
+    2294.9
+   ],
+   "score_mean": 69.1,
+   "score_min": 65.9,
+   "score_max": 75.2,
+   "annual_mm_mean": 2295,
+   "n_points": 5
+  },
+  {
+   "province": "Davao del Sur",
+   "group": "producers",
+   "scores": [
+    64.7,
+    68.8,
+    68.8,
+    71.8,
+    68.8
+   ],
+   "psa_volume_mt": 173.7,
+   "psa_area_ha": 28.9,
+   "yield_t_ha": 6.01038062283737,
+   "annual_mm": [
+    2032.9,
+    2032.9,
+    2032.9,
+    2032.9,
+    2032.9
+   ],
+   "score_mean": 68.6,
+   "score_min": 64.7,
+   "score_max": 71.8,
+   "annual_mm_mean": 2033,
+   "n_points": 5
+  },
+  {
+   "province": "Zamboanga del Sur",
+   "group": "producers",
+   "scores": [
+    66.6,
+    66.5,
+    63.4,
+    66.6,
+    65.5
+   ],
+   "psa_volume_mt": 91.1,
+   "psa_area_ha": 36,
+   "yield_t_ha": 2.5305555555555554,
+   "annual_mm": [
+    2421.8,
+    2421.8,
+    2421.8,
+    2421.8,
+    2421.8
+   ],
+   "score_mean": 65.7,
+   "score_min": 63.4,
+   "score_max": 66.6,
+   "annual_mm_mean": 2422,
+   "n_points": 5
+  },
+  {
+   "province": "Apayao",
+   "group": "non_producers",
+   "scores": [
+    68.2,
+    60,
+    62.9,
+    66.3,
+    66.6
+   ],
+   "psa_volume_mt": 0,
+   "psa_area_ha": 0,
+   "yield_t_ha": null,
+   "annual_mm": [
+    2253.8,
+    2494.7,
+    2253.8,
+    2407.4,
+    2182.8
+   ],
+   "score_mean": 64.8,
+   "score_min": 60,
+   "score_max": 68.2,
+   "annual_mm_mean": 2319,
+   "n_points": 5
+  },
+  {
+   "province": "Leyte",
+   "group": "producers",
+   "scores": [
+    68.2,
+    63.9,
+    61.7,
+    63.6,
+    63.9
+   ],
+   "psa_volume_mt": 388.64,
+   "psa_area_ha": 100.45,
+   "yield_t_ha": 3.868989547038327,
+   "annual_mm": [
+    2849.7,
+    2849.7,
+    2849.7,
+    2849.7,
+    2849.7
+   ],
+   "score_mean": 64.3,
+   "score_min": 61.7,
+   "score_max": 68.2,
+   "annual_mm_mean": 2850,
+   "n_points": 5
+  },
+  {
+   "province": "Negros Occidental",
+   "group": "producers",
+   "scores": [
+    61.9,
+    62.4,
+    61,
+    61.6,
+    61.9
+   ],
+   "psa_volume_mt": 271,
+   "psa_area_ha": 23,
+   "yield_t_ha": 11.782608695652174,
+   "annual_mm": [
+    2426,
+    2426,
+    2426,
+    2426,
+    2426
+   ],
+   "score_mean": 61.8,
+   "score_min": 61,
+   "score_max": 62.4,
+   "annual_mm_mean": 2426,
+   "n_points": 5
+  },
+  {
+   "province": "Laguna",
+   "group": "producers",
+   "scores": [
+    59.5,
+    58.7,
+    59.5,
+    65.3,
+    63.7
+   ],
+   "psa_volume_mt": 291,
+   "psa_area_ha": 101.2,
+   "yield_t_ha": 2.875494071146245,
+   "annual_mm": [
+    2483.2,
+    2483.2,
+    2483.2,
+    2483.2,
+    2483.2
+   ],
+   "score_mean": 61.3,
+   "score_min": 58.7,
+   "score_max": 65.3,
+   "annual_mm_mean": 2483,
+   "n_points": 5
+  },
+  {
+   "province": "Quezon",
+   "group": "producers",
+   "scores": [
+    58.3,
+    58.3,
+    64.9,
+    57.4,
+    62.4
+   ],
+   "psa_volume_mt": 848.89,
+   "psa_area_ha": 116.36,
+   "yield_t_ha": 7.2953764180130625,
+   "annual_mm": [
+    2481.1,
+    2481.1,
+    2481.1,
+    2481.1,
+    2481.1
+   ],
+   "score_mean": 60.3,
+   "score_min": 57.4,
+   "score_max": 64.9,
+   "annual_mm_mean": 2481,
+   "n_points": 5
+  },
+  {
+   "province": "Zamboanga del Norte",
+   "group": "producers",
+   "scores": [
+    54.2,
+    57.2,
+    60.4,
+    61,
+    63
+   ],
+   "psa_volume_mt": 15.2,
+   "psa_area_ha": 7.6,
+   "yield_t_ha": 2,
+   "annual_mm": [
+    2718.3,
+    2718.3,
+    2718.3,
+    2718.3,
+    2718.3
+   ],
+   "score_mean": 59.2,
+   "score_min": 54.2,
+   "score_max": 63,
+   "annual_mm_mean": 2718,
+   "n_points": 5
+  },
+  {
+   "province": "Sorsogon",
+   "group": "producers",
+   "scores": [
+    56.4,
+    64.5,
+    56.4,
+    56.4,
+    58.2
+   ],
+   "psa_volume_mt": 3,
+   "psa_area_ha": 1.8,
+   "yield_t_ha": 1.6666666666666665,
+   "annual_mm": [
+    3031.1,
+    2754.1,
+    3031.1,
+    3031.1,
+    3614.9
+   ],
+   "score_mean": 58.4,
+   "score_min": 56.4,
+   "score_max": 64.5,
+   "annual_mm_mean": 3092,
+   "n_points": 5
+  },
+  {
+   "province": "Surigao del Norte",
+   "group": "non_producers",
+   "scores": [
+    50.6,
+    50.6,
+    51.2,
+    50.6,
+    73.7
+   ],
+   "psa_volume_mt": 0,
+   "psa_area_ha": 0,
+   "yield_t_ha": null,
+   "annual_mm": [
+    3418,
+    3418,
+    3494.9,
+    3418,
+    2396.4
+   ],
+   "score_mean": 55.3,
+   "score_min": 50.6,
+   "score_max": 73.7,
+   "annual_mm_mean": 3229,
+   "n_points": 5
+  },
+  {
+   "province": "Dinagat",
+   "group": "non_producers",
+   "scores": [
+    48.8,
+    55.4,
+    50.9,
+    55.3,
+    50.6
+   ],
+   "psa_volume_mt": 0,
+   "psa_area_ha": 0,
+   "yield_t_ha": null,
+   "annual_mm": [
+    3948.7,
+    3806,
+    3732.3,
+    3724.6,
+    3418
+   ],
+   "score_mean": 52.2,
+   "score_min": 48.8,
+   "score_max": 55.4,
+   "annual_mm_mean": 3726,
+   "n_points": 5
+  }
+ ],
+ "points": [
+  {
+   "province": "Cagayan",
+   "lat": 17.3,
+   "lon": 121.5,
+   "score": 73,
+   "annual_mm": 2273.6,
+   "factors": {
+    "rainfall": 0.882,
+    "soil_moisture": 0.513,
+    "temperature": 0.559,
+    "slope": 0.989,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Cagayan",
+   "lat": 17.65,
+   "lon": 121.5,
+   "score": 73.2,
+   "annual_mm": 2273.6,
+   "factors": {
+    "rainfall": 0.882,
+    "soil_moisture": 0.513,
+    "temperature": 0.559,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Bohol",
+   "lat": 10.1,
+   "lon": 124.05,
+   "score": 74.1,
+   "annual_mm": 2246,
+   "factors": {
+    "rainfall": 0.623,
+    "soil_moisture": 0.84,
+    "temperature": 0.611,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Bohol",
+   "lat": 9.4,
+   "lon": 124.05,
+   "score": 78.5,
+   "annual_mm": 2246,
+   "factors": {
+    "rainfall": 0.623,
+    "soil_moisture": 0.84,
+    "temperature": 0.859,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Bohol",
+   "lat": 9.75,
+   "lon": 124.05,
+   "score": 74.1,
+   "annual_mm": 2246,
+   "factors": {
+    "rainfall": 0.623,
+    "soil_moisture": 0.84,
+    "temperature": 0.611,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Cagayan",
+   "lat": 16.95,
+   "lon": 121.5,
+   "score": 73.4,
+   "annual_mm": 2273.6,
+   "factors": {
+    "rainfall": 0.882,
+    "soil_moisture": 0.513,
+    "temperature": 0.574,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Bohol",
+   "lat": 9.75,
+   "lon": 123.65,
+   "score": 74.1,
+   "annual_mm": 2246,
+   "factors": {
+    "rainfall": 0.623,
+    "soil_moisture": 0.84,
+    "temperature": 0.611,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Bohol",
+   "lat": 9.75,
+   "lon": 124.45,
+   "score": 73.3,
+   "annual_mm": 2246,
+   "factors": {
+    "rainfall": 0.623,
+    "soil_moisture": 0.84,
+    "temperature": 0.565,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Cagayan",
+   "lat": 17.3,
+   "lon": 121.1,
+   "score": 64.1,
+   "annual_mm": 2273.6,
+   "factors": {
+    "rainfall": 0.882,
+    "soil_moisture": 0.513,
+    "temperature": 0.559,
+    "slope": 0.379,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Quezon",
+   "lat": 14,
+   "lon": 121.5,
+   "score": 58.3,
+   "annual_mm": 2481.1,
+   "factors": {
+    "rainfall": 0.742,
+    "soil_moisture": 0.32,
+    "temperature": 0.343,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Quezon",
+   "lat": 14,
+   "lon": 121.1,
+   "score": 58.3,
+   "annual_mm": 2481.1,
+   "factors": {
+    "rainfall": 0.742,
+    "soil_moisture": 0.32,
+    "temperature": 0.343,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Quezon",
+   "lat": 13.65,
+   "lon": 121.5,
+   "score": 64.9,
+   "annual_mm": 2481.1,
+   "factors": {
+    "rainfall": 0.742,
+    "soil_moisture": 0.355,
+    "temperature": 0.656,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Quezon",
+   "lat": 14.35,
+   "lon": 121.5,
+   "score": 57.4,
+   "annual_mm": 2481.1,
+   "factors": {
+    "rainfall": 0.742,
+    "soil_moisture": 0.285,
+    "temperature": 0.352,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Lanao del Norte",
+   "lat": 8.6,
+   "lon": 123.9,
+   "score": 74.3,
+   "annual_mm": 2081.7,
+   "factors": {
+    "rainfall": 0.637,
+    "soil_moisture": 0.824,
+    "temperature": 0.618,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Lanao del Norte",
+   "lat": 8.95,
+   "lon": 123.9,
+   "score": 79.1,
+   "annual_mm": 2081.7,
+   "factors": {
+    "rainfall": 0.637,
+    "soil_moisture": 0.824,
+    "temperature": 0.894,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Cagayan",
+   "lat": 17.3,
+   "lon": 121.9,
+   "score": 72.3,
+   "annual_mm": 2273.6,
+   "factors": {
+    "rainfall": 0.882,
+    "soil_moisture": 0.548,
+    "temperature": 0.453,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Lanao del Norte",
+   "lat": 8.25,
+   "lon": 123.9,
+   "score": 74.3,
+   "annual_mm": 2081.7,
+   "factors": {
+    "rainfall": 0.637,
+    "soil_moisture": 0.824,
+    "temperature": 0.618,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Quezon",
+   "lat": 14,
+   "lon": 121.9,
+   "score": 62.4,
+   "annual_mm": 2481.1,
+   "factors": {
+    "rainfall": 0.742,
+    "soil_moisture": 0.32,
+    "temperature": 0.576,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Lanao del Sur",
+   "lat": 8.25,
+   "lon": 124,
+   "score": 70.7,
+   "annual_mm": 2370.4,
+   "factors": {
+    "rainfall": 0.612,
+    "soil_moisture": 0.748,
+    "temperature": 0.597,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Lanao del Sur",
+   "lat": 7.55,
+   "lon": 124,
+   "score": 71.9,
+   "annual_mm": 2370.4,
+   "factors": {
+    "rainfall": 0.612,
+    "soil_moisture": 0.772,
+    "temperature": 0.623,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Lanao del Norte",
+   "lat": 8.6,
+   "lon": 124.3,
+   "score": 73,
+   "annual_mm": 2081.7,
+   "factors": {
+    "rainfall": 0.637,
+    "soil_moisture": 0.824,
+    "temperature": 0.548,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Leyte",
+   "lat": 10.65,
+   "lon": 124.5,
+   "score": 68.2,
+   "annual_mm": 2849.7,
+   "factors": {
+    "rainfall": 0.512,
+    "soil_moisture": 0.69,
+    "temperature": 0.769,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Leyte",
+   "lat": 11,
+   "lon": 124.1,
+   "score": 63.9,
+   "annual_mm": 2849.7,
+   "factors": {
+    "rainfall": 0.512,
+    "soil_moisture": 0.62,
+    "temperature": 0.645,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Leyte",
+   "lat": 11,
+   "lon": 124.9,
+   "score": 61.7,
+   "annual_mm": 2849.7,
+   "factors": {
+    "rainfall": 0.512,
+    "soil_moisture": 0.597,
+    "temperature": 0.559,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Lanao del Norte",
+   "lat": 8.6,
+   "lon": 123.5,
+   "score": 74.3,
+   "annual_mm": 2081.7,
+   "factors": {
+    "rainfall": 0.637,
+    "soil_moisture": 0.824,
+    "temperature": 0.618,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Lanao del Sur",
+   "lat": 7.9,
+   "lon": 124,
+   "score": 64.2,
+   "annual_mm": 2370.4,
+   "factors": {
+    "rainfall": 0.612,
+    "soil_moisture": 0.725,
+    "temperature": 0.509,
+    "slope": 0.709,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "La Union",
+   "lat": 16.65,
+   "lon": 120.5,
+   "score": 76.8,
+   "annual_mm": 2445.2,
+   "factors": {
+    "rainfall": 0.889,
+    "soil_moisture": 0.514,
+    "temperature": 0.783,
+    "slope": 0.957,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Leyte",
+   "lat": 11.35,
+   "lon": 124.5,
+   "score": 63.6,
+   "annual_mm": 2849.7,
+   "factors": {
+    "rainfall": 0.512,
+    "soil_moisture": 0.597,
+    "temperature": 0.665,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Lanao del Sur",
+   "lat": 7.9,
+   "lon": 124.4,
+   "score": 73,
+   "annual_mm": 2370.4,
+   "factors": {
+    "rainfall": 0.612,
+    "soil_moisture": 0.748,
+    "temperature": 0.726,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Lanao del Sur",
+   "lat": 7.9,
+   "lon": 123.6,
+   "score": 68.5,
+   "annual_mm": 2370.4,
+   "factors": {
+    "rainfall": 0.612,
+    "soil_moisture": 0.725,
+    "temperature": 0.509,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Leyte",
+   "lat": 11,
+   "lon": 124.5,
+   "score": 63.9,
+   "annual_mm": 2849.7,
+   "factors": {
+    "rainfall": 0.512,
+    "soil_moisture": 0.62,
+    "temperature": 0.645,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Laguna",
+   "lat": 14.2,
+   "lon": 121.3,
+   "score": 59.5,
+   "annual_mm": 2483.2,
+   "factors": {
+    "rainfall": 0.709,
+    "soil_moisture": 0.403,
+    "temperature": 0.343,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "La Union",
+   "lat": 16.3,
+   "lon": 120.9,
+   "score": 77.4,
+   "annual_mm": 2445.2,
+   "factors": {
+    "rainfall": 0.889,
+    "soil_moisture": 0.514,
+    "temperature": 0.783,
+    "slope": 0.996,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "La Union",
+   "lat": 15.95,
+   "lon": 120.5,
+   "score": 70.6,
+   "annual_mm": 2445.2,
+   "factors": {
+    "rainfall": 0.889,
+    "soil_moisture": 0.514,
+    "temperature": 0.393,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Laguna",
+   "lat": 14.55,
+   "lon": 121.3,
+   "score": 58.7,
+   "annual_mm": 2483.2,
+   "factors": {
+    "rainfall": 0.709,
+    "soil_moisture": 0.368,
+    "temperature": 0.352,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Laguna",
+   "lat": 13.85,
+   "lon": 121.3,
+   "score": 59.5,
+   "annual_mm": 2483.2,
+   "factors": {
+    "rainfall": 0.709,
+    "soil_moisture": 0.403,
+    "temperature": 0.343,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "La Union",
+   "lat": 16.3,
+   "lon": 120.5,
+   "score": 76.1,
+   "annual_mm": 2445.2,
+   "factors": {
+    "rainfall": 0.889,
+    "soil_moisture": 0.514,
+    "temperature": 0.783,
+    "slope": 0.908,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Negros Occidental",
+   "lat": 10.5,
+   "lon": 122.8,
+   "score": 61.9,
+   "annual_mm": 2426,
+   "factors": {
+    "rainfall": 0.594,
+    "soil_moisture": 0.43,
+    "temperature": 0.674,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Laguna",
+   "lat": 14.2,
+   "lon": 120.9,
+   "score": 65.3,
+   "annual_mm": 2483.2,
+   "factors": {
+    "rainfall": 0.709,
+    "soil_moisture": 0.438,
+    "temperature": 0.612,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Laguna",
+   "lat": 14.2,
+   "lon": 121.7,
+   "score": 63.7,
+   "annual_mm": 2483.2,
+   "factors": {
+    "rainfall": 0.709,
+    "soil_moisture": 0.403,
+    "temperature": 0.576,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Negros Occidental",
+   "lat": 10.5,
+   "lon": 123.2,
+   "score": 62.4,
+   "annual_mm": 2426,
+   "factors": {
+    "rainfall": 0.594,
+    "soil_moisture": 0.43,
+    "temperature": 0.706,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Negros Occidental",
+   "lat": 10.85,
+   "lon": 122.8,
+   "score": 61,
+   "annual_mm": 2426,
+   "factors": {
+    "rainfall": 0.594,
+    "soil_moisture": 0.43,
+    "temperature": 0.627,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Negros Occidental",
+   "lat": 10.15,
+   "lon": 122.8,
+   "score": 61.6,
+   "annual_mm": 2426,
+   "factors": {
+    "rainfall": 0.594,
+    "soil_moisture": 0.43,
+    "temperature": 0.658,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "La Union",
+   "lat": 16.3,
+   "lon": 120.1,
+   "score": 75,
+   "annual_mm": 2445.2,
+   "factors": {
+    "rainfall": 0.889,
+    "soil_moisture": 0.514,
+    "temperature": 0.647,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Negros Occidental",
+   "lat": 10.5,
+   "lon": 122.4,
+   "score": 61.9,
+   "annual_mm": 2426,
+   "factors": {
+    "rainfall": 0.594,
+    "soil_moisture": 0.43,
+    "temperature": 0.674,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Nueva Vizcaya",
+   "lat": 16.85,
+   "lon": 121.2,
+   "score": 65.9,
+   "annual_mm": 2294.9,
+   "factors": {
+    "rainfall": 0.819,
+    "soil_moisture": 0.513,
+    "temperature": 0.574,
+    "slope": 0.647,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Nueva Vizcaya",
+   "lat": 16.5,
+   "lon": 121.2,
+   "score": 70.3,
+   "annual_mm": 2294.9,
+   "factors": {
+    "rainfall": 0.819,
+    "soil_moisture": 0.513,
+    "temperature": 0.529,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Nueva Vizcaya",
+   "lat": 16.15,
+   "lon": 121.2,
+   "score": 68.2,
+   "annual_mm": 2294.9,
+   "factors": {
+    "rainfall": 0.819,
+    "soil_moisture": 0.513,
+    "temperature": 0.441,
+    "slope": 0.965,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Negros Oriental",
+   "lat": 9.65,
+   "lon": 123.2,
+   "score": 72.4,
+   "annual_mm": 2078.9,
+   "factors": {
+    "rainfall": 0.641,
+    "soil_moisture": 0.738,
+    "temperature": 0.646,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Negros Oriental",
+   "lat": 9.3,
+   "lon": 123.2,
+   "score": 68.2,
+   "annual_mm": 2078.9,
+   "factors": {
+    "rainfall": 0.641,
+    "soil_moisture": 0.738,
+    "temperature": 0.646,
+    "slope": 0.713,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Nueva Vizcaya",
+   "lat": 16.5,
+   "lon": 120.8,
+   "score": 75.2,
+   "annual_mm": 2294.9,
+   "factors": {
+    "rainfall": 0.819,
+    "soil_moisture": 0.513,
+    "temperature": 0.806,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Nueva Vizcaya",
+   "lat": 16.5,
+   "lon": 121.6,
+   "score": 66,
+   "annual_mm": 2294.9,
+   "factors": {
+    "rainfall": 0.819,
+    "soil_moisture": 0.478,
+    "temperature": 0.347,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Negros Oriental",
+   "lat": 9.3,
+   "lon": 122.8,
+   "score": 72.5,
+   "annual_mm": 2078.9,
+   "factors": {
+    "rainfall": 0.641,
+    "soil_moisture": 0.707,
+    "temperature": 0.706,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Negros Oriental",
+   "lat": 9.3,
+   "lon": 123.6,
+   "score": 76,
+   "annual_mm": 2078.9,
+   "factors": {
+    "rainfall": 0.641,
+    "soil_moisture": 0.738,
+    "temperature": 0.851,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Negros Oriental",
+   "lat": 8.95,
+   "lon": 123.2,
+   "score": 74,
+   "annual_mm": 2078.9,
+   "factors": {
+    "rainfall": 0.641,
+    "soil_moisture": 0.707,
+    "temperature": 0.791,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Batangas",
+   "lat": 13.8,
+   "lon": 121.1,
+   "score": 71.1,
+   "annual_mm": 2262.5,
+   "factors": {
+    "rainfall": 0.929,
+    "soil_moisture": 0.513,
+    "temperature": 0.343,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Batangas",
+   "lat": 13.45,
+   "lon": 121.1,
+   "score": 77.7,
+   "annual_mm": 2262.5,
+   "factors": {
+    "rainfall": 0.929,
+    "soil_moisture": 0.548,
+    "temperature": 0.656,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Batangas",
+   "lat": 13.8,
+   "lon": 120.7,
+   "score": 75.9,
+   "annual_mm": 2262.5,
+   "factors": {
+    "rainfall": 0.929,
+    "soil_moisture": 0.513,
+    "temperature": 0.612,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Batangas",
+   "lat": 14.15,
+   "lon": 121.1,
+   "score": 71.1,
+   "annual_mm": 2262.5,
+   "factors": {
+    "rainfall": 0.929,
+    "soil_moisture": 0.513,
+    "temperature": 0.343,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Batangas",
+   "lat": 13.8,
+   "lon": 121.5,
+   "score": 71.1,
+   "annual_mm": 2262.5,
+   "factors": {
+    "rainfall": 0.929,
+    "soil_moisture": 0.513,
+    "temperature": 0.343,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Cebu",
+   "lat": 9.95,
+   "lon": 123.9,
+   "score": 70.9,
+   "annual_mm": 2334.4,
+   "factors": {
+    "rainfall": 0.624,
+    "soil_moisture": 0.72,
+    "temperature": 0.629,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Cebu",
+   "lat": 10.3,
+   "lon": 123.9,
+   "score": 71.5,
+   "annual_mm": 2334.4,
+   "factors": {
+    "rainfall": 0.624,
+    "soil_moisture": 0.72,
+    "temperature": 0.667,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Cebu",
+   "lat": 10.3,
+   "lon": 124.3,
+   "score": 74.2,
+   "annual_mm": 2334.4,
+   "factors": {
+    "rainfall": 0.624,
+    "soil_moisture": 0.748,
+    "temperature": 0.77,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Cebu",
+   "lat": 10.65,
+   "lon": 123.9,
+   "score": 71.5,
+   "annual_mm": 2334.4,
+   "factors": {
+    "rainfall": 0.624,
+    "soil_moisture": 0.72,
+    "temperature": 0.667,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Cebu",
+   "lat": 10.3,
+   "lon": 123.5,
+   "score": 71.5,
+   "annual_mm": 2334.4,
+   "factors": {
+    "rainfall": 0.624,
+    "soil_moisture": 0.72,
+    "temperature": 0.667,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Davao del Sur",
+   "lat": 7.45,
+   "lon": 125.4,
+   "score": 64.7,
+   "annual_mm": 2032.9,
+   "factors": {
+    "rainfall": 0.631,
+    "soil_moisture": 0.835,
+    "temperature": 0.163,
+    "slope": 0.885,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Davao del Sur",
+   "lat": 7.1,
+   "lon": 125.4,
+   "score": 68.8,
+   "annual_mm": 2032.9,
+   "factors": {
+    "rainfall": 0.631,
+    "soil_moisture": 0.835,
+    "temperature": 0.301,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Davao del Sur",
+   "lat": 6.75,
+   "lon": 125.4,
+   "score": 68.8,
+   "annual_mm": 2032.9,
+   "factors": {
+    "rainfall": 0.631,
+    "soil_moisture": 0.835,
+    "temperature": 0.301,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Davao del Sur",
+   "lat": 7.1,
+   "lon": 125,
+   "score": 71.8,
+   "annual_mm": 2032.9,
+   "factors": {
+    "rainfall": 0.631,
+    "soil_moisture": 0.835,
+    "temperature": 0.472,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Davao del Sur",
+   "lat": 7.1,
+   "lon": 125.8,
+   "score": 68.8,
+   "annual_mm": 2032.9,
+   "factors": {
+    "rainfall": 0.631,
+    "soil_moisture": 0.835,
+    "temperature": 0.301,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Zamboanga del Sur",
+   "lat": 7.8397,
+   "lon": 123.4373,
+   "score": 66.6,
+   "annual_mm": 2421.8,
+   "factors": {
+    "rainfall": 0.607,
+    "soil_moisture": 0.657,
+    "temperature": 0.527,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Zamboanga del Sur",
+   "lat": 8.1897,
+   "lon": 123.4373,
+   "score": 66.5,
+   "annual_mm": 2421.8,
+   "factors": {
+    "rainfall": 0.607,
+    "soil_moisture": 0.657,
+    "temperature": 0.527,
+    "slope": 0.998,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Zamboanga Sibugay",
+   "lat": 7.5,
+   "lon": 122.8,
+   "score": 72.1,
+   "annual_mm": 2123.3,
+   "factors": {
+    "rainfall": 0.636,
+    "soil_moisture": 0.83,
+    "temperature": 0.486,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Zamboanga del Sur",
+   "lat": 7.4897,
+   "lon": 123.4373,
+   "score": 63.4,
+   "annual_mm": 2421.8,
+   "factors": {
+    "rainfall": 0.607,
+    "soil_moisture": 0.657,
+    "temperature": 0.348,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Zamboanga del Sur",
+   "lat": 7.8397,
+   "lon": 123.0373,
+   "score": 66.6,
+   "annual_mm": 2421.8,
+   "factors": {
+    "rainfall": 0.607,
+    "soil_moisture": 0.657,
+    "temperature": 0.527,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Zamboanga del Sur",
+   "lat": 7.8397,
+   "lon": 123.8373,
+   "score": 65.5,
+   "annual_mm": 2421.8,
+   "factors": {
+    "rainfall": 0.607,
+    "soil_moisture": 0.633,
+    "temperature": 0.509,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Zamboanga Sibugay",
+   "lat": 7.85,
+   "lon": 122.8,
+   "score": 73.8,
+   "annual_mm": 2123.3,
+   "factors": {
+    "rainfall": 0.636,
+    "soil_moisture": 0.83,
+    "temperature": 0.582,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Zamboanga Sibugay",
+   "lat": 7.15,
+   "lon": 122.8,
+   "score": 78.2,
+   "annual_mm": 2123.3,
+   "factors": {
+    "rainfall": 0.636,
+    "soil_moisture": 0.83,
+    "temperature": 0.833,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Zamboanga Sibugay",
+   "lat": 7.5,
+   "lon": 123.2,
+   "score": 69.9,
+   "annual_mm": 2123.3,
+   "factors": {
+    "rainfall": 0.636,
+    "soil_moisture": 0.83,
+    "temperature": 0.358,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Zamboanga Sibugay",
+   "lat": 7.5,
+   "lon": 122.4,
+   "score": 72.1,
+   "annual_mm": 2123.3,
+   "factors": {
+    "rainfall": 0.636,
+    "soil_moisture": 0.83,
+    "temperature": 0.486,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Zamboanga del Norte",
+   "lat": 8,
+   "lon": 123,
+   "score": 54.2,
+   "annual_mm": 2718.3,
+   "factors": {
+    "rainfall": 0.57,
+    "soil_moisture": 0.497,
+    "temperature": 0.527,
+    "slope": 0.579,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Zamboanga del Norte",
+   "lat": 7.65,
+   "lon": 123,
+   "score": 57.2,
+   "annual_mm": 2718.3,
+   "factors": {
+    "rainfall": 0.57,
+    "soil_moisture": 0.497,
+    "temperature": 0.348,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Zamboanga del Norte",
+   "lat": 8,
+   "lon": 123.4,
+   "score": 60.4,
+   "annual_mm": 2718.3,
+   "factors": {
+    "rainfall": 0.57,
+    "soil_moisture": 0.497,
+    "temperature": 0.527,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Zamboanga del Norte",
+   "lat": 8,
+   "lon": 122.6,
+   "score": 61,
+   "annual_mm": 2718.3,
+   "factors": {
+    "rainfall": 0.57,
+    "soil_moisture": 0.497,
+    "temperature": 0.56,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Sorsogon",
+   "lat": 12.8,
+   "lon": 124,
+   "score": 56.4,
+   "annual_mm": 3031.1,
+   "factors": {
+    "rainfall": 0.51,
+    "soil_moisture": 0.492,
+    "temperature": 0.44,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Sorsogon",
+   "lat": 12.45,
+   "lon": 124,
+   "score": 64.5,
+   "annual_mm": 2754.1,
+   "factors": {
+    "rainfall": 0.554,
+    "soil_moisture": 0.56,
+    "temperature": 0.685,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Sorsogon",
+   "lat": 13.15,
+   "lon": 124,
+   "score": 56.4,
+   "annual_mm": 3031.1,
+   "factors": {
+    "rainfall": 0.51,
+    "soil_moisture": 0.492,
+    "temperature": 0.44,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Sorsogon",
+   "lat": 12.8,
+   "lon": 123.6,
+   "score": 56.4,
+   "annual_mm": 3031.1,
+   "factors": {
+    "rainfall": 0.51,
+    "soil_moisture": 0.492,
+    "temperature": 0.44,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Sorsogon",
+   "lat": 12.8,
+   "lon": 124.4,
+   "score": 58.2,
+   "annual_mm": 3614.9,
+   "factors": {
+    "rainfall": 0.385,
+    "soil_moisture": 0.468,
+    "temperature": 0.846,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Basilan",
+   "lat": 7.05,
+   "lon": 122.3,
+   "score": 80.6,
+   "annual_mm": 1906.3,
+   "factors": {
+    "rainfall": 0.648,
+    "soil_moisture": 0.89,
+    "temperature": 0.836,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Basilan",
+   "lat": 6.7,
+   "lon": 122.3,
+   "score": 81.8,
+   "annual_mm": 2022.3,
+   "factors": {
+    "rainfall": 0.637,
+    "soil_moisture": 0.88,
+    "temperature": 0.95,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Basilan",
+   "lat": 6.7,
+   "lon": 121.9,
+   "score": 81.3,
+   "annual_mm": 1598,
+   "factors": {
+    "rainfall": 0.608,
+    "soil_moisture": 0.902,
+    "temperature": 0.945,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Basilan",
+   "lat": 6.35,
+   "lon": 122.3,
+   "score": 81.8,
+   "annual_mm": 2022.3,
+   "factors": {
+    "rainfall": 0.637,
+    "soil_moisture": 0.88,
+    "temperature": 0.95,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Basilan",
+   "lat": 6.7,
+   "lon": 122.7,
+   "score": 81.8,
+   "annual_mm": 2022.3,
+   "factors": {
+    "rainfall": 0.637,
+    "soil_moisture": 0.88,
+    "temperature": 0.95,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Dinagat",
+   "lat": 8.9,
+   "lon": 126.2,
+   "score": 48.8,
+   "annual_mm": 3948.7,
+   "factors": {
+    "rainfall": 0.352,
+    "soil_moisture": 0.395,
+    "temperature": 0.512,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Dinagat",
+   "lat": 9.25,
+   "lon": 126.2,
+   "score": 55.4,
+   "annual_mm": 3806,
+   "factors": {
+    "rainfall": 0.366,
+    "soil_moisture": 0.45,
+    "temperature": 0.759,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Dinagat",
+   "lat": 8.55,
+   "lon": 126.2,
+   "score": 50.9,
+   "annual_mm": 3732.3,
+   "factors": {
+    "rainfall": 0.373,
+    "soil_moisture": 0.418,
+    "temperature": 0.541,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Surigao del Norte",
+   "lat": 8.85,
+   "lon": 125.5,
+   "score": 50.6,
+   "annual_mm": 3418,
+   "factors": {
+    "rainfall": 0.426,
+    "soil_moisture": 0.505,
+    "temperature": 0.266,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Surigao del Norte",
+   "lat": 9.2,
+   "lon": 125.5,
+   "score": 50.6,
+   "annual_mm": 3418,
+   "factors": {
+    "rainfall": 0.426,
+    "soil_moisture": 0.505,
+    "temperature": 0.266,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Surigao del Norte",
+   "lat": 9.55,
+   "lon": 125.5,
+   "score": 51.2,
+   "annual_mm": 3494.9,
+   "factors": {
+    "rainfall": 0.397,
+    "soil_moisture": 0.505,
+    "temperature": 0.363,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Dinagat",
+   "lat": 8.9,
+   "lon": 126.6,
+   "score": 55.3,
+   "annual_mm": 3724.6,
+   "factors": {
+    "rainfall": 0.374,
+    "soil_moisture": 0.34,
+    "temperature": 0.928,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Dinagat",
+   "lat": 8.9,
+   "lon": 125.8,
+   "score": 50.6,
+   "annual_mm": 3418,
+   "factors": {
+    "rainfall": 0.426,
+    "soil_moisture": 0.505,
+    "temperature": 0.266,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Surigao del Norte",
+   "lat": 9.2,
+   "lon": 125.9,
+   "score": 50.6,
+   "annual_mm": 3418,
+   "factors": {
+    "rainfall": 0.426,
+    "soil_moisture": 0.505,
+    "temperature": 0.266,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Surigao del Norte",
+   "lat": 9.2,
+   "lon": 125.1,
+   "score": 73.7,
+   "annual_mm": 2396.4,
+   "factors": {
+    "rainfall": 0.61,
+    "soil_moisture": 0.725,
+    "temperature": 0.81,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Apayao",
+   "lat": 18.2,
+   "lon": 121.2,
+   "score": 68.2,
+   "annual_mm": 2253.8,
+   "factors": {
+    "rainfall": 0.937,
+    "soil_moisture": 0.485,
+    "temperature": 0.286,
+    "slope": 0.901,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Apayao",
+   "lat": 18.55,
+   "lon": 121.2,
+   "score": 60,
+   "annual_mm": 2494.7,
+   "factors": {
+    "rainfall": 0.807,
+    "soil_moisture": 0.32,
+    "temperature": 0.299,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Apayao",
+   "lat": 17.85,
+   "lon": 121.2,
+   "score": 62.9,
+   "annual_mm": 2253.8,
+   "factors": {
+    "rainfall": 0.937,
+    "soil_moisture": 0.485,
+    "temperature": 0.286,
+    "slope": 0.539,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Zamboanga del Norte",
+   "lat": 8.35,
+   "lon": 123,
+   "score": 63,
+   "annual_mm": 2718.3,
+   "factors": {
+    "rainfall": 0.57,
+    "soil_moisture": 0.497,
+    "temperature": 0.674,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Apayao",
+   "lat": 18.2,
+   "lon": 120.8,
+   "score": 66.3,
+   "annual_mm": 2407.4,
+   "factors": {
+    "rainfall": 0.855,
+    "soil_moisture": 0.514,
+    "temperature": 0.403,
+    "slope": 0.785,
+    "soil_ph": null,
+    "drainage": null
+   }
+  },
+  {
+   "province": "Apayao",
+   "lat": 18.2,
+   "lon": 121.6,
+   "score": 66.6,
+   "annual_mm": 2182.8,
+   "factors": {
+    "rainfall": 0.886,
+    "soil_moisture": 0.52,
+    "temperature": 0.165,
+    "slope": 1,
+    "soil_ph": null,
+    "drainage": null
+   }
+  }
+ ]
+}

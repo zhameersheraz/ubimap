@@ -1,0 +1,209 @@
+{
+  "_README": "Agronomic thresholds used by the UbiMap suitability and rotation models. Every threshold carries the source it came from. Nothing in here is invented: values marked verified=false are the team's working values and must be confirmed against the cited source before the project is published. scripts/check_sources.py prints the audit table.",
+  "_version": "1.0.0",
+  "_last_reviewed": "2026-11-14",
+
+  "ube": {
+    "id": "ube",
+    "scientific": "Dioscorea alata",
+    "common_en": "ube / purple yam",
+    "common_bis": "ube / uyam nga purple",
+    "common_fil": "ube / kamote pang mata",
+    "verified": false,
+    "thresholds": {
+      "annual_rainfall_mm": {
+        "min": 1300,
+        "optimal": [1200, 4000],
+        "max": 8000,
+        "source": "DA Regional Field Office 02, Ubi Production Guide (Nov 2012), pp. 6-7: at least 130 cm annual rainfall is needed. FAO EcoCrop Dioscorea alata id 936: optimal 1,200 to 4,000 mm, absolute 700 to 8,000 mm.",
+        "verified": true
+      },
+      "monthly_rainfall_mm": {
+        "min": 80,
+        "optimal": [120, 200],
+        "max": 350,
+        "source": "Team working band, derived from the 1,000 to 1,500 mm over 6 to 7 months figure in CABI Compendium, Dioscorea alata. NOT VERIFIED as a monthly figure in any Philippine source.",
+        "verified": false
+      },
+      "air_temp_c": {
+        "optimal": [25, 30],
+        "growth_min": 20,
+        "heat_stress": 32,
+        "frost_kills": 0,
+        "source": "DA RFO 02 pp. 6-7: optimum temperatures range from 25 to 30 degrees C. FAO EcoCrop id 936 gives 20 to 32 optimal and a 40 degree absolute ceiling. The 32 degree heat stress figure is a TEAM ESTIMATE: no Philippine source states a heat stress threshold.",
+        "verified": true
+      },
+      "soil_ph": {
+        "optimal": [5.5, 6.5],
+        "tolerable": [4.8, 8.5],
+        "source": "FAO EcoCrop Dioscorea alata id 936, fetched live 15 Nov 2026: pH 5.5 to 6.5 optimal, 4.8 to 8.5 absolute. The Pagadian site itself measures pH 5.36 to 5.49 in SoilGrids, so it sits inside the optimal band.",
+        "verified": true
+      },
+      "slope_deg": {
+        "ideal": 8,
+        "tolerable": 18,
+        "reject_above": 30,
+        "source": "TEAM ESTIMATE. No Philippine source states a slope limit for ube. The basis is that the crop is a tuber with exposed ridges and that the DA guide describes medium and low elevation areas. NOT VERIFIED.",
+        "verified": false
+      },
+      "soil_depth_cm": {
+        "optimal": 150,
+        "note": "EcoCrop gives deep, over 150 cm, as optimal and 50 to 150 cm as absolute. The crop needs a deep soil for the tuber.",
+        "source": "FAO EcoCrop Dioscorea alata id 936",
+        "verified": true
+      },
+      "root_zone_wetness_index": {
+        "wet": 0.90,
+        "note": "NASA POWER GWETROOT is a dimensionless MERRA-2 root zone wetness index from 0 to 1, not m3/m3. It is used only to sharpen the rainfall driven waterlogging signal, never as an absolute threshold.",
+        "source": "NASA POWER parameter definition, MERRA-2 Root Zone Soil Wetness (1)",
+        "verified": true
+      },
+      "waterlogging_monthly_rain_mm": { "value": 250, "note": "A month with at least this much rain is a heavy rain month. Sustained heavy rain in the tuber bulking stage is the main rot risk for ube. The 250 mm figure is the PAGASA wet season threshold.", "source": "PAGASA climate classification, 250 mm over three consecutive months", "verified": true },
+      "drought_monthly_rain_mm": { "value": 50, "note": "A month with less than this much rain is a dry month. PAGASA dry season threshold.", "source": "PAGASA climate classification, 50 mm over three consecutive months", "verified": true },
+      "planting_stress_monthly_rain_mm": { "value": 100, "note": "A month under this much rain is a shoulder month in PAGASA terms, and is the risky stretch for planting and establishment.", "source": "PAGASA monthly wet season threshold of 100 mm", "verified": true },
+      "dry_season_requirement": {
+        "min_dry_months": 2,
+        "optimal_dry_months": [3, 5],
+        "note": "Ube needs a dry maturation window. The DA guide plants in March to May and harvests from late November to February, so the tuber bulks and cures in the dry season. A field that is wet in every month of the year cannot do this. The first version of this model scored rainfall amount only, and validation against PSA production data showed it could not tell a real ube province from a non producing one. Adding this requirement is what fixed it. The number of months under 50 mm of rain is the observable with the strongest measured relationship to real provincial yield, r = +0.36 for NASA POWER and r = +0.30 for GPM IMERG over 17 provinces. The signal is positive but modest, because yield also depends on things no satellite sees.",
+        "source": "Team requirement derived from the DA RFO 02 planting and harvest windows, then confirmed by the PSA validation run in data/validation_results.json",
+        "verified": true
+      },
+      "duration_months": { "min": 6, "typical": 10, "max": 11, "source": "DA RFO 02 pp. 14-15: around 10 to 11 months from planting to harvest, with early harvest possible at 6 to 7 months.", "verified": true },
+      "planting_window": { "months": [3, 4, 5], "note": "DA RFO 02 pp. 8-9: usually planted from March to May, best at the start of the rainy season. ATI-7 gives early planting in April.", "source": "DA RFO 02 Ubi Production Guide pp. 8-9; ATI-7", "verified": true },
+      "harvest_window": { "months": [11, 12, 1, 2], "note": "DA RFO 02 pp. 14-15: harvesting is usually done from late November to February of the following year.", "source": "DA RFO 02 Ubi Production Guide pp. 14-15; USDA FAS RP2026-0019 p. 2", "verified": true },
+      "yield_t_ha": { "guide_regular": 30, "guide_offseason": 20, "national_actual_2025": 5.27, "bohol_actual_2025": 13.24, "zamboanga_del_sur_actual_2025": 2.53, "source": "DA RFO 02 Cost and Return Analysis pp. 16-17 gives 30 and 20 t/ha; the achieved figures are computed from PSA OpenSTAT 2025.", "verified": true },
+      "clay_percent": { "max": 40, "note": "FAO EcoCrop gives medium and light textures as preferred. The DA guide says clay loam with high organic matter is preferred, but it also requires a well-drained area, so heavy clay is a risk rather than a virtue. Team working value.", "source": "FAO EcoCrop id 936, texture 'medium, light'; DA RFO 02 pp. 6-7", "verified": false },
+      "price_php_per_kg": { "regular": 10, "offseason": 20, "source": "DA RFO 02 pp. 16-17, 2012 guide prices. 2025 market prices were not re-verified in this pass.", "verified": false },
+      "nutrient_removal_kg_per_ha": { "n": 128, "p2o5": 39, "k2o": 195, "basis_yield_t_ha": 35, "source": "DA RFO 02 pp. 10-11; ATI-7 p. 5", "verified": true }
+    },
+    "traits": {
+      "water_demand": 0.68,
+      "nitrogen_demand": 0.85,
+      "soil_cover": 0.80,
+      "erosion_sensitivity": 0.85,
+      "heat_susceptibility": 0.85,
+      "waterlogging_susceptibility": 0.90,
+      "drought_susceptibility": 0.70,
+      "pest_family": "Dioscoreaceae",
+      "market_value_index": 0.95,
+      "fixes_nitrogen": false,
+      "notes": "Ube does not fix nitrogen. It is a monocot in Dioscoreaceae with no rhizobial symbiosis, and a hectare yielding 35 t removes about 128 kg N, 39 kg P2O5 and 195 kg K2O. Waterlogging is not tolerated at all: the DA guide requires a well-drained area, because the tuber rots in standing water. The same-family rule is a yam-to-yam rule, not a Philippine published rule: the anthracnose pathogen Colletotrichum gloeosporioides infects many crops and weeds and survives on crop debris, so a yam crop after a yam crop is the risk. The IPPC advice for yam anthracnose names maize barrier crops, crop rotation, and ploughing in residues immediately after harvest; ATI-7 lists a cropping system with legumes."
+    },
+    "risks": [
+      { "id": "waterlogging", "text_en": "Waterlogging rot", "text_bis": "Ugnot sa humod nga yuta", "mitigation_en": "Plant on a ridge or raised bed and clear drainage ditches before the peak of the rains. The crop does not tolerate standing water at all.", "mitigation_bis": "Tabon og gamay nga alima, ug himoon ang dugo sa dili pa mahumug ang ulan. Dili gtiyawan sa ube ang tuyub nga tubig." },
+      { "id": "anthracnose", "text_en": "Anthracnose, the most limiting disease of ube", "text_bis": "Anthracnose, ang labing hadlok nga sakit sa ube", "mitigation_en": "Use clean planting material, avoid overhead watering late in the day, plough crop residues in immediately after harvest, and confirm a spray programme with your municipal agriculturist.", "mitigation_bis": "Gamit nga limpyong material sa pagtani, ayaw mog watering sa gab-i, iplow ang mga basang sa umang abot dayon, ug kumpirma ang spray plan sa imong municipal agriculturist." },
+      { "id": "nematode", "text_en": "Root knot nematode and tuber rot carry over", "text_bis": "Nematode ug kadaot sa tubero nga naa labaw", "mitigation_en": "Do not follow ube with another yam on the same plot. Rotate with a non-yam crop and plough the residues in.", "mitigation_bis": "Ayaw followan ang ube og lain nga yam sa samang luna. Palit og crop nga dili yam, ug iplow ang basang." }
+    ]
+  },
+
+  "companion_crops": {
+    "mungbean": {
+      "id": "mungbean", "scientific": "Vigna radiata", "common_en": "Mungbean", "common_bis": "Mungbean / mungo", "common_fil": "Mungbean",
+      "water_demand": 0.32, "nitrogen_demand": 0.15, "fixes_nitrogen": true, "soil_cover": 0.55, "erosion_sensitivity": 0.25,
+      "heat_susceptibility": 0.60, "waterlogging_susceptibility": 0.20, "drought_susceptibility": 0.50,
+      "duration_months": 3, "market_value_index": 0.45, "pest_family": "Fabaceae", "verified": false,
+      "why": "Fixes nitrogen, short cycle, uses the dry season after ube harvest."
+    },
+    "peanut": {
+      "id": "peanut", "scientific": "Arachis hypogaea", "common_en": "Peanut", "common_bis": "Peanut / mani", "common_fil": "Peanut",
+      "water_demand": 0.38, "nitrogen_demand": 0.15, "fixes_nitrogen": true, "soil_cover": 0.55, "erosion_sensitivity": 0.25,
+      "heat_susceptibility": 0.60, "waterlogging_susceptibility": 0.30, "drought_susceptibility": 0.40,
+      "duration_months": 4, "market_value_index": 0.55, "pest_family": "Fabaceae", "verified": false,
+      "why": "Fixes nitrogen, tolerates a dry season, adds a marketable harvest."
+    },
+    "sweetpotato": {
+      "id": "sweetpotato", "scientific": "Ipomoea batatas", "common_en": "Sweet potato", "common_bis": "Kamote", "common_fil": "Kamote",
+      "water_demand": 0.45, "nitrogen_demand": 0.30, "fixes_nitrogen": false, "soil_cover": 0.80, "erosion_sensitivity": 0.20,
+      "heat_susceptibility": 0.70, "waterlogging_susceptibility": 0.40, "drought_susceptibility": 0.50,
+      "duration_months": 4, "market_value_index": 0.60, "pest_family": "Convolvulaceae", "verified": false,
+      "why": "Keeps soil covered and breaks the ube pest cycle because it is a different plant family."
+    },
+    "corn": {
+      "id": "corn", "scientific": "Zea mays", "common_en": "Corn", "common_bis": "Mais", "common_fil": "Mais",
+      "water_demand": 0.55, "nitrogen_demand": 0.90, "fixes_nitrogen": false, "soil_cover": 0.45, "erosion_sensitivity": 0.70,
+      "heat_susceptibility": 0.80, "waterlogging_susceptibility": 0.30, "drought_susceptibility": 0.70,
+      "duration_months": 4, "market_value_index": 0.40, "pest_family": "Poaceae", "verified": false,
+      "why": "The common upland crop in the pilot area. Heavy nitrogen feeder, and bare soil between seasons."
+    },
+    "cassava": {
+      "id": "cassava", "scientific": "Manihot esculenta", "common_en": "Cassava", "common_bis": "Kamoteng / kassava", "common_fil": "Kamoteng",
+      "water_demand": 0.28, "nitrogen_demand": 0.40, "fixes_nitrogen": false, "soil_cover": 0.40, "erosion_sensitivity": 0.55,
+      "heat_susceptibility": 0.60, "waterlogging_susceptibility": 0.40, "drought_susceptibility": 0.20,
+      "duration_months": 10, "market_value_index": 0.30, "pest_family": "Euphorbiaceae", "verified": false,
+      "why": "Drought tolerant and low input, but repeated cassava strips the soil and leaves it bare."
+    },
+    "coconut": {
+      "id": "coconut", "scientific": "Cocos nucifera", "common_en": "Coconut", "common_bis": "Niyo", "common_fil": "Niyo",
+      "water_demand": 0.45, "nitrogen_demand": 0.45, "fixes_nitrogen": false, "soil_cover": 0.75, "erosion_sensitivity": 0.15,
+      "heat_susceptibility": 0.50, "waterlogging_susceptibility": 0.50, "drought_susceptibility": 0.50,
+      "duration_months": 0, "market_value_index": 0.70, "pest_family": "Arecaceae", "perennial": true, "verified": false,
+      "why": "Perennial canopy that shades the ube vines, protects the soil from rain impact and keeps a crop income flowing."
+    }
+  },
+
+  "rotation_library": [
+    {
+      "id": "R_EXISTING",
+      "kind": "existing",
+      "name_en": "What you plant now",
+      "name_bis": "Imong gina-planta karon",
+      "name_fil": "Ang inyong tanim ngayon",
+      "sequence": ["current"],
+      "why_en": "This is your existing rotation. We compare every other option against it so you can see what actually changes.",
+      "why_bis": "Kini ang imong kasamtanan karon. Ih compares tanan sa laing opsyon aron makita mo unsay gyud naayo.",
+      "benefits_en": ["No change in cost or routine", "You already know the market and the buyers"],
+      "gaps_en": ["Bare soil between seasons lets the topsoil wash away", "Same crop every year drains nitrogen", "No added income source"],
+      "risks_en": ["Repeated cropping of the same plant family keeps pest pressure high", "Nitrogen falls every season without a legume to fix it"]
+    },
+    {
+      "id": "R_UBE_LEGUME",
+      "kind": "alternative",
+      "name_en": "Ube first, then a legume",
+      "name_bis": "Ube una, dayon legume",
+      "name_fil": "Ube muna, pagkatapos ay legume",
+      "sequence": ["ube", "mungbean"],
+      "alt_sequence": ["ube", "peanut"],
+      "why_en": "Ube takes the rainy season, when your field already has reliable rain, and the legume takes the dry season and puts nitrogen back.",
+      "why_bis": "Ube ang una sa rainy season, kung naa nga regular nga ulan, ang legume dayon sa dry season aron maibalik ang nitrogen.",
+      "benefits_en": ["Two marketable harvests in one year", "The legume fixes nitrogen the ube took", "Different plant families, so the ube pest cycle breaks"],
+      "gaps_en": ["No field-level soil pH for your plot yet", "Ube planting material is the real bottleneck. The Department of Agriculture suspended fresh tuber exports in September 2026 to protect seed stocks, so setts are scarce and dear", "Anthracnose pressure cannot be predicted from satellite data"],
+      "risks_en": ["Waterlogging in the peak rains can rot the tubers. Ube does not tolerate standing water at all", "Anthracnose is the most limiting disease of ube and survives on crop debris, so plough the residues in"],
+      "benefits_bis": ["Duha ka marketable nga ani sa usa ka tuig", "Ang legume ang naibalik ang nitrogen", "Lain nga pamilya sa tanom, maa break ang peste sa ube"]
+    },
+    {
+      "id": "R_AGROFORESTRY",
+      "kind": "alternative",
+      "name_en": "Ube under coconut, with a legume cover",
+      "name_bis": "Ube ilaw sa niyo, dayon legume nga cover",
+      "name_fil": "Ube sa ilalim ng niyo, may legume na cover",
+      "sequence": ["ube", "coconut", "mungbean"],
+      "why_en": "If your farm has coconut, the ube vines climb the palms and use the shade. The palm keeps the soil covered and the legume between palms adds nitrogen.",
+      "why_bis": "Kon may niyo ang imong uma, ang mga ube nga uyab mukut sa palayot ug gamit ang anino. Ang niyo nagpugong sa yuta, ang legume nga pod nga dayon nakaayo og nitrogen.",
+      "benefits_en": ["Coconut income continues while the ube establishes", "Permanent soil cover protects the slope", "Lower cost because you already own the land and the palms"],
+      "gaps_en": ["We need a field visit to confirm palm density and shade level", "Mechanisation is difficult between the palms"],
+      "risks_en": ["Too much shade lowers tuber size", "Coconut and ube compete for water during a dry spell"],
+      "benefits_bis": ["Padili ang kita sa niyo samtang gikatukang ang ube", "Perminente nga cover nga nagpugong sa yuta", "Mas mura tungod sa imong gipukong na yuta ug mga palayot"]
+    },
+    {
+      "id": "R_DIVERSIFIED",
+      "kind": "alternative",
+      "name_en": "Ube, sweet potato, then a legume",
+      "name_bis": "Ube, kamote, dayon legume",
+      "name_fil": "Ube, kamote, pagkatapos ay legume",
+      "sequence": ["ube", "sweetpotato", "mungbean"],
+      "why_en": "Three different plant families in three seasons. Sweet potato keeps the ground covered after the ube is lifted and feeds the livestock.",
+      "why_bis": "Tatlong lain nga pamilya sa tanom sa tulo ka season. Ang kamote nagpugong sa yuta humani ang ube, ug naa usab nga ammoon sa hayop.",
+      "benefits_en": ["Strongest pest cycle break because no family repeats", "Almost no bare soil through the year", "Sweet potato vines are good fodder"],
+      "gaps_en": ["Three crops means more labour and more risk of a mistake", "Sweet potato market price is not tracked in this build"],
+      "risks_en": ["More complex, so it needs more careful scheduling", "If the ube harvest slips, the sweet potato planting window is squeezed"],
+      "benefits_bis": ["Kusang maayo nga pagbasak sa peste kay walay pamilya nga naaulit", "Wala nga bare soil sa tibuk nga tuig", "Ang mga kontrim ng kamote maayo nga ampermo"]
+    }
+  ],
+
+  "priority_dimensions": {
+    "income": { "en": "More income", "bis": "Mas daghan nga kita", "fil": "Mas malaki ang kita" },
+    "water": { "en": "Save water", "bis": "Tipig ang tubig", "fil": "Magtipid ng tubig" },
+    "soil": { "en": "Healthier soil", "bis": "Mas maayo nga yuta", "fil": "Mas magandang lupa" },
+    "labour": { "en": "Less work", "bis": "Less trabaho", "fil": "Mas kaunting gawain" }
+  }
+}
