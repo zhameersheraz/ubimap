@@ -11,8 +11,8 @@ Placeholders you must fill in before submitting:
 
 | Placeholder | What to put |
 |---|---|
-| `[DEMO_URL]` | Your deployed demo link (Netlify, GitHub Pages, Vercel, or the local server with a tunnel) |
-| `[REPO_URL]` | Your public GitHub repository link |
+| `https://zhameersheraz.github.io/ubimap/` | Your deployed demo link (Netlify, GitHub Pages, Vercel, or the local server with a tunnel) |
+| `https://github.com/zhameersheraz/ubimap` | Your public GitHub repository link |
 | `[VIDEO_URL]` | Link to the 30 second demo video |
 | `[DECK_URL]` | Link to the 7 slide deck, if you use slides instead of a video |
 | `[TEAM_MEMBERS]` | Team names and roles, max 6 members, all registered for the Universal Event |
@@ -91,11 +91,11 @@ Or, if you prefer a slide deck:
 
 ## 4. Link to Final Project
 
-`[DEMO_URL]`
+`https://zhameersheraz.github.io/ubimap/`
 
 The live app, in three languages: Bisaya, Filipino and English.
 
-`[REPO_URL]`
+`https://github.com/zhameersheraz/ubimap`
 
 The complete source code, the reproducible data pipeline that builds every number in the
 app, the validation harness, and the ESP32 firmware for the field sensor.
@@ -424,11 +424,11 @@ Roles to cover, matching the project plan:
 
 ## Before you press submit
 
-1. Deploy the app and open `[DEMO_URL]` in a private window. It must load without a
+1. Deploy the app and open `https://zhameersheraz.github.io/ubimap/` in a private window. It must load without a
    login.
 2. Watch the demo video end to end and confirm it is 30 seconds or less, or count the
    slides and confirm there are 7 or less.
-3. Open `[REPO_URL]` in a private window and confirm the repository is public.
+3. Open `https://github.com/zhameersheraz/ubimap` in a private window and confirm the repository is public.
 4. Confirm every member of the team is registered for the Universal Event and is on the
    team page, and that the team has selected the "Field Shift: Adapting Farms with NASA
    Data" challenge. The Project tab does not appear until the challenge is selected.

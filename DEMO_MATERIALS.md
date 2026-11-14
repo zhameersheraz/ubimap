@@ -134,7 +134,7 @@ English only.
 > - A province map that shows where local ube supply could grow instead of being imported
 > - **This tool supports the farmer. It does not replace them, and it does not replace the
 >   local agriculturist.**
-> - Live demo: [DEMO_URL] · Code: [REPO_URL]
+> - Live demo: https://zhameersheraz.github.io/ubimap/ · Code: https://github.com/zhameersheraz/ubimap
 
 ---
 

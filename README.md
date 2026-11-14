@@ -4,6 +4,8 @@
 
 NASA Space Apps Challenge 2026 &middot; Challenge: *Field Shift: Adapting Farms with NASA Data*
 
+**Live app: https://zhameersheraz.github.io/ubimap/** &middot; **Code: https://github.com/zhameersheraz/ubimap**
+
 UbiMap answers one question for a farmer in plain Bisaya: **can my field grow ube, which
 rotation fits it, and when should I plant?** It combines NASA Earth observations with
 local soil information, crop characteristics and the farmer's own priorities, then
