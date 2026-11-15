@@ -51,13 +51,11 @@ export default function LiveCheck({ lang, lat, lon }) {
         <button type="button" className="chip" onClick={run} disabled={state === 'loading'}>
           {state === 'loading'
             ? 'Asking NASA...'
-            : lang === 'bis'
-              ? 'Live nga check sa NASA POWER'
-              : 'Check live with NASA POWER'}
+            : 'Check live with NASA POWER'}
         </button>
         {data && (
           <span className="dim tiny">
-            {lang === 'bis' ? 'Kinuha' : 'fetched'} {new Date(data.at).toUTCString().slice(17, 25)} UTC
+            {'fetched'} {new Date(data.at).toUTCString().slice(17, 25)} UTC
           </span>
         )}
       </div>
@@ -66,9 +64,9 @@ export default function LiveCheck({ lang, lat, lon }) {
         <table className="livecheck-table">
           <thead>
             <tr>
-              <th>{lang === 'bis' ? 'Petsa' : 'Date'}</th>
+              <th>{'Date'}</th>
               <th>T2M °C</th>
-              <th>{lang === 'bis' ? 'Ulan mm/adlaw' : 'Rain mm/day'}</th>
+              <th>{'Rain mm/day'}</th>
             </tr>
           </thead>
           <tbody>
@@ -85,9 +83,7 @@ export default function LiveCheck({ lang, lat, lon }) {
 
       {state === 'failed' && (
         <p className="dim tiny">
-          {lang === 'bis'
-            ? 'Dili available ang live nga NASA POWER call sa niining deployment. (GitHub Pages kay static lang, walay server function.) Ang mga numero sa screen gikan sa same nga API, gipull noong 2026-11-14.'
-            : 'A live NASA POWER call is not available on this deployment, because GitHub Pages serves static files only and has no server function. The numbers on screen came from the same API, fetched on 2026-11-14.'}
+          {'A live NASA POWER call is not available on this deployment, because GitHub Pages serves static files only and has no server function. The numbers on screen came from the same API, fetched on 2026-11-14.'}
           {error ? ` (${error})` : ''}
         </p>
       )}

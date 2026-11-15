@@ -97,7 +97,7 @@ English only.
 > - Ube readiness score out of 100, with the reasons and the concerns
 > - Four rotations compared, including the one you farm now
 > - A planting calendar from your local rainfall
-> - Bisaya, Filipino and English, on a basic phone, works offline
+> - Filipino and English, on a basic phone, works offline
 > *(screenshot: the Farm Card)*
 
 ### Slide 4 - The NASA data

@@ -93,9 +93,9 @@ Or, if you prefer a slide deck:
 
 `https://ubimap.pages.dev`
 
-The live app, in three languages: Bisaya, Filipino and English. It opens in English so any
-judge can read it immediately, and the Language toggle switches it to Bisaya or Filipino for
-the pilot farmers in Pagadian.
+The live app, in two languages: Filipino and English. It opens in English so any judge
+can read it immediately, and the Language toggle switches it to Filipino for the pilot
+farmers in Pagadian. It also has a light and a dark theme.
 
 The "Check live with NASA POWER" button in the app calls the NASA POWER API through a
 Cloudflare Pages Function, so the numbers on that panel come from NASA live, during the
@@ -148,9 +148,10 @@ shared or printed, containing a ube readiness score, the three strongest reasons
 three biggest concerns, a twelve month planting calendar, and a comparison of four
 rotation strategies.
 
-The interface is in Bisaya by default, because that is what the farmers in Pagadian City
-speak at home, with Filipino and English one tap away. It works with no network at all,
-because every NASA number it needs is baked into the application.
+The interface is in English by default, because the NASA judges are international, with
+Filipino one tap away for the farmers in Pagadian City. It has a light and a dark theme, and
+the choice is remembered. It works with no network at all, because every NASA number it
+needs is baked into the application.
 
 ### How it works
 
@@ -307,8 +308,8 @@ involved.
   should unlock the perspective that their own land could grow it. That is recorded in
   the project file `PM's idea` and in the project plan.
 * **Where SI was used:** to draft and refactor React components and the CSS, to write and
-  review the Python data pipeline and the Node server, to generate the bisaya, Filipino
-  and English interface strings, to generate the ESP32 firmware, and to review the model
+  review the Python data pipeline and the Node server, to generate the Filipino and English
+  interface strings, to generate the ESP32 firmware, and to review the model
   code for errors. The agronomic thresholds themselves were not accepted from an AI
   assistant: they were taken from published Philippine sources and from Philippine
   Statistics Authority data, and the sources are recorded in `src/data/agronomy.json` and
@@ -424,7 +425,7 @@ Roles to cover, matching the project plan:
 | Data and model | Earth Engine and NASA POWER pipeline, harmonisation, the suitability model and the rotation scoring, the validation harness |
 | Frontend | React application, MapLibre map with the NASA GIBS layers, the rotation cards, the planting calendar, the Farm Card |
 | Hardware | UbiSense build, firmware, calibration, data upload |
-| Research and pitch | ube agronomy sources, PSA and DA data, the thesis write up, the pitch and the bisaya copy |
+| Research and pitch | ube agronomy sources, PSA and DA data, the thesis write up, the pitch and the Filipino copy |
 
 ---
 

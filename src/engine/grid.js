@@ -96,11 +96,10 @@ function pickDemoField() {
     }
   }
   if (!best) {
-    return { ...target, name: 'Demo field, Pagadian City', name_bis: 'Demo field, Pagadian City', currentCrop: 'corn' };
+    return { ...target, name: 'Demo field, Pagadian City', currentCrop: 'corn' };
   }
   return {
     name: 'Demo field, Pagadian City',
-    name_bis: 'Demo field, Pagadian City',
     lat: best.lat,
     lon: best.lon,
     currentCrop: 'corn',

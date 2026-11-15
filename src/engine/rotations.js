@@ -24,7 +24,6 @@ const CROP = (agronomy, id) => {
     return {
       id: 'ube',
       common_en: agronomy.ube?.common_en || 'Ube',
-      common_bis: agronomy.ube?.common_bis || 'Ube',
       duration_months: agronomy.ube?.thresholds?.duration_months?.typical || 9,
       ...t,
     };
@@ -51,11 +50,9 @@ export function existingRotation(farmer, agronomy) {
     id: 'R_EXISTING',
     kind: 'existing',
     name_en: 'What you plant now',
-    name_bis: 'Imong gina-planta karon',
     name_fil: 'Ang inyong tanim ngayon',
     sequence: [id, id],
     crop_label_en: crop?.common_en || id,
-    crop_label_bis: crop?.common_bis || id,
   };
 }
 
@@ -86,7 +83,6 @@ function scoreWaterFit(sequence, agronomy, profile, rainFactor) {
       ratio: Number(ratio.toFixed(2)),
     },
     detail_en: `This rotation needs about ${Math.round(demandMm).toLocaleString()} mm of water over the year, and the field gets about ${Math.round(annual).toLocaleString()} mm of rain. ${ratio <= 0.8 ? 'That leaves a comfortable margin.' : ratio <= 1 ? 'That is tight, a dry year would hurt.' : 'That is more than the rain can supply, so this rotation needs irrigation or a drier set of crops.'}`,
-    detail_bis: `Nagtukod og mga ${Math.round(demandMm).toLocaleString()} mm nga tubig sa rotation niini, ug ang uma nakadawat og mga ${Math.round(annual).toLocaleString()} mm nga ulan. ${ratio <= 0.8 ? 'May kasaligan pa.' : ratio <= 1 ? 'Medyo kulang, ang tuig nga katag makaputol.' : 'Labaw sa ulan, so kinahanglan nga irrigation o mas katag nga tanom.'}`,
   };
 }
 
@@ -102,7 +98,6 @@ function scoreSoilCover(sequence, agronomy) {
     score: coverMonths / 12,
     raw: { covered_months: Number(coverMonths.toFixed(1)), bare_months: Number((12 - coverMonths).toFixed(1)) },
     detail_en: `Roughly ${coverMonths.toFixed(0)} of the 12 months have a crop or cover over the soil, leaving about ${(12 - coverMonths).toFixed(0)} months of bare ground where rain can wash the topsoil away.`,
-    detail_bis: `Mga ${coverMonths.toFixed(0)} sa 12 ka bulan adunay crop o cover sa yuta, mga ${(12 - coverMonths).toFixed(0)} ka bulan nga hubad ang yuta asa makatilaw ang ulan ang ibabaw nga yuta.`,
   };
 }
 
@@ -127,9 +122,6 @@ function scoreNitrogen(sequence, agronomy) {
     detail_en: fixers
       ? `${fixers} legume in this rotation puts nitrogen back into the soil after the hungry crop takes it out.`
       : 'No nitrogen fixing crop in this rotation, so the soil keeps losing nitrogen every season.',
-    detail_bis: fixers
-      ? `${fixers} ka legume sa rotation niini mao ang nakaibalik og nitrogen sa yuta human maubos ang matapog nga tanom.`
-      : 'Walay legume nga nag-fix og nitrogen sa rotation niini, so matag-taga mawadto ang yuta og nitrogen.',
   };
 }
 
@@ -148,7 +140,6 @@ function scoreErosion(sequence, agronomy, cell) {
     score: score ?? 0.5,
     raw: { erosion_pressure: Number(pressure.toFixed(2)), slope_deg: cell.slope_deg ?? null },
     detail_en: `With ${slope.toFixed(1)} degrees of slope, the bare months in this rotation are the erosion risk. Cover crops and terraces cut that.`,
-    detail_bis: `Sa ${slope.toFixed(1)} grados nga kantidad, ang mga bulan nga hubad sa rotation niini ang risk sa erosion. Ang cover crop ug terrasa makapugong niini.`,
   };
 }
 
@@ -166,7 +157,6 @@ function scorePestBreak(sequence, agronomy) {
     score: score ?? 0,
     raw: { distinct_families: distinct, same_family_repeats: repeats },
     detail_en: `${distinct} different plant famil${distinct === 1 ? 'y' : 'ies'} in this rotation. ${sameFamilyAfter ? 'Careful: a crop from the yam family follows the ube, which carries the same disease risk.' : 'Different families do not share the same soil-borne pests.'}`,
-    detail_bis: `${distinct} ka lain nga pamilya sa tanom sa rotation niini. ${sameFamilyAfter ? 'Pagkatiya: usa ka crop sa pamilya sa yam ang nakaabot human sa ube, naa sila sama nga risk sa sakit.' : 'Lain nga pamilya wala sila sama nga peste sa yuta.'}`,
   };
 }
 
@@ -185,7 +175,6 @@ function scoreIncome(sequence, agronomy) {
     score: score ?? 0,
     raw: { market_value_index: Number(value.toFixed(2)), marketable_harvests: harvests },
     detail_en: `${harvests} marketable harvest${harvests === 1 ? '' : 's'} a year from this rotation, with ube as the highest value crop of the set.`,
-    detail_bis: `${harvests} ka marketable nga ani sa tuig gikan sa rotation niini, ug ang ube ang pinaka-value nga tanom niini.`,
   };
 }
 
@@ -214,7 +203,6 @@ function scoreClimateRisk(sequence, agronomy, profile) {
     score: score ?? 0.5,
     raw: { heat_months: heatMonths, heavy_rain_months: wetMonths, drought_months: dryMonths, risk_index: Number(risk.toFixed(2)) },
     detail_en: `At this location there ${heatMonths === 1 ? 'is' : 'are'} ${heatMonths} heat month${heatMonths === 1 ? '' : 's'}, ${wetMonths} month${wetMonths === 1 ? '' : 's'} with heavy rain above ${t.waterlogging_monthly_rain_mm} mm, and ${dryMonths} dry month${dryMonths === 1 ? '' : 's'} under ${t.drought_monthly_rain_mm} mm. The risk depends on which crops sit in the field during those months.`,
-    detail_bis: `Sa niini nga lugar, ${heatMonths} ka bulan sa init, ${wetMonths} ka bulan nga kusog nga ulan (labaw sa ${t.waterlogging_monthly_rain_mm} mm), ug ${dryMonths} ka bulan nga katag (ubos sa ${t.drought_monthly_rain_mm} mm). Depende sa unsang tanom nga anaa sa uma sa mga bulang naa.`,
   };
 }
 
@@ -231,7 +219,6 @@ function scoreLabour(sequence, agronomy) {
     score: score ?? 0.5,
     raw: { labour_index: Number(units.toFixed(2)), crops: sequence.length },
     detail_en: `${sequence.length} crop${sequence.length === 1 ? '' : 's'} to plant, tend and harvest. More crops means more work days and more chances to be caught out by the weather.`,
-    detail_bis: `${sequence.length} ka tanim nga kinahanglan nga tanom, pungot, ug ani. Mas daghan nga tanim, mas daghan nga trabaho ug mas daghan nga risgo sa panahon.`,
   };
 }
 
@@ -271,7 +258,7 @@ export function scoreRotations(cell, agronomy, profile, farmer, opts = {}) {
       const w = weights[k] ?? ahp.weights[k] ?? 0;
       total += v.score * w;
       wsum += w;
-      detail[k] = { score: Number(v.score.toFixed(3)), weight: Number(w.toFixed(4)), raw: v.raw, detail_en: v.detail_en, detail_bis: v.detail_bis };
+      detail[k] = { score: Number(v.score.toFixed(3)), weight: Number(w.toFixed(4)), raw: v.raw, detail_en: v.detail_en };
     }
     const totalScore = wsum ? total / wsum : 0;
 
@@ -282,13 +269,10 @@ export function scoreRotations(cell, agronomy, profile, farmer, opts = {}) {
       id: rot.id,
       kind: rot.kind,
       name_en: rot.name_en,
-      name_bis: rot.name_bis,
       name_fil: rot.name_fil,
       sequence: rot.sequence,
       why_en: rot.why_en,
-      why_bis: rot.why_bis,
       benefits_en: rot.benefits_en ?? [],
-      benefits_bis: rot.benefits_bis ?? [],
       gaps_en: rot.gaps_en ?? [],
       risks_en: rot.risks_en ?? [],
       score: Number((totalScore * 100).toFixed(1)),

@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import MapPanel from './components/MapPanel.jsx';
 import {
   FarmProfile, ReadinessCard, RotationCompare, PlantingCalendar,
@@ -59,6 +59,26 @@ export default function App() {
   const [showHeatmap, setShowHeatmap] = useState(true);
   const [rainFactor, setRainFactor] = useState(1);
   const [tempDelta, setTempDelta] = useState(0);
+
+  // Dark is the default. A visitor who has chosen the light theme keeps it.
+  const [theme, setTheme] = useState(() => {
+    try {
+      return window.localStorage.getItem('ubimap-theme') || 'dark';
+    } catch {
+      return 'dark';
+    }
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    try {
+      window.localStorage.setItem('ubimap-theme', theme);
+    } catch {
+      /* private mode, the theme just will not persist */
+    }
+  }, [theme]);
+
+  const toggleTheme = () => setTheme((v) => (v === 'dark' ? 'light' : 'dark'));
 
   const scenario = useMemo(
     () => ({ scenarioRainFactor: rainFactor, scenarioTempDelta: tempDelta }),
@@ -123,14 +143,32 @@ export default function App() {
   const cropLabel = (id) => {
     const c = AGRONOMY.companion_crops[id];
     if (!c) return id;
-    return lang === 'bis' ? c.common_bis : c.common_en;
+    return c.common_en;
   };
 
   return (
     <div className="app">
       <header className="topbar">
         <div className="brand">
-          <span className="logo">U</span>
+          <span className="logo" aria-hidden="true">
+            {/* A topographic contour mark: the subject is a field seen from orbit,
+                so the mark is a hill read as elevation rings. */}
+            <svg viewBox="0 0 32 32" width="32" height="32" focusable="false">
+              <defs>
+                <linearGradient id="ubimap-mark" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="#d9a3ee" />
+                  <stop offset="55%" stopColor="#b36ad4" />
+                  <stop offset="100%" stopColor="#6f9fd0" />
+                </linearGradient>
+              </defs>
+              <g fill="none" stroke="url(#ubimap-mark)" strokeLinecap="round">
+                <path d="M16 4.5c5.6 0 9.4 3.6 9.4 8.3 0 4.4-3 6.4-4.6 9.1-1.2 2-1.8 3.6-1.8 5.6" strokeWidth="1.9" opacity="0.95" />
+                <path d="M16 9.6c3.5 0 5.8 2.3 5.8 5.2 0 2.8-2 4-3.1 5.8-.9 1.4-1.3 2.4-1.3 3.9" strokeWidth="1.9" opacity="0.8" />
+                <path d="M16 14.6c1.6 0 2.7 1.1 2.7 2.5 0 1.5-1 2.2-1.5 3.2-.4.8-.6 1.3-.6 2" strokeWidth="1.7" opacity="0.65" />
+              </g>
+              <circle cx="16" cy="12.4" r="2.5" fill="#f4e6fb" />
+            </svg>
+          </span>
           <div>
             <h1>
               UbiMap <em>NASA Space Apps 2026</em>
@@ -139,6 +177,23 @@ export default function App() {
           </div>
         </div>
         <div className="langs">
+          <button
+            type="button"
+            className="theme-toggle"
+            onClick={toggleTheme}
+            aria-label={theme === 'dark' ? 'Switch to the light theme' : 'Switch to the dark theme'}
+            title={theme === 'dark' ? 'Switch to the light theme' : 'Switch to the dark theme'}
+          >
+            <svg className="theme-icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="4.2" />
+              <path d="M12 2.4v2.6M12 19v2.6M4.2 4.2l1.9 1.9M17.9 17.9l1.9 1.9M2.4 12H5M19 12h2.6M4.2 19.8l1.9-1.9M17.9 6.1l1.9-1.9" />
+            </svg>
+            <svg className="theme-icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M20.5 14.6A8.6 8.6 0 0 1 9.4 3.5a8.6 8.6 0 1 0 11.1 11.1z" />
+            </svg>
+          </button>
           <span className="dim tiny langs-label" style={{ marginRight: '6px' }}>
             {t(lang, 'langLabel')}
           </span>
@@ -265,19 +320,17 @@ export default function App() {
               <span className="slider-val">{tempDelta > 0 ? '+' : ''}{tempDelta}°C</span>
             </label>
             <p className="dim small">
-              {lang === 'bis'
-                ? 'Gidoktor para sa "unsa kung naa bag-o na klima". Dili bag-o nga datos gikan sa NASA POWER, gipakita lang unsa naa mahimo kung mag-usab ang ulan o temperatura.'
-                : 'A what-if on the NASA POWER climate record. The numbers are not new data, they show what the model does when rainfall or temperature shifts.'}
+              A what-if on the NASA POWER climate record. The numbers are not new data, they show
+              what the model does when rainfall or temperature shifts.
             </p>
           </div>
 
           <ReadinessCard lang={lang} result={result} />
           <section className="card livecard">
-            <h2>{lang === 'bis' ? 'Live nga check' : 'Live check'}</h2>
+            <h2>Live check</h2>
             <p className="dim small">
-              {lang === 'bis'
-                ? 'Ang mga numero sa screen gikan sa NASA POWER, gipull samtang gihatag ang grid. Ginatamon nato kung naa pa gyud nga live ang NASA para sa imong uma karon.'
-                : 'The numbers on screen came from NASA POWER, fetched when the grid was built. This asks the NASA POWER API right now, for your field.'}
+              The numbers on screen came from NASA POWER, fetched when the grid was built. This
+              asks the NASA POWER API right now, for your field.
             </p>
             {nearest && <LiveCheck lang={lang} lat={nearest.cell.lat} lon={nearest.cell.lon} />}
           </section>
@@ -300,29 +353,29 @@ export default function App() {
               </header>
               <div className="fc-grid">
                 <div>
-                  <h4>{lang === 'bis' ? 'Imong tanom' : 'Your current crop'}</h4>
+                  <h4>Your current crop</h4>
                   <p>{cropLabel(farmer.currentCrop)}</p>
                 </div>
                 <div>
-                  <h4>{lang === 'bis' ? 'Gipili nga rotation' : 'Suggested rotation'}</h4>
+                  <h4>Suggested rotation</h4>
                   <p>
                     {rotationResult?.rotations?.[0]?.sequence?.map(cropLabel).join(' → ')}
                   </p>
                 </div>
                 <div>
-                  <h4>{lang === 'bis' ? 'Paglugod sa ube' : 'Plant ube'}</h4>
-                  <p>{plan?.planting?.map((i) => (lang === 'bis' ? result.profile.months[i].label_bis : result.profile.months[i].label_en)).join(', ')}</p>
+                  <h4>Plant ube</h4>
+                  <p>{plan?.planting?.map((i) => result.profile.months[i].label_en).join(', ')}</p>
                 </div>
                 <div>
-                  <h4>{lang === 'bis' ? 'Ani sa ube' : 'Harvest ube'}</h4>
-                  <p>{plan?.harvest?.map((i) => (lang === 'bis' ? result.profile.months[i].label_bis : result.profile.months[i].label_en)).join(', ')}</p>
+                  <h4>Harvest ube</h4>
+                  <p>{plan?.harvest?.map((i) => result.profile.months[i].label_en).join(', ')}</p>
                 </div>
                 <div>
-                  <h4>{lang === 'bis' ? 'Ulan sa tuig' : 'Rainfall a year'}</h4>
+                  <h4>Rainfall a year</h4>
                   <p>{Math.round(result.profile.annual_mm).toLocaleString()} mm</p>
                 </div>
                 <div>
-                  <h4>{lang === 'bis' ? 'Kasaligan' : 'Confidence'}</h4>
+                  <h4>Confidence</h4>
                   <p>{result.confidence.level}</p>
                 </div>
               </div>
@@ -330,7 +383,7 @@ export default function App() {
                 {result.reasons.map((f) => (
                   <li key={f.id}>
                     <span className="chip-dataset">{f.dataset}</span>{' '}
-                    {lang === 'bis' ? f.detail_bis : f.detail_en}
+                    {f.detail_en}
                   </li>
                 ))}
               </ul>
@@ -358,6 +411,7 @@ export default function App() {
 
           <MapPanel
             lang={lang}
+            theme={theme}
             center={{ lat: pin.lat, lon: pin.lon }}
             zoom={11}
             onPick={handlePick}

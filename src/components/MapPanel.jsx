@@ -7,29 +7,50 @@ import { NASA_LAYERS, gridGeoJSON } from '../engine/grid.js';
  * GIBS layers drawn straight from NASA's tile service, our own suitability grid on top,
  * and real terrain from the SRTM derived elevation tiles so the land reads in three
  * dimensions.
+ *
+ * The basemap is Esri's canvas tiles, which are served without an API key. The previous
+ * CARTO basemap started returning an "API KEY REQUIRED" watermark tile, so it was
+ * replaced. There is a dark and a light variant so the map matches the interface theme.
  */
-const BASE_STYLE = {
-  version: 8,
-  sources: {
-    base: {
-      type: 'raster',
-      tiles: ['https://basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png'],
-      tileSize: 256,
-      attribution: '&copy; OpenStreetMap contributors, &copy; CARTO',
-      maxzoom: 19,
-    },
-    labels: {
-      type: 'raster',
-      tiles: ['https://basemaps.cartocdn.com/rastertiles/voyager_only_labels/{z}/{x}/{y}.png'],
-      tileSize: 256,
-      maxzoom: 19,
-    },
+const BASEMAP = {
+  dark: {
+    base: 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+    labels: 'https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',
   },
-  layers: [
-    { id: 'base', type: 'raster', source: 'base' },
-    { id: 'labels', type: 'raster', source: 'labels' },
-  ],
+  light: {
+    base: 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+    labels: 'https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',
+  },
 };
+
+const ATTRIBUTION =
+  'Tiles &copy; Esri &mdash; Esri, HERE, Garmin, &copy; OpenStreetMap contributors, and the GIS user community';
+
+function baseStyle(theme) {
+  const tiles = BASEMAP[theme] || BASEMAP.dark;
+  return {
+    version: 8,
+    sources: {
+      base: {
+        type: 'raster',
+        tiles: [tiles.base],
+        tileSize: 256,
+        attribution: ATTRIBUTION,
+        maxzoom: 16,
+      },
+      labels: {
+        type: 'raster',
+        tiles: [tiles.labels],
+        tileSize: 256,
+        maxzoom: 16,
+      },
+    },
+    layers: [
+      { id: 'base', type: 'raster', source: 'base' },
+      { id: 'labels', type: 'raster', source: 'labels' },
+    ],
+  };
+}
 
 /** SRTM derived elevation tiles, the same terrain NASA SRTM is built from. */
 const TERRAIN_SOURCE = {
@@ -43,6 +64,7 @@ const TERRAIN_SOURCE = {
 
 export default function MapPanel({
   lang,
+  theme = 'dark',
   center,
   zoom = 10.4,
   onPick,
@@ -68,7 +90,7 @@ export default function MapPanel({
     try {
       const map = new maplibregl.Map({
         container: containerRef.current,
-        style: BASE_STYLE,
+        style: baseStyle(theme),
         center: [center.lon, center.lat],
         zoom,
         attributionControl: false,
@@ -142,6 +164,19 @@ export default function MapPanel({
     const src = map.getSource('ubimap-grid');
     if (src) src.setData(geo);
   }, [geo, ready]);
+
+  // swap the basemap when the interface theme changes
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !ready) return;
+    const tiles = BASEMAP[theme] || BASEMAP.dark;
+    const base = map.getSource('base');
+    if (base) {
+      base.setTiles([tiles.base]);
+      // nudge the map so the new tiles are requested straight away
+      map.triggerRepaint();
+    }
+  }, [theme, ready]);
 
   useEffect(() => {
     const map = mapRef.current;
@@ -303,7 +338,7 @@ export default function MapPanel({
             {layer.mission} &middot; {layer.resolution} &middot; {layer.period} &middot; image date{' '}
             {layer.time || 'static'} &middot; {layer.attribution}
           </span>
-          <div>{lang === 'bis' ? layer.what_bis : layer.what_en}</div>
+          <div>{layer.what_en}</div>
         </div>
       )}
     </div>
