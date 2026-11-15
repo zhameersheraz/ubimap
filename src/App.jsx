@@ -193,7 +193,7 @@ export default function App() {
           </button>
           <div>
             <h1>
-              UbiMap <em>NASA Space Apps 2026</em>
+              UbiMap <em>NASA Space Apps Hackathon 2026</em>
             </h1>
             <p className="dim small">{t(lang, 'tagline')}</p>
           </div>
@@ -282,7 +282,7 @@ export default function App() {
                 </p>
                 <p className="dim small explore-row">
                   {lang === 'bis'
-                    ? 'Panalawid ang lugar nga imong gipili:'
+                    ? 'Tan-aw ang lugar nga imong gipili:'
                     : 'Look around the field you picked:'}{' '}
                   <a
                     href={`https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${pin.lat},${pin.lon}`}
@@ -491,7 +491,7 @@ export default function App() {
 
       <footer className="foot">
         <p className="dim small">
-          UbiMap is an independent student project for the 2026 NASA Space Apps Challenge,
+          UbiMap is an independent student project for the 2026 NASA Space Apps Hackathon,
           challenge "Field Shift: Adapting Farms with NASA Data". NASA and the NASA Space
           Agency Partners do not endorse this project.
         </p>

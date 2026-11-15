@@ -425,10 +425,10 @@ Philippines.
 
 | Name | Role |
 |---|---|
-| Zhameer Sheraz Tampugao | Team Owner, data and model, frontend, project lead |
-| Mark John Riel Alforque | Team member |
+| Mark John Riel Alforque | Team Owner |
+| Zhameer Sheraz Tampugao | Team member, data and model, frontend |
 | Cathy Untolan | Team member |
-| Jerenze Levi T. Omandam | Team member |
+| Jerenze Levi Omandam | Team member |
 
 Roles to cover across the team, matching the project plan:
 

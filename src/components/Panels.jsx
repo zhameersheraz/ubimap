@@ -304,7 +304,7 @@ export function PlantingCalendar({ lang, profile, plan }) {
                   <span className="mark harvest" title={lang === 'bis' ? 'pag-ani' : 'harvest'}>H</span>
                 )}
                 {plan?.bare?.includes(m.index) && (
-                  <span className="mark bare" title={lang === 'bis' ? 'hubad nga uma' : 'bare field'}>B</span>
+                  <span className="mark bare" title={lang === 'bis' ? 'uma nga walay tanom' : 'bare field'}>B</span>
                 )}
                 {m.season === 'wet' && (
                   <span className="mark wet" title={lang === 'bis' ? 'panahon sa ulan' : 'wet season'}>~</span>
@@ -316,7 +316,7 @@ export function PlantingCalendar({ lang, profile, plan }) {
         <div className="cal-legend">
           <span><i className="sw plant" /> {lang === 'bis' ? 'pagtani sa ube' : 'plant ube'}</span>
           <span><i className="sw harvest" /> {lang === 'bis' ? 'pag-ani' : 'harvest'}</span>
-          <span><i className="sw bare" /> {lang === 'bis' ? 'hubad nga uma' : 'bare field'}</span>
+          <span><i className="sw bare" /> {lang === 'bis' ? 'uma nga walay tanom' : 'bare field'}</span>
           <span><i className="sw wet" /> {lang === 'bis' ? 'panahon sa ulan' : 'wet season'}</span>
           <span className="dim">{lang === 'bis' ? 'ulan mm (bar) / max temp °C (bar)' : 'rain mm (bar) / max temp °C (bar)'}</span>
         </div>
@@ -414,7 +414,7 @@ export function ValidationPanel({ lang, validation }) {
       <h2>{lang === 'bis' ? 'Validation sa datos sa PSA' : 'Validation against PSA data'}</h2>
       <p className="dim small">
         {lang === 'bis'
-          ? 'Gin-score ang modelo sa 110 ka punto sa 18 ka probinsiya nga nagpoproduce ug sa 4 ka probinsiya nga walay ube, dayon gitawag sa aktuwal nga produksyon gikan sa PSA OpenSTAT.'
+          ? 'Gin-score ang modelo sa 110 ka punto sa 18 ka probinsiya nga nag-grow og ube ug sa 4 ka probinsiya nga walay ube, dayon gitawag sa aktuwal nga produksyon gikan sa PSA OpenSTAT.'
           : 'The model was scored at 110 points across 18 ube-producing provinces and 4 provinces with no reported ube, then compared with real PSA production figures.'}
       </p>
 
@@ -466,12 +466,12 @@ export function ValidationPanel({ lang, validation }) {
         <h4>{lang === 'bis' ? 'Ang nakatabak nga finding, mao pa gikan pa' : 'The finding, including the part that did not work'}</h4>
         <p>
           {lang === 'bis'
-            ? 'Ang una nga bersyon sa modelo wala nagkaayo: ang correlation nga niya kontra sa aktuwal nga yield sa probinsiya halos zero. Ngano? Ang ulan. Ang ube nangkinang sa dry window para sa pagtiniug sa tubero, ug ang usa ka bulan nga ubos sa 50 mm nga ulan mao ang labing kusog nga predictor nga nakaabot sa aktuwal nga yield (r = +0.36 sa POWER, r = +0.30 sa IMERG, sa 17 ka probinsiya). Nasa halos 50 km nga grid ang NASA POWER, so naa magkawala ang dry season sa Pilipinas. Gibuild nami ang ulan sa modelo gikan sa GPM IMERG sa mga 10 km, gikan sa 9,124 ka daily nga tile sa NASA GIBS. Sa parehong 18 ka probinsiya, ang correlation kontra sa aktuwal nga yield gikan sa r = +0.00 to r = +0.32, ug kontra sa volume gikan sa r = +0.21 to r = +0.48. Dili lang iya ang detalyadong produkto nga nakaabot, kay andamit ani kung naa gikan sa six factors. Usa ka real nga signal ka r = +0.32, ug gamay ra, so screening tool niini, dili predictor sa yield.'
+            ? 'Ang una nga bersyon sa modelo wala nagkaayo: ang correlation nga niya kontra sa aktuwal nga yield sa probinsiya halos zero. Ngano? Ang ulan. Ang ube nangkinang sa dry window para sa pagtiniug sa tubero, ug ang usa ka bulan nga ubos sa 50 mm nga ulan mao ang labing kusog nga predictor nga nakaabot sa aktuwal nga yield (r = +0.36 sa POWER, r = +0.30 sa IMERG, sa 17 ka probinsiya). Nasa halos 50 km nga grid ang NASA POWER, so naa magkawala ang dry season sa Pilipinas. Gibuild nami ang ulan sa modelo gikan sa GPM IMERG sa mga 10 km, gikan sa 9,124 ka daily nga tile sa NASA GIBS. Sa parehong 18 ka probinsiya, ang correlation kontra sa aktuwal nga yield gikan sa r = +0.00 to r = +0.32, ug kontra sa volume gikan sa r = +0.21 to r = +0.48. Dili lang iya ang detalyadong produkto nga nakaabot, kay tungod sa mga six factors ang model. Usa ka real nga signal ka r = +0.32, ug gamay ra, so screening tool niini, dili predictor sa yield.'
             : 'The first version of this model did not work: its correlation with real provincial yield was essentially zero. The reason was the rainfall. Ube needs a dry maturation window, and the number of months under 50 mm of rain is the strongest observable that predicts real provincial yield (r = +0.36 for POWER and +0.30 for IMERG across 17 provinces). NASA POWER works on a roughly 50 km grid, so it smooths the Philippine dry season away. We rebuilt the model\'s rainfall from GPM IMERG at about 10 km, from 9,124 daily NASA GIBS tiles. On the same 18 provinces the correlation with real yield went from r = +0.00 to r = +0.32, and with production volume from r = +0.21 to r = +0.48. The finer product was not enough on its own; the model works because six factors are combined. r = +0.32 is a real signal and a modest one, so this is a screening tool and not a yield predictor.'}
         </p>
         <p>
           {lang === 'bis'
-            ? 'Ang nga pa: ang PAGASA station nga pinak malapit kay Cotabato City, 110 ka kilometro sa parehong baybayin, nga narekord 2,414.3 mm sa tuig. Ang IMERG nagsaad og 2,421.9 mm sa Pagadian, mga 0.3% lang ang gibanayaw, pero ang POWER nagsaad og 2,246 mm, mga 7% nga ubos. Walay PAGASA station mismo sa Pagadian. Mao kana ang gap nga ang sensor sa uma unya ma-close. Ang UbiMap kay screening tool para sa pagtambag sa farmer, dili predictor sa yield.'
+            ? 'Ang usa pa nga butas: ang PAGASA station nga pinak malapit kay Cotabato City, 110 ka kilometro sa parehong baybayin, nga narekord 2,414.3 mm sa tuig. Ang IMERG nagsaad og 2,421.9 mm sa Pagadian, mga 0.3% lang ang gibanayaw, pero ang POWER nagsaad og 2,246 mm, mga 7% nga ubos. Walay PAGASA station mismo sa Pagadian. Mao kana ang gap nga ang sensor sa uma unya ma-close. Ang UbiMap kay screening tool para sa pagtambag sa farmer, dili predictor sa yield.'
             : 'What is left open is the interesting part: the nearest representative PAGASA station is Cotabato City, 110 kilometres away on the same Sulu Sea coast, with 2,414.3 mm a year. IMERG reads 2,421.9 mm at Pagadian, within 0.3%, and POWER reads 2,246 mm, about 7% low. There is no PAGASA station at Pagadian itself. That is the gap a field sensor would close. Meanwhile the honest conclusion stands: UbiMap is a screening tool for a conversation with a farmer, not a yield predictor.'}
         </p>
       </div>

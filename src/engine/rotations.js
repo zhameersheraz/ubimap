@@ -86,7 +86,7 @@ function scoreWaterFit(sequence, agronomy, profile, rainFactor) {
       ratio: Number(ratio.toFixed(2)),
     },
     detail_en: `This rotation needs about ${Math.round(demandMm).toLocaleString()} mm of water over the year, and the field gets about ${Math.round(annual).toLocaleString()} mm of rain. ${ratio <= 0.8 ? 'That leaves a comfortable margin.' : ratio <= 1 ? 'That is tight, a dry year would hurt.' : 'That is more than the rain can supply, so this rotation needs irrigation or a drier set of crops.'}`,
-    detail_bis: `Nagtukod og mga ${Math.round(demandMm).toLocaleString()} mm nga tubig sa rotation niini, ug ang uma nakadawat og mga ${Math.round(annual).toLocaleString()} mm nga ulan. ${ratio <= 0.8 ? 'May kasaligan pa.' : ratio <= 1 ? 'Medyo kulang, ang tuig nga katag makaputol.' : 'Labaw sa ulan, so kinahanglan nga irrigation o mas katag nga tanom.'}`,
+    detail_bis: `Nagtukod og mga ${Math.round(demandMm).toLocaleString()} mm nga tubig sa rotation niini, ug ang uma nakadawat og mga ${Math.round(annual).toLocaleString()} mm nga ulan. ${ratio <= 0.8 ? 'May kasaligan pa.' : ratio <= 1 ? 'Konting kulang, ang tuig nga katag makaputol.' : 'Labaw sa ulan, so kinahanglan nga irrigation o mas katag nga tanom.'}`,
   };
 }
 
@@ -102,7 +102,7 @@ function scoreSoilCover(sequence, agronomy) {
     score: coverMonths / 12,
     raw: { covered_months: Number(coverMonths.toFixed(1)), bare_months: Number((12 - coverMonths).toFixed(1)) },
     detail_en: `Roughly ${coverMonths.toFixed(0)} of the 12 months have a crop or cover over the soil, leaving about ${(12 - coverMonths).toFixed(0)} months of bare ground where rain can wash the topsoil away.`,
-    detail_bis: `Mga ${coverMonths.toFixed(0)} sa 12 ka bulan adunay crop o cover sa yuta, mga ${(12 - coverMonths).toFixed(0)} ka bulan nga hubad ang yuta asa makatilaw ang ulan sa ibabaw nga yuta.`,
+    detail_bis: `Mga ${coverMonths.toFixed(0)} sa 12 ka bulan adunay crop o cover sa yuta, mga ${(12 - coverMonths).toFixed(0)} ka bulan nga walay tanom ang yuta asa makatilaw ang ulan sa ibabaw nga yuta.`,
   };
 }
 
@@ -129,7 +129,7 @@ function scoreNitrogen(sequence, agronomy) {
       : 'No nitrogen fixing crop in this rotation, so the soil keeps losing nitrogen every season.',
     detail_bis: fixers
       ? `${fixers} ka legume sa rotation niini mao ang nakaibalik og nitrogen sa yuta human maubos ang matapog nga tanom.`
-      : 'Walay legume nga nag-fix og nitrogen sa rotation niini, so matag-taga mawadto ang yuta og nitrogen.',
+      : 'Walay legume nga nagbalik og nitrogen sa rotation niini, so ka season mawadto ang yuta og nitrogen.',
   };
 }
 
@@ -148,7 +148,7 @@ function scoreErosion(sequence, agronomy, cell) {
     score: score ?? 0.5,
     raw: { erosion_pressure: Number(pressure.toFixed(2)), slope_deg: cell.slope_deg ?? null },
     detail_en: `With ${slope.toFixed(1)} degrees of slope, the bare months in this rotation are the erosion risk. Cover crops and terraces cut that.`,
-    detail_bis: `Sa ${slope.toFixed(1)} grados nga tilt, ang mga bulan nga hubad sa rotation niini ang risk sa erosion. Ang cover crop ug terrasa makapugong niini.`,
+    detail_bis: `Sa ${slope.toFixed(1)} grados nga tilt, ang mga bulan nga walay tanom sa rotation niini ang risk sa erosion. Ang cover crop ug terrasa makapugong niini.`,
   };
 }
 
@@ -185,7 +185,7 @@ function scoreIncome(sequence, agronomy) {
     score: score ?? 0,
     raw: { market_value_index: Number(value.toFixed(2)), marketable_harvests: harvests },
     detail_en: `${harvests} marketable harvest${harvests === 1 ? '' : 's'} a year from this rotation, with ube as the highest value crop of the set.`,
-    detail_bis: `${harvests} ka marketable nga ani sa tuig gikan sa rotation niini, ug ang ube ang tanom nga pinaka-value niini.`,
+    detail_bis: `${harvests} ka marketable nga ani sa tuig gikan sa rotation niini, ug ang ube ang tanom nga labing dako ang kita niini.`,
   };
 }
 
@@ -231,7 +231,7 @@ function scoreLabour(sequence, agronomy) {
     score: score ?? 0.5,
     raw: { labour_index: Number(units.toFixed(2)), crops: sequence.length },
     detail_en: `${sequence.length} crop${sequence.length === 1 ? '' : 's'} to plant, tend and harvest. More crops means more work days and more chances to be caught out by the weather.`,
-    detail_bis: `${sequence.length} ka tanim nga kinahanglan nga tanom, atong, ug ani. Mas daghan nga tanim, mas daghan nga trabaho ug mas daghan nga risgo sa panahon.`,
+    detail_bis: `${sequence.length} ka tanim nga tanom, atong, ug ani. Mas daghan nga tanim, mas daghan nga trabaho ug mas daghan nga risgo sa panahon.`,
   };
 }
 

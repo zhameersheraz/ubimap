@@ -86,7 +86,7 @@ const COMPARE_ROWS = [
     label_en: 'Weakness',
     label_bis: 'Kahuyag',
     sat_en: 'Cannot separate a wet corner from a dry corner of the same field.',
-    sat_bis: 'Dili makasukad sa usab nga baso o uto nga basahi sa samang uma.',
+    sat_bis: 'Dili makasukad sa usab nga baso o uto nga kanto sa samang uma.',
     gnd_en: 'One point. Cannot say anything about the rest of the field or the season behind it.',
     gnd_bis: 'Usa ka punto lang. Wala nga mahimong isulti mahitungod sa uban nga bahin sa uma o sa season niini.',
   },
@@ -133,7 +133,7 @@ export default function SatelliteVsGroundPanel({ lang, profile }) {
         </div>
         <p className="dim small">
           {bis
-            ? 'Ang protocol: basahi kada 15 minuto, i-post sa UbiMap, unya itandi sa satellite line sa parehong petsa. Kon agree, ang uma gikawag sa iyang kighborhood. Kon dili agree, naa tana lokal nga anomalya: baso nga utod, maa kanal, o giablado nga yuta. Mao kana ang paagi aron mapugong ang uncertainty.'
+            ? 'Ang protocol: basahi kada 15 minuto, i-post sa UbiMap, unya itandi sa satellite line sa parehong petsa. Kon pareho ang duha, ang uma naa gyud nga sama sa iyang kighborhood. Kon dili pareho, naa tana lokal nga anomalya: baso nga kanto, maa kanal, o giablado nga yuta. Mao kana ang paagi aron mapugong ang uncertainty.'
             : 'The protocol: read every 15 minutes, post to UbiMap, then compare against the satellite line for the same dates. Where they agree, the field is behaving like its neighbourhood. Where they do not, the difference points to a local anomaly: a wet corner, a blocked drain, a patch of compacted soil. That is how the uncertainty range actually gets narrowed.'}
         </p>
       </div>
@@ -161,7 +161,7 @@ export default function SatelliteVsGroundPanel({ lang, profile }) {
         <h4>{bis ? 'Giunsa nga maayo ang duha' : 'Why combining them is better'}</h4>
         <p>
           {bis
-            ? 'Usa ka pixel sa SMAP mga 36 km ka lapad. Usa ka uma gamay lang sa pixel, so ang SMAP number kay average sa dako nga lugar, dili sa imong plot. Usa ka sensor lang sa usa ka punto sa yuta, mahimong mapalabas kung kinsa nga bahin sa uma ang basahi. Pagduha nga gikombina, naa tana i-check kung ang sensor naayon sa satellite, kay kung dili, naa tana lokal nga anomalya: baso nga utod, maa kanal, o giablado nga yuta. Mao kana ang silbi sa validation sa ground.'
+            ? 'Usa ka pixel sa SMAP mga 36 km ka lapad. Usa ka uma gamay lang sa pixel, so ang SMAP number kay average sa dako nga lugar, dili sa imong plot. Usa ka sensor lang sa usa ka punto sa yuta, mahimong mapalabas kung kinsa nga kanto sa uma ang basahi. Pagduha nga gikombina, naa tana i-check kung ang sensor naayon sa satellite, kay kung dili, naa tana lokal nga anomalya: baso nga utod, maa kanal, o giablado nga yuta. Mao kana ang silbi sa validation sa ground.'
             : 'One SMAP pixel is about 36 km wide. A farm is a small part of that pixel, so the SMAP number is an average over a large area, not your plot. A single sensor reads one point of soil. Put the two together and you can check whether the ground reading agrees with the satellite reading. If it does not, the difference points to a local anomaly: a wet corner, a blocked drain, or a patch of compacted soil. That is the value of validation against ground truth.'}
         </p>
       </div>
@@ -188,7 +188,7 @@ export default function SatelliteVsGroundPanel({ lang, profile }) {
           <li>
             <strong>{bis ? 'Sunod nga lakad.' : 'Next step.'}</strong>{' '}
             {bis
-              ? 'Usa ka node kada barangay, gipanghatag sa usa ka kooperatib. Ang presyo sa node mga PHP 1,000 hangtod sa 1,500, usa lang ka basket nga ube.'
+              ? 'Usa ka node kada barangay, kauban sa usa ka kooperatib. Ang presyo sa node mga PHP 1,000 hangtod sa 1,500, usa lang ka basket nga ube.'
               : 'One node per barangay, shared by a cooperative. The node cost is roughly PHP 1,000 to 1,500, which is one basket of ube.'}
           </li>
         </ul>

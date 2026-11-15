@@ -472,7 +472,7 @@ a { color: var(--sea); }
 .maplibregl-ctrl-attrib a,
 .maplibregl-ctrl-attrib-inner { color: var(--dim) !important; }
 [data-theme="dark"] .maplibregl-ctrl-attrib-button {
-  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpath fill='%23cfdcea' d='M10 1a9 9 0 100 0 0 18 9 9 0 000-18zm0 1a8 8 0 110 16 8 8 0 010-16zm0 3a5 5 0 100 0 0 5 5 0 000 0zm0 1a4 4 0 110 8 4 4 0 010-8z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='9.4' fill='%23e6edf5'/%3E%3Ccircle cx='10' cy='5.9' r='1.55' fill='%230b1017'/%3E%3Crect x='8.55' y='8.5' width='2.9' height='6.4' rx='1.45' fill='%230b1017'/%3E%3C/svg%3E");
 }
 /* The attribution bar runs along the bottom edge, so the suitability legend
    has to sit clear of it or the two overlap and neither is readable. */

@@ -215,7 +215,7 @@ function scoreRainfall(months, t, wetMonths) {
       in_season_months: inSeason.length,
     },
     detail_en: `${Math.round(wetSeasonTotal).toLocaleString()} mm falls in the growing season and the field has ${dryRun50} month${dryRun50 === 1 ? '' : 's'} under ${t.drought_monthly_rain_mm} mm at the end. Ube needs that dry window: the tubers are lifted then, and a field that is wet all year cannot cure them. ${dryRun50 >= t.dry_season_requirement.min_dry_months ? 'Your field has it.' : 'Your field does not have one, and that is the biggest thing working against ube here.'}`,
-    detail_bis: `${Math.round(wetSeasonTotal).toLocaleString()} mm ang nahugsa sa panahon sa tanom, ug ${dryRun50} ka bulan nga ubos sa ${t.drought_monthly_rain_mm} mm sa katapusan. Ube nangkinha niini nga dry window: diin gi-ani ang tubero, ug ang yuta nga basaki sa tuig walay mahimong maayo. ${dryRun50 >= t.dry_season_requirement.min_dry_months ? 'Naa ang imong uma niini.' : 'Wala ang imong uma niini, ug mao kana ang pinak dako nga problema para sa ube diri.'}`,
+    detail_bis: `${Math.round(wetSeasonTotal).toLocaleString()} mm ang nahugsa sa panahon sa tanom, ug ${dryRun50} ka bulan nga ubos sa ${t.drought_monthly_rain_mm} mm sa katapusan. Ube nanginahanglan niini nga dry window: diin gi-ani ang tubero, ug kung basa ang yuta sa tibuk nga tuig, walay mahimong maayo. ${dryRun50 >= t.dry_season_requirement.min_dry_months ? 'Naa ang imong uma niini.' : 'Wala ang imong uma niini, ug mao kana ang pinak dako nga problema para sa ube diri.'}`,
   };
 }
 
@@ -314,14 +314,14 @@ function scoreSlope(cell, t) {
     score,
     raw: { slope_deg: s, elevation_m: cell.elev_m ?? null },
     detail_en: `Ground slopes ${s.toFixed(1)} degrees (about ${cell.elev_m ?? '?'} m above sea level). Ube wants ${t.slope_deg.ideal} degrees or less; above ${t.slope_deg.tolerable} degrees the tubers sit exposed.`,
-    detail_bis: `${s.toFixed(1)} grados ang tilt sa yuta (mga ${cell.elev_m ?? '?'} m sa ibabaw sa dagat). Gustong maayo nga ube ang ${t.slope_deg.ideal} grados pababa; labaw sa ${t.slope_deg.tolerable} grados, gipagkasya ang mga tubero.`,
+    detail_bis: `${s.toFixed(1)} grados ang tilt sa yuta (mga ${cell.elev_m ?? '?'} m sa ibabaw sa dagat). Gustong maayo nga ube ang ${t.slope_deg.ideal} grados pababa; labaw sa ${t.slope_deg.tolerable} grados, dili maayo ang mga tubero.`,
   };
 }
 
 function scoreSoilPh(cell, t) {
   const ph = cell.soil?.phh2o;
   if (ph === null || ph === undefined) {
-    return { score: null, raw: null, detail_en: 'No soil pH data for this cell. Ask your municipal agriculturist for a soil test, this is a real gap in our data.', detail_bis: 'Walay datos sa pH sa yuta alang sa cell niini. Pangutnag ang imong lokal na agronomista para sa pagsusuri sa yuta, kay naa gyud na gap sa among datos.', missing: true };
+    return { score: null, raw: null, detail_en: 'No soil pH data for this cell. Ask your municipal agriculturist for a soil test, this is a real gap in our data.', detail_bis: 'Walay datos sa pH sa yuta alang sa cell niini. Konsulta ang imong lokal na agronomista para sa pagsusuri sa yuta, kay naa gyud na gap sa among datos.', missing: true };
   }
   const score = ramp(ph, [[t.soil_ph.tolerable[0], 0.15], [t.soil_ph.optimal[0], 1], [t.soil_ph.optimal[1], 1], [t.soil_ph.tolerable[1], 0.25]]);
   return {
@@ -346,7 +346,7 @@ function scoreDrainage(cell, t) {
     score,
     raw: { clay_percent: clay, sand_percent: soil.sand ?? null, silt_percent: soil.silt ?? null, bulk_density: bdod ?? null, organic_carbon: soil.soc ?? null },
     detail_en: `Soil is ${clay.toFixed(0)}% clay with ${soil.sand?.toFixed?.(0) ?? '?'}% sand${bdod ? ` and bulk density ${bdod.toFixed(2)} g/cm3` : ''}. Heavy clay holds water against the tubers, so drainage matters more here than fertility.`,
-    detail_bis: `${clay.toFixed(0)}% clay ang yuta, uban sa ${soil.sand?.toFixed?.(0) ?? '?'}% sand${bdod ? ` ug ${bdod.toFixed(2)} g/cm3 nga bulk density` : ''}. Ang heavy clay nga nagpugong sa tubig, kaya ang drainage labaw sa kaayo sa yuta ang importante.`,
+    detail_bis: `${clay.toFixed(0)}% clay ang yuta, uban sa ${soil.sand?.toFixed?.(0) ?? '?'}% sand${bdod ? ` ug ${bdod.toFixed(2)} g/cm3 nga bulk density` : ''}. Ang heavy clay nga nagpugong sa tubig, kaya ang drainage labaw sa kaayo sa yuta ang important.`,
   };
 }
 

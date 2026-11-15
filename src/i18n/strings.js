@@ -24,7 +24,7 @@ export const STRINGS = {
     areaHa: 'Kaayo sa uma (hectare)',
     priorities: 'Unsa ang labing importante para saimo?',
     moreIncome: 'Mas daghan nga kita',
-    saveWater: 'Pag-iwat sa tubig',
+    saveWater: 'Mas gamay nga tubig',
     healthySoil: 'Mas maayo nga yuta',
     lessWork: 'Mas gamay nga trabaho',
     irrigation: 'Naa ba kay irrigasyon?',
