@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>UbiMap - NASA Space Apps Challenge 2026</title>
+<style>
+  @page { size: 1280px 720px; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #ffffff; }
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #16202e;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .slide {
+    width: 1280px; height: 720px;
+    position: relative;
+    overflow: hidden;
+    background: #ffffff;
+    page-break-after: always;
+    break-after: page;
+  }
+  .slide:last-child { page-break-after: auto; break-after: auto; }
+
+  /* ---------- shared ---------- */
+  .pad { padding: 46px 64px 0; }
+  .kicker {
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 13px; letter-spacing: .22em; text-transform: uppercase;
+    color: #8a5bb0; font-weight: 700;
+  }
+  h1.title { font-size: 54px; line-height: 1.04; letter-spacing: -.02em; color: #0b1017; }
+  h2.title { font-size: 34px; line-height: 1.12; letter-spacing: -.01em; color: #0b1017; }
+  .lede { font-size: 19px; line-height: 1.45; color: #3a4a5f; max-width: 1000px; }
+  .rule { height: 3px; width: 74px; background: #7c3fa0; margin: 16px 0 20px; }
+  .foot {
+    position: absolute; left: 64px; right: 64px; bottom: 22px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid #e2e8f0; padding-top: 10px;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 11.5px; letter-spacing: .08em; color: #8794a6;
+  }
+  .foot b { color: #5b6b80; font-weight: 600; }
+  ul.bul { list-style: none; }
+  ul.bul li {
+    position: relative; padding-left: 26px; margin-bottom: 11px;
+    font-size: 18px; line-height: 1.42; color: #2b3646;
+  }
+  ul.bul li::before {
+    content: ""; position: absolute; left: 4px; top: 10px;
+    width: 8px; height: 8px; background: #7c3fa0; border-radius: 2px;
+  }
+  ul.bul li b { color: #0b1017; }
+  .num { font-family: Consolas, "Courier New", monospace; font-weight: 700; color: #7c3fa0; }
+  .cols { display: flex; gap: 30px; }
+  .col { flex: 1; min-width: 0; }
+  .panel { background: #f5f7fa; border: 1px solid #e2e8f0; border-radius: 10px; padding: 20px 22px; }
+  .panel h3 {
+    font-family: Consolas, "Courier New", monospace; font-size: 12px;
+    letter-spacing: .16em; text-transform: uppercase; color: #7c3fa0; margin-bottom: 12px;
+  }
+  .shot { border: 1px solid #d7dee8; border-radius: 8px; overflow: hidden; display: block; }
+  .shot img { display: block; width: 100%; }
+  .cap { font-size: 12.5px; color: #7b899c; margin-top: 7px; }
+  .tag {
+    display: inline-block; font-family: Consolas, "Courier New", monospace;
+    font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 4px; font-weight: 700;
+  }
+  .tag.warn { background: #fdf0d8; color: #8a6210; }
+  .tag.good { background: #dff2e6; color: #1d6b46; }
+  .tag.info { background: #e3eefb; color: #1f5b8a; }
+
+  /* ---------- slide 1 ---------- */
+  .s1 { background: #0b1017; color: #e6edf5; }
+  .s1 img.hero { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 78%; opacity: .78; }
+  .s1 .veil {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(11,16,23,.18) 0%, rgba(11,16,23,.72) 46%, rgba(11,16,23,.97) 72%, #0b1017 100%);
+  }
+  .s1 .inner { position: relative; padding: 64px 64px 0; }
+  .s1 .badge {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-family: Consolas, "Courier New", monospace; font-size: 12.5px;
+    letter-spacing: .2em; text-transform: uppercase; color: #e8b54b;
+    border: 1px solid rgba(232,181,75,.55); border-radius: 4px; padding: 6px 12px;
+  }
+  .s1 h1 { font-size: 82px; line-height: 1; letter-spacing: -.03em; margin: 26px 0 0; color: #fff; }
+  .s1 .tagline { font-size: 25px; color: #d6e0ec; margin-top: 16px; max-width: 880px; line-height: 1.35; }
+  .s1 .meta {
+    position: absolute; left: 64px; right: 64px; bottom: 46px;
+    display: flex; gap: 36px; align-items: flex-end;
+    border-top: 1px solid rgba(255,255,255,.16); padding-top: 18px;
+  }
+  .s1 .meta .who { font-size: 15px; color: #d6e0ec; line-height: 1.5; flex: 1; min-width: 0; }
+  .s1 .meta .who b { color: #fff; }
+  .s1 .meta .who .nm { font-family: Consolas, "Courier New", monospace; font-size: 13.5px; color: #e8b54b; letter-spacing: .04em; }
+  .s1 .meta .who span { color: #9fb0c4; }
+  .s1 .meta .who .names { font-size: 14.5px; }
+  .s1 .meta .chal { flex: 0 0 350px; text-align: right; font-size: 15px; }
+
+  /* ---------- stat strip ---------- */
+  .stats { display: flex; gap: 16px; margin: 4px 0 22px; }
+  .stat {
+    flex: 1; background: #f5f7fa; border: 1px solid #e2e8f0;
+    border-left: 4px solid #7c3fa0; border-radius: 8px; padding: 14px 16px;
+  }
+  .stat .v { font-family: Consolas, "Courier New", monospace; font-size: 30px; font-weight: 700; color: #0b1017; line-height: 1; }
+  .stat .v.down { color: #b4473a; }
+  .stat .v.up { color: #1d6b46; }
+  .stat .k { font-size: 13px; color: #66768c; margin-top: 7px; line-height: 1.3; }
+  .stat .src { font-size: 11px; color: #97a3b3; margin-top: 5px; }
+
+  .table { width: 100%; border-collapse: collapse; font-size: 15.5px; }
+  .table th {
+    text-align: left; font-family: Consolas, "Courier New", monospace; font-size: 11.5px;
+    letter-spacing: .12em; text-transform: uppercase; color: #7c3fa0;
+    border-bottom: 2px solid #d7dee8; padding: 0 12px 8px 0; font-weight: 700;
+  }
+  .table td { padding: 9px 12px 9px 0; border-bottom: 1px solid #edf1f6; color: #2b3646; vertical-align: top; }
+  .table td.num { font-family: Consolas, "Courier New", monospace; font-weight: 700; color: #0b1017; white-space: nowrap; }
+  .table td small { color: #7b899c; }
+
+  .quote {
+    border-left: 4px solid #e8b54b; background: #fdf7e8;
+    padding: 16px 20px; border-radius: 0 8px 8px 0; font-size: 16px;
+    line-height: 1.45; color: #4a3a12;
+  }
+  .strip {
+    margin-top: 22px; background: #0b1017; color: #dce5f0; border-radius: 10px;
+    padding: 18px 24px; display: flex; gap: 26px; align-items: center;
+  }
+  .strip > div:first-child { flex: 1; }
+  .strip b { display: block; font-size: 17px; color: #fff; margin-bottom: 5px; }
+  .strip span { font-size: 16px; line-height: 1.4; color: #b9c7d8; }
+  .strip .strip-src { flex: 0 0 330px; font-size: 14px; color: #e8b54b; line-height: 1.4; }
+  .shot.crop img { height: 300px; object-fit: cover; object-position: center 42%; }
+  .shot.strip2 img { height: 128px; object-fit: cover; object-position: center 30%; }
+</style>
+</head>
+<body>
+
+<!-- ===================== 1 · TITLE ===================== -->
+<section class="slide s1">
+  <img class="hero" src="../public/hero-plate.jpg" alt="NASA MODIS true colour image of the Zamboanga peninsula">
+  <div class="veil"></div>
+  <div class="inner">
+    <span class="badge">NASA Space Apps Challenge 2026 &nbsp;&middot;&nbsp; Field Shift</span>
+    <h1>UbiMap</h1>
+    <div class="tagline">Can my field grow ube, which rotation fits it, and when do I plant?</div>
+  </div>
+  <div class="meta">
+    <div class="who">
+      <div class="nm">Team Messiah Project Digital</div>
+      <div class="names">Mark John Riel Alforque &nbsp;&middot;&nbsp; Cathy Untolan &nbsp;&middot;&nbsp; Zhameer Sheraz Tampugao (Team Owner) &nbsp;&middot;&nbsp; Jerenze Levi T. Omandam</div>
+      <span>Pagadian City, Zamboanga del Sur, Philippines</span>
+    </div>
+    <div class="who chal">
+      <div class="nm">Challenge</div>
+      <div>Field Shift: Adapting Farms with NASA Data</div>
+      <span>Universal Event</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 2 · THE PROBLEM ===================== -->
+<section class="slide">
+  <div class="pad">
+    <div class="kicker">01 &nbsp;&middot;&nbsp; The problem</div>
+    <h2 class="title" style="margin-top:10px">Ube is being abandoned, not failing</h2>
+    <div class="rule"></div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="v down">-43%</div>
+        <div class="k">Philippine production, 2010 to 2025</div>
+        <div class="src">21,906 MT to 12,483 MT &middot; PSA OpenSTAT</div>
+      </div>
+      <div class="stat">
+        <div class="v down">-50%</div>
+        <div class="k">Area harvested over the same period</div>
+        <div class="src">4,744 ha to 2,367 ha &middot; PSA OpenSTAT</div>
+      </div>
+      <div class="stat">
+        <div class="v up">4.6 &rarr; 5.3</div>
+        <div class="k">Yield per hectare actually rose</div>
+        <div class="src">t/ha &middot; PSA OpenSTAT</div>
+      </div>
+      <div class="stat">
+        <div class="v down">-70%</div>
+        <div class="k">Bohol, the heartland of ube</div>
+        <div class="src">13,169 MT to 3,931 MT &middot; PSA OpenSTAT</div>
+      </div>
+    </div>
+
+    <div class="cols">
+      <div class="col" style="flex:1.25">
+        <ul class="bul">
+          <li>The crop is agronomically fine. Farmers are <b>walking away from it</b>, and most upland farmers here farm corn after corn, or cassava alone.</li>
+          <li>Nobody has shown them evidence that <b>their own land</b> could carry a higher value crop, or how to fit one into what they already plant.</li>
+        </ul>
+      </div>
+      <div class="col">
+        <div class="panel">
+          <h3>We checked the premise</h3>
+          <div style="font-size:16px; line-height:1.45; color:#2b3646">
+            The Philippines grows about 12,500 MT a year and exported a record
+            <b>1,694 tonnes worth $3.25 million in 2025</b>. It is a
+            <b>net exporter of ube by roughly 30 to 1</b>. Only 54 tonnes of
+            frozen ube come in, almost all from Vietnam. Taiwan and China are
+            not suppliers.
+            <div style="margin-top:10px; color:#66768c; font-size:14px">
+              The real constraint is domestic planting material, not imports.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="strip">
+      <div>
+        <b>What a farmer is actually asking</b>
+        <span>Can my own land still carry ube, which rotation fits what I already plant, and when do I put it in the ground?</span>
+      </div>
+      <div class="strip-src">UbiMap answers that on one page, with the NASA data shown underneath every number.</div>
+    </div>
+  </div>
+  <div class="foot">
+    <span><b>UbiMap</b> &middot; Team Messiah Project Digital</span>
+    <span>NASA Space Apps 2026 &middot; Field Shift &middot; 02</span>
+  </div>
+</section>
+
+<!-- ===================== 3 · WHAT IT DOES ===================== -->
+<section class="slide">
+  <div class="pad">
+    <div class="kicker">02 &nbsp;&middot;&nbsp; What UbiMap does</div>
+    <h2 class="title" style="margin-top:10px">One question, one page</h2>
+    <div class="rule"></div>
+
+    <div class="cols" style="margin-bottom:18px">
+      <div class="col" style="flex:1">
+        <ul class="bul" style="font-size:17px">
+          <li>Pin the field on the map, or use GPS.</li>
+          <li>Say what you plant now and what matters most: income, water, soil or labour.</li>
+          <li>Get a <b>Farm Card</b>: a ube readiness score out of 100, the reasons behind it, and the things to watch.</li>
+          <li>Compare <b>four rotations</b>, including the one you farm now. Each one states why it is suggested, the evidence, the benefits, the information gaps and the risks.</li>
+          <li>A planting calendar built from your own local rainfall.</li>
+          <li><b>Bisaya, Filipino and English.</b> Works on a basic phone. The numbers work with no network.</li>
+        </ul>
+      </div>
+      <div class="col" style="flex:.62">
+        <div class="panel" style="height:100%">
+          <h3>Three steps, one page</h3>
+          <div style="font-size:17px; line-height:1.6; color:#2b3646">
+            <b>1. Pin the field.</b><br>
+            <span style="color:#66768c">Tap the map, or use the demo field in Pagadian.</span><br><br>
+            <b>2. Set your priorities.</b><br>
+            <span style="color:#66768c">Current crop, field size, whether you irrigate, and what matters to you.</span><br><br>
+            <b>3. Read the Farm Card.</b><br>
+            <span style="color:#66768c">Score, reasons, concerns, four rotations and a planting calendar.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="shot"><img src="shots/02-farmcard.png" alt="UbiMap Farm Card readiness score"></div>
+    <div class="cap" style="margin-bottom:12px">The Farm Card for the Pagadian demo field. Every number carries the dataset it came from and its raw value.</div>
+
+    <div class="strip">
+      <div>
+        <b>Reasons and concerns, not just a score</b>
+        <span>Below the gauge the card lists what is working and what to watch, each line tagged with the NASA or ISRIC dataset and the raw value behind it. Missing soil data is shown as missing, never filled in.</span>
+      </div>
+      <div class="strip-src">All six factors have data for this cell, so confidence reads High.</div>
+    </div>
+  </div>
+  <div class="foot">
+    <span><b>UbiMap</b> &middot; Team Messiah Project Digital</span>
+    <span>NASA Space Apps 2026 &middot; Field Shift &middot; 03</span>
+  </div>
+</section>
+
+<!-- ===================== 4 · THE NASA DATA ===================== -->
+<section class="slide">
+  <div class="pad">
+    <div class="kicker">03 &nbsp;&middot;&nbsp; The NASA data</div>
+    <h2 class="title" style="margin-top:10px">Seven NASA datasets, live and precomputed</h2>
+    <div class="rule" style="margin-bottom:14px"></div>
+
+    <div class="cols">
+      <div class="col" style="flex:1.22">
+        <table class="table">
+          <thead>
+            <tr><th>Dataset</th><th>Used for</th><th>Resolution</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><b>NASA POWER</b><br><small>MERRA-2, CERES</small></td>
+                <td>Rainfall, temperature, humidity, solar radiation, root zone wetness, 2015 to 2024</td>
+                <td class="num">~50 km</td></tr>
+            <tr><td><b>NASA SRTM</b><br><small>Shuttle Radar Topography</small></td>
+                <td>Elevation and slope, which set the erosion risk and the drainage rating</td>
+                <td class="num">30 m</td></tr>
+            <tr><td><b>GIBS live tiles</b><br><small>MODIS and VIIRS</small></td>
+                <td>True colour and NDVI, streamed into the browser from NASA</td>
+                <td class="num">250 m<br>375 m</td></tr>
+            <tr><td><b>SMAP</b><br><small>L-band radar</small></td>
+                <td>Surface soil moisture on the night pass</td>
+                <td class="num">36 km</td></tr>
+            <tr><td><b>GPM IMERG</b><br><small>daily tiles</small></td>
+                <td>Rainfall, rebuilt from 9,124 daily tiles at about 10 km</td>
+                <td class="num">10 km</td></tr>
+            <tr><td><b>MODIS and VIIRS flood</b></td>
+                <td>Where water is standing on the surface</td>
+                <td class="num">250 m<br>375 m</td></tr>
+            <tr><td><b>NASA CMR</b></td>
+                <td>Provenance, so every layer can be traced to its collection</td>
+                <td class="num">metadata</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col" style="flex:.78">
+        <div class="shot crop"><img src="shots/01-map.png" alt="Live NASA MODIS map of Pagadian with the suitability heatmap"></div>
+        <div class="cap">Live MODIS true colour over Pagadian City with the UbiMap suitability grid on top. The image date in the app is the newest pass NASA has, because the tile URL carries no date.</div>
+        <div style="margin-top:12px"><span class="tag good">Live in the browser</span>
+        <span class="tag info" style="margin-left:6px">Precomputed for offline</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <span><b>UbiMap</b> &middot; Team Messiah Project Digital</span>
+    <span>NASA Space Apps 2026 &middot; Field Shift &middot; 04</span>
+  </div>
+</section>
+
+<!-- ===================== 5 · THE MODEL ===================== -->
+<section class="slide">
+  <div class="pad">
+    <div class="kicker">04 &nbsp;&middot;&nbsp; The model</div>
+    <h2 class="title" style="margin-top:10px">Explainable on purpose</h2>
+    <div class="rule"></div>
+
+    <div class="cols">
+      <div class="col">
+        <ul class="bul">
+          <li>Six factors weighted by the <b>Analytic Hierarchy Process</b>. Consistency ratio <span class="num">0.034</span> against a 0.10 limit.</li>
+          <li><b>Named rules, not a black box</b>, so an extension worker can argue with them and a farmer can check them.</li>
+          <li>Every number shows <b>its dataset and its raw value</b>.</li>
+          <li>Missing soil data is shown as missing. <b>Never filled in.</b></li>
+          <li>The app says out loud that it <b>does not predict yield</b>. It screens land for a conversation with a farmer.</li>
+        </ul>
+      </div>
+      <div class="col">
+        <div class="panel" style="margin-bottom:16px">
+          <h3>The six factors</h3>
+          <table class="table" style="font-size:14px">
+            <tbody>
+              <tr><td>Rainfall pattern and dry maturation window</td><td class="num">GPM IMERG</td></tr>
+              <tr><td>Root zone soil moisture</td><td class="num">POWER GWETROOT</td></tr>
+              <tr><td>Temperature and heat stress</td><td class="num">POWER T2M_MAX</td></tr>
+              <tr><td>Slope and erosion risk</td><td class="num">SRTM</td></tr>
+              <tr><td>Soil pH</td><td class="num">SoilGrids</td></tr>
+              <tr><td>Soil texture and drainage</td><td class="num">SoilGrids</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="quote">
+          The model is a screening tool, not a yield predictor. r = +0.32 is a
+          real signal and a modest one, and we would rather say so than dress it up.
+        </div>
+      </div>
+    </div>
+
+    <div class="strip">
+      <div>
+        <b>Open the app and check any number</b>
+        <span>Every factor row expands to show the AHP weight, the consistency ratio and the raw value the score was computed from.</span>
+      </div>
+      <div class="strip-src">Consistency ratio 0.034 for the suitability model and 0.023 for the rotation model, both inside the 0.10 limit.</div>
+    </div>
+  </div>
+  <div class="foot">
+    <span><b>UbiMap</b> &middot; Team Messiah Project Digital</span>
+    <span>NASA Space Apps 2026 &middot; Field Shift &middot; 05</span>
+  </div>
+</section>
+
+<!-- ===================== 6 · THE VALIDATION ===================== -->
+<section class="slide">
+  <div class="pad">
+    <div class="kicker">05 &nbsp;&middot;&nbsp; The validation</div>
+    <h2 class="title" style="margin-top:10px">We tested it against real Philippine statistics</h2>
+    <div class="rule" style="margin-bottom:14px"></div>
+
+    <div class="stats" style="margin-bottom:16px">
+      <div class="stat">
+        <div class="v">110</div>
+        <div class="k">points scored</div>
+        <div class="src">18 producing provinces + 4 without ube</div>
+      </div>
+      <div class="stat" style="border-left-color:#b4473a">
+        <div class="v down">+0.00</div>
+        <div class="k">the first model against real yield</div>
+        <div class="src">reported, not hidden</div>
+      </div>
+      <div class="stat" style="border-left-color:#1d6b46">
+        <div class="v up">+0.32</div>
+        <div class="k">yield after rebuilding the rainfall</div>
+        <div class="src">volume correlation +0.21 to +0.48</div>
+      </div>
+      <div class="stat" style="border-left-color:#2f7fae">
+        <div class="v">0.3%</div>
+        <div class="k">IMERG error against the PAGASA station</div>
+        <div class="src">POWER reads 7% low</div>
+      </div>
+    </div>
+
+    <div class="cols">
+      <div class="col" style="flex:1">
+        <ul class="bul" style="font-size:16.5px">
+          <li>The model puts the non producing provinces at the bottom. Good.</li>
+          <li>The reason the first version failed was the rainfall: <b>NASA POWER smooths the dry season away at 50 km</b>. So we rebuilt the rain from GPM IMERG at 10 km, from 9,124 daily NASA GIBS tiles.</li>
+          <li>Checked against the PAGASA station at Cotabato City: <b>IMERG within 0.3%, POWER 7% low</b>.</li>
+          <li>Left open: the nearest representative station is <b>110 km away</b>. There is no station at Pagadian. That is the gap a field sensor would close.</li>
+        </ul>
+      </div>
+      <div class="col" style="flex:1">
+        <div class="shot"><img src="shots/04b-validation-table.png" alt="Validation table of provincial scores against PSA production"></div>
+        <div class="cap">Mean score 68.1 for the 18 producing provinces against 63.5 for the 4 without ube.</div>
+        <div style="margin-top:10px" class="shot"><img src="shots/05-crosscheck.png" alt="Rainfall cross-check table between NASA POWER and GPM IMERG"></div>
+        <div class="cap">The rainfall cross-check: all 300 cells agree that no month at Pagadian falls below 50 mm.</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <span><b>UbiMap</b> &middot; Team Messiah Project Digital</span>
+    <span>NASA Space Apps 2026 &middot; Field Shift &middot; 06</span>
+  </div>
+</section>
+
+<!-- ===================== 7 · THE FUTURE ===================== -->
+<section class="slide">
+  <div class="pad">
+    <div class="kicker">06 &nbsp;&middot;&nbsp; The future</div>
+    <h2 class="title" style="margin-top:10px">One node per barangay</h2>
+    <div class="rule"></div>
+
+    <div class="cols">
+      <div class="col" style="flex:1.1">
+        <ul class="bul">
+          <li><b>UbiSense</b>: an ESP32 field sensor with a capacitive soil moisture probe and a DS18B20 soil temperature probe, reading every 15 minutes. The firmware is written and ready to flash.</li>
+          <li>Node cost roughly <b>PHP 1,000 to 1,500</b>, which is one basket of ube. One node per barangay, shared by a cooperative.</li>
+          <li>Ground truth at the scale the farmer actually works, <b>checked against the satellite</b> so the uncertainty range actually narrows.</li>
+          <li>A province map that shows <b>where local ube supply could grow</b> instead of being imported.</li>
+        </ul>
+        <div class="quote" style="margin-top:18px">
+          This tool supports the farmer. It does not replace them, and it does not
+          replace the local agriculturist.
+        </div>
+      </div>
+      <div class="col" style="flex:.9">
+        <div class="panel">
+          <h3>Try it</h3>
+          <div style="font-size:17px; line-height:1.7; color:#2b3646">
+            Live demo<br><b style="font-family:Consolas,monospace; color:#7c3fa0">ubimap.pages.dev</b><br><br>
+            Source<br><b style="font-family:Consolas,monospace; color:#7c3fa0">github.com/zhameersheraz/ubimap</b><br><br>
+            <span style="color:#66768c; font-size:15px">Built with NASA POWER, NASA SRTM, NASA GIBS and ISRIC SoilGrids. Free and open data, no NASA account, no payment, nothing about the farm is sent anywhere.</span>
+          </div>
+        </div>
+        <div style="margin-top:16px; text-align:center">
+          <span class="tag good">Impact</span>
+          <span class="tag info" style="margin-left:6px">Creativity</span>
+          <span class="tag warn" style="margin-left:6px">Validity</span>
+          <span class="tag info" style="margin-left:6px">Relevance</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="strip">
+      <div>
+        <b>What is done and what is next</b>
+        <span>The app is live now, in three languages, on a basic phone. The field sensor is the next step, and its firmware is already written and in the repository.</span>
+      </div>
+      <div class="strip-src">Team Messiah Project Digital &middot; Pagadian City, Philippines</div>
+    </div>
+  </div>
+  <div class="foot">
+    <span><b>UbiMap</b> &middot; Team Messiah Project Digital &middot; Pagadian City</span>
+    <span>NASA Space Apps 2026 &middot; Field Shift &middot; 07</span>
+  </div>
+</section>
+
+</body>
+</html>

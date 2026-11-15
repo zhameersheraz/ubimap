@@ -6,6 +6,10 @@ dist/
 .tmp-test/
 .tmp-patch/
 
+# deck build artefacts, the published copy lives in public/
+deck/ubimap-deck.pdf
+deck/preview/
+
 # the NASA POWER proxy cache
 .cache/
 

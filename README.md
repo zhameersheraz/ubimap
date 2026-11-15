@@ -4,9 +4,9 @@
 
 NASA Space Apps Challenge 2026 &middot; Challenge: *Field Shift: Adapting Farms with NASA Data*
 
-**Live app: https://ubimap.pages.dev** &middot; **Code: https://github.com/zhameersheraz/ubimap**
+**Live app: https://ubimap.pages.dev** &middot; **Code: https://github.com/zhameersheraz/ubimap** &middot; **Slide deck: https://ubimap.pages.dev/ubimap-deck.pdf**
 
-UbiMap answers one question for a farmer, in Filipino or English: **can my field grow
+UbiMap answers one question for a farmer, in Bisaya, Filipino or English: **can my field grow
 ube, which rotation fits it, and when should I plant?** It combines NASA Earth
 observations with local soil information, crop characteristics and the farmer's own
 priorities, then compares at least three rotation strategies including the one the farmer
@@ -283,6 +283,7 @@ UbiMap/
   server/          zero dependency Node server, static plus NASA POWER proxy
   firmware/        UbiSense ESP32 firmware
   data/            the precomputed grids, all regenerable from the scripts
+  deck/            the 7 slide NASA deck: index.html source, shots/, and the build script
   research_notes/  the research that produced the thresholds and the sources
 ```
 

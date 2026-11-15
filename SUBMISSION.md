@@ -14,9 +14,9 @@ Placeholders you must fill in before submitting:
 | `https://ubimap.pages.dev` | Your deployed demo link. This is the Cloudflare Pages build, and it is the one to give the judges, because it also runs the NASA POWER proxy, so the live NASA button in the app really works |
 | `https://github.com/zhameersheraz/ubimap` | Your public GitHub repository link |
 | `[VIDEO_URL]` | Link to the 30 second demo video |
-| `[DECK_URL]` | Link to the 7 slide deck, if you use slides instead of a video |
+| `[DECK_URL]` | Link to the 7 slide deck, if you use slides instead of a video. It is already built and hosted: `https://ubimap.pages.dev/ubimap-deck.pdf` (also at `https://zhameersheraz.github.io/ubimap/ubimap-deck.pdf`) |
 | `[TEAM_MEMBERS]` | Team names and roles, max 6 members, all registered for the Universal Event |
-| `[MAILBOX]` | The mailbox that receives NASA emails, in case the organisers need to reach you |
+| `[MAILBOX]` | The mailbox that receives NASA emails, in case the organisers need to reach you. Use `zhameersheraztampugao@gmail.com` |
 
 ---
 
@@ -83,7 +83,11 @@ not be eligible for Global Judging.")*
 
 Or, if you prefer a slide deck:
 
-`[DECK_URL]`
+`https://ubimap.pages.dev/ubimap-deck.pdf`
+
+*(Seven slides, English, with the team name, the four member names and the challenge on
+the title slide. The deck is built from `deck/index.html` and hosted with the app, so the
+link is already live. Mirror: `https://zhameersheraz.github.io/ubimap/ubimap-deck.pdf`.)*
 
 *(Seven slides maximum, including the title and introduction slides, in English.)*
 
@@ -416,9 +420,17 @@ Then press **Submit for Judging**.
 
 ## Team
 
-`[TEAM_MEMBERS]`
+**Team Messiah Project Digital** (Universal Event), Pagadian City, Zamboanga del Sur,
+Philippines.
 
-Roles to cover, matching the project plan:
+| Name | Role |
+|---|---|
+| Zhameer Sheraz Tampugao | Team Owner, data and model, frontend, project lead |
+| Mark John Riel Alforque | Team member |
+| Cathy Untolan | Team member |
+| Jerenze Levi T. Omandam | Team member |
+
+Roles to cover across the team, matching the project plan:
 
 | Role | Responsibility |
 |---|---|
@@ -441,4 +453,4 @@ Roles to cover, matching the project plan:
    Data" challenge. The Project tab does not appear until the challenge is selected.
 5. Confirm at least two team members are registered, which is the Universal Event
    requirement for global judging.
-6. Confirm the mailbox `[MAILBOX]` is one you will actually read.
+6. Confirm the mailbox `zhameersheraztampugao@gmail.com` is one you will actually read.

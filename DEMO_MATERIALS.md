@@ -68,6 +68,27 @@ Card, and the validation table, because those three are what no other team is do
 
 # Option B: the 7 slide deck
 
+**The deck is already built and hosted.** Seven slides, English, with the team name, the four
+member names and the challenge on the title slide. Paste this link into the demo field:
+
+> `https://ubimap.pages.dev/ubimap-deck.pdf`
+
+Mirror: `https://zhameersheraz.github.io/ubimap/ubimap-deck.pdf`
+
+The source is `deck/index.html`. To change a word, edit that file, then run:
+
+```
+node scripts/shoot_screenshots.mjs http://localhost:8080 deck/shots
+python scripts/build_deck.py
+```
+
+The script `scripts/build_deck.py` prints the PDF to `deck/ubimap-deck.pdf` and copies it to
+`public/ubimap-deck.pdf`, which the Vite build publishes. The screenshots in `deck/shots/`
+are real captures of the running app, taken by `scripts/shoot_screenshots.mjs` through the
+Chrome DevTools Protocol, so nothing in the deck is a mock up.
+
+Below is the outline the deck follows, for reference.
+
 Must contain the team name, the names of the team members, and the challenge selected.
 English only.
 
