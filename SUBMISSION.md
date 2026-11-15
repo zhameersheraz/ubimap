@@ -11,7 +11,7 @@ Placeholders you must fill in before submitting:
 
 | Placeholder | What to put |
 |---|---|
-| `https://zhameersheraz.github.io/ubimap/` | Your deployed demo link (Netlify, GitHub Pages, Vercel, or the local server with a tunnel) |
+| `https://ubimap.pages.dev` | Your deployed demo link. This is the Cloudflare Pages build, and it is the one to give the judges, because it also runs the NASA POWER proxy, so the live NASA button in the app really works |
 | `https://github.com/zhameersheraz/ubimap` | Your public GitHub repository link |
 | `[VIDEO_URL]` | Link to the 30 second demo video |
 | `[DECK_URL]` | Link to the 7 slide deck, if you use slides instead of a video |
@@ -91,9 +91,15 @@ Or, if you prefer a slide deck:
 
 ## 4. Link to Final Project
 
-`https://zhameersheraz.github.io/ubimap/`
+`https://ubimap.pages.dev`
 
-The live app, in three languages: Bisaya, Filipino and English.
+The live app, in three languages: Bisaya, Filipino and English. It opens in English so any
+judge can read it immediately, and the Language toggle switches it to Bisaya or Filipino for
+the pilot farmers in Pagadian.
+
+The "Check live with NASA POWER" button in the app calls the NASA POWER API through a
+Cloudflare Pages Function, so the numbers on that panel come from NASA live, during the
+demo, rather than from a file baked in at build time.
 
 `https://github.com/zhameersheraz/ubimap`
 
@@ -424,8 +430,8 @@ Roles to cover, matching the project plan:
 
 ## Before you press submit
 
-1. Deploy the app and open `https://zhameersheraz.github.io/ubimap/` in a private window. It must load without a
-   login.
+1. Open `https://ubimap.pages.dev` in a private window. It must load without a login, open in
+   English, and the "Check live with NASA POWER" button must return real NASA data.
 2. Watch the demo video end to end and confirm it is 30 seconds or less, or count the
    slides and confirm there are 7 or less.
 3. Open `https://github.com/zhameersheraz/ubimap` in a private window and confirm the repository is public.

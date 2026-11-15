@@ -24,9 +24,16 @@ The official beat sheet, verbatim from the guide:
 # Option A: the 30 second video
 
 **Setup before you record.** Open the app on your phone at the demo field (tap "Use the
-Pagadian demo field", then Continue, then Continue). Have the app on a second phone or a
+Pagadian demo field", then Continue, then Continue). The app opens in English, which is what
+the judges read, so leave it in English for the recording. Have the app on a second phone or a
 laptop so you can screen record it. Have the NASA map layer switched to MODIS Terra true
 colour and the suitability heatmap on. Record in a quiet room, daylight if possible.
+
+**The live NASA button works on the deployed site.** When you tap "Check live with NASA
+POWER", the app calls the NASA POWER API through its Cloudflare Pages Function and the table
+that appears holds real values for that field for the last few days, with the fetch time
+shown. Record that tap. It is the single clearest proof that the data is live and not baked
+in, and no other team in the field can show it.
 
 **Rule:** read the "Subtitle" column aloud in your own voice. Burn the subtitle text into
 the bottom of the frame. Do not read the English column aloud.
@@ -36,8 +43,8 @@ the bottom of the frame. Do not read the English column aloud.
 | 0:00 to 0:02 | Your face, or your team name on screen | *Our team is [TEAM NAME]. I am [YOUR NAME].* | "Ako si [NAME], ang among team nga [TEAM NAME]." |
 | 0:02 to 0:05 | Slide: the ube photo, or the map of the Philippines with Zamboanga del Sur marked | *We address "Field Shift: Adapting Farms with NASA Data". Ube production in the Philippines has fallen 43% in fifteen years and the area planted has halved. Farmers here have never been shown whether their own land could still carry it.* | "Ambang among challenge nga Field Shift. Ang produksyon sa ube sa Pilipinas naa 43% nga pag-ubos sa 15 ka tuig, ug napuputol sa katapusan ang area nga gitanuman. Walay gipakita sa mga farmer kung pwede pa ba ang ilang uma nga mo grow." |
 | 0:05 to 0:10 | The UbiMap title screen and tagline | *UbiMap: can my field grow ube, which rotation fits it, and when do I plant?* | "UbiMap. Unsa ako ma grow ang ube, unsang rotation ang akong iya, ug kanus-a ako mamulot?" |
-| 0:10 to 0:14 | The live NASA MODIS map of Pagadian | *Seven NASA datasets. MODIS and VIIRS imagery, SMAP soil moisture and GPM IMERG rainfall stream live from NASA into the browser.* | "Pit ka dataset sa NASA. Ang MODIS ug VIIRS, ang SMAP soil moisture, ug ang GPM IMERG, live gikan sa NASA direkta sa browser." |
-| 0:14 to 0:18 | The Farm Card: the 67 out of 100 score and the three reasons | *Every score names its dataset and its raw value. Nothing is invented, and missing soil data is shown as missing.* | "Kada numero adunay iyang dataset ug iyang value. Walay gipak invention, kung kulang ang datos, makita nga kulang." |
+| 0:10 to 0:14 | The live NASA MODIS map of Pagadian, then tap **Check live with NASA POWER** and show the table that comes back | *Seven NASA datasets. MODIS and VIIRS imagery, SMAP soil moisture and GPM IMERG rainfall stream live from NASA into the browser. And this button calls NASA POWER right now, while you watch.* | "Pit ka dataset sa NASA. Ang MODIS ug VIIRS, ang SMAP soil moisture, ug ang GPM IMERG, live gikan sa NASA direkta sa browser. Ug niining button, naa tawag sa NASA POWER karong karong minsa." |
+| 0:14 to 0:18 | The Farm Card: the 71 out of 100 score and the three reasons | *Every score names its dataset and its raw value. Nothing is invented, and missing soil data is shown as missing.* | "Kada numero adunay iyang dataset ug iyang value. Walay gipak invention, kung kulang ang datos, makita nga kulang." |
 | 0:18 to 0:21 | Scroll the four rotation cards | *Four rotations, including the one you farm now, each with why it is suggested, the evidence, the benefits, the gaps and the risks.* | "Upat ka rotation, lahat gikan sa imong karon, kada usa adunay ngano, evidence, kaayo, gap, ug risk." |
 | 0:21 to 0:25 | The validation table and the rainfall cross-check | *We tested the model against Philippine Statistics Authority data. The first version scored nothing against real yield, so we rebuilt the rainfall from GPM IMERG at 10 km instead of POWER at 50 km. Same provinces: the correlation with real yield went from zero to plus 0.32, and with production volume to plus 0.48. Checked against the weather station, the finer product is right to within a third of a percent.* | "Gi-test nami ang modelo sa datos sa PSA. Ang una nga bersyon wala gyud, so gibuild nami ang ulan gikan sa GPM IMERG sa 10 km imbis sa POWER sa 50 km. Pareho pa na ka probinsiya: ang correlation sa aktuwal nga yield adlaw gikan sa zero to plus 0.32, ug sa volume to plus 0.48." |
 | 0:25 to 0:30 | The map, then the team names | *One node per barangay, ground truth against the satellite, and a province map that shows where local ube supply could grow instead of being imported. This tool supports the farmer, it does not replace them.* | "Usa ka node kada barangay, ground truth kontra satellite, ug mapa sa probinsiya nga magpapakita asa makatubu ang local supply imbis naa i-import. Ginatabang niini ang farmer, dili gi-replace." |
@@ -134,7 +141,7 @@ English only.
 > - A province map that shows where local ube supply could grow instead of being imported
 > - **This tool supports the farmer. It does not replace them, and it does not replace the
 >   local agriculturist.**
-> - Live demo: https://zhameersheraz.github.io/ubimap/ · Code: https://github.com/zhameersheraz/ubimap
+> - Live demo: https://ubimap.pages.dev · Code: https://github.com/zhameersheraz/ubimap
 
 ---
 

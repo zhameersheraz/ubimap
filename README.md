@@ -4,12 +4,13 @@
 
 NASA Space Apps Challenge 2026 &middot; Challenge: *Field Shift: Adapting Farms with NASA Data*
 
-**Live app: https://zhameersheraz.github.io/ubimap/** &middot; **Code: https://github.com/zhameersheraz/ubimap**
+**Live app: https://ubimap.pages.dev** &middot; **Code: https://github.com/zhameersheraz/ubimap**
 
-UbiMap answers one question for a farmer in plain Bisaya: **can my field grow ube, which
-rotation fits it, and when should I plant?** It combines NASA Earth observations with
-local soil information, crop characteristics and the farmer's own priorities, then
-compares at least three rotation strategies including the one the farmer already uses.
+UbiMap answers one question for a farmer, in plain Bisaya, Filipino or English: **can my
+field grow ube, which rotation fits it, and when should I plant?** It combines NASA Earth
+observations with local soil information, crop characteristics and the farmer's own
+priorities, then compares at least three rotation strategies including the one the farmer
+already uses.
 
 ---
 
@@ -76,7 +77,9 @@ UbiMap does exactly that, and it says what it does not know.
 7. **Check the sources.** Every dataset, its resolution, its retrieval time and a link
    that reopens the original data.
 
-The interface runs in **Bisaya, Filipino and English**, and is phone first.
+The interface runs in **Bisaya, Filipino and English**, and is phone first. It opens in
+English, because the NASA judges are international, and the Language toggle switches it to
+Bisaya or Filipino for the pilot farmers in Pagadian.
 
 ---
 
@@ -214,6 +217,30 @@ npm run serve      # zero dependency Node server for dist/ plus a NASA POWER pro
 
 The static build in `dist/` is the whole app. It has no server dependency, so it can be
 hosted on GitHub Pages, Netlify or any static host at no cost.
+
+The live demo is on **Cloudflare Pages** (`https://ubimap.pages.dev`), which is also where
+the NASA POWER proxy runs as a Pages Function under `functions/`. That proxy is the only
+server side piece, and it exists because NASA POWER sends no CORS headers, so a browser
+cannot call it directly. On a plain static host the app still works fully, but the
+"Check live with NASA POWER" button will say the live check is unavailable, because the
+baked in numbers are the same NASA data.
+
+### Deploying to Cloudflare Pages
+
+The project is connected to `zhameersheraz/ubimap` on branch `main`, with build command
+`npm run build`, output directory `dist` and `NODE_VERSION=20`.
+
+Cloudflare's GitHub app installation for this account does not currently have a webhook on
+the repository, so a plain `git push` does not trigger a rebuild on its own. The project
+has a **deploy hook** set up for that case. After pushing, trigger it:
+
+```bash
+curl -X POST "https://api.cloudflare.com/client/v4/pages/webhooks/deploy_hooks/436b13e0-f381-443c-97fe-43f18d988b52"
+```
+
+The build takes about a minute. You can also rebuild from the Cloudflare dashboard at
+Workers & Pages, ubimap, Deployments. GitHub Pages still deploys on every push through
+`.github/workflows/deploy.yml`, so that copy stays current on its own.
 
 ### Rebuilding the data
 
