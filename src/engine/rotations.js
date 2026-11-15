@@ -102,7 +102,7 @@ function scoreSoilCover(sequence, agronomy) {
     score: coverMonths / 12,
     raw: { covered_months: Number(coverMonths.toFixed(1)), bare_months: Number((12 - coverMonths).toFixed(1)) },
     detail_en: `Roughly ${coverMonths.toFixed(0)} of the 12 months have a crop or cover over the soil, leaving about ${(12 - coverMonths).toFixed(0)} months of bare ground where rain can wash the topsoil away.`,
-    detail_bis: `Mga ${coverMonths.toFixed(0)} sa 12 ka bulan adunay crop o cover sa yuta, mga ${(12 - coverMonths).toFixed(0)} ka bulan nga hubad ang yuta asa makatilaw ang ulan ang ibabaw nga yuta.`,
+    detail_bis: `Mga ${coverMonths.toFixed(0)} sa 12 ka bulan adunay crop o cover sa yuta, mga ${(12 - coverMonths).toFixed(0)} ka bulan nga hubad ang yuta asa makatilaw ang ulan sa ibabaw nga yuta.`,
   };
 }
 
@@ -148,7 +148,7 @@ function scoreErosion(sequence, agronomy, cell) {
     score: score ?? 0.5,
     raw: { erosion_pressure: Number(pressure.toFixed(2)), slope_deg: cell.slope_deg ?? null },
     detail_en: `With ${slope.toFixed(1)} degrees of slope, the bare months in this rotation are the erosion risk. Cover crops and terraces cut that.`,
-    detail_bis: `Sa ${slope.toFixed(1)} grados nga kantidad, ang mga bulan nga hubad sa rotation niini ang risk sa erosion. Ang cover crop ug terrasa makapugong niini.`,
+    detail_bis: `Sa ${slope.toFixed(1)} grados nga tilt, ang mga bulan nga hubad sa rotation niini ang risk sa erosion. Ang cover crop ug terrasa makapugong niini.`,
   };
 }
 
@@ -166,7 +166,7 @@ function scorePestBreak(sequence, agronomy) {
     score: score ?? 0,
     raw: { distinct_families: distinct, same_family_repeats: repeats },
     detail_en: `${distinct} different plant famil${distinct === 1 ? 'y' : 'ies'} in this rotation. ${sameFamilyAfter ? 'Careful: a crop from the yam family follows the ube, which carries the same disease risk.' : 'Different families do not share the same soil-borne pests.'}`,
-    detail_bis: `${distinct} ka lain nga pamilya sa tanom sa rotation niini. ${sameFamilyAfter ? 'Pagkatiya: usa ka crop sa pamilya sa yam ang nakaabot human sa ube, naa sila sama nga risk sa sakit.' : 'Lain nga pamilya wala sila sama nga peste sa yuta.'}`,
+    detail_bis: `${distinct} ka lain nga pamilya sa tanom sa rotation niini. ${sameFamilyAfter ? 'Pagkatiya: usa ka tanom sa pamilya sa yam ang nakaabot human sa ube, naa sila sama nga risk sa sakit.' : 'Lain nga pamilya wala sila sama nga peste sa yuta.'}`,
   };
 }
 
@@ -185,7 +185,7 @@ function scoreIncome(sequence, agronomy) {
     score: score ?? 0,
     raw: { market_value_index: Number(value.toFixed(2)), marketable_harvests: harvests },
     detail_en: `${harvests} marketable harvest${harvests === 1 ? '' : 's'} a year from this rotation, with ube as the highest value crop of the set.`,
-    detail_bis: `${harvests} ka marketable nga ani sa tuig gikan sa rotation niini, ug ang ube ang pinaka-value nga tanom niini.`,
+    detail_bis: `${harvests} ka marketable nga ani sa tuig gikan sa rotation niini, ug ang ube ang tanom nga pinaka-value niini.`,
   };
 }
 
@@ -231,7 +231,7 @@ function scoreLabour(sequence, agronomy) {
     score: score ?? 0.5,
     raw: { labour_index: Number(units.toFixed(2)), crops: sequence.length },
     detail_en: `${sequence.length} crop${sequence.length === 1 ? '' : 's'} to plant, tend and harvest. More crops means more work days and more chances to be caught out by the weather.`,
-    detail_bis: `${sequence.length} ka tanim nga kinahanglan nga tanom, pungot, ug ani. Mas daghan nga tanim, mas daghan nga trabaho ug mas daghan nga risgo sa panahon.`,
+    detail_bis: `${sequence.length} ka tanim nga kinahanglan nga tanom, atong, ug ani. Mas daghan nga tanim, mas daghan nga trabaho ug mas daghan nga risgo sa panahon.`,
   };
 }
 
@@ -291,6 +291,8 @@ export function scoreRotations(cell, agronomy, profile, farmer, opts = {}) {
       benefits_bis: rot.benefits_bis ?? [],
       gaps_en: rot.gaps_en ?? [],
       risks_en: rot.risks_en ?? [],
+      gaps_bis: rot.gaps_bis ?? [],
+      risks_bis: rot.risks_bis ?? [],
       score: Number((totalScore * 100).toFixed(1)),
       dimensions: detail,
       top_strength: { id: sortedDims[0][0], ...sortedDims[0][1] },

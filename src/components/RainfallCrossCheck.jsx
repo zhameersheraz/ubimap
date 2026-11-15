@@ -32,7 +32,7 @@ export default function RainfallCrossCheck({ lang, cellId }) {
           <strong>{st.mean_signed_difference_percent}%</strong>
           <span>
             {lang === 'bis'
-              ? 'kasarawan sa taunang ulan, POWER minus IMERG'
+              ? 'kalainan sa taunang ulan, POWER minus IMERG'
               : 'mean difference in annual rainfall, POWER minus IMERG'}
           </span>
         </div>
@@ -56,7 +56,7 @@ export default function RainfallCrossCheck({ lang, cellId }) {
           <strong>{Math.round(st.mean_absolute_annual_difference_mm)} mm</strong>
           <span>
             {lang === 'bis'
-              ? 'kasarawan sa kasukasuan, sa average nga 2,400 mm'
+              ? 'kalainan sa kasukasuan, sa average nga 2,400 mm'
               : 'mean absolute difference on an average of about 2,400 mm'}
           </span>
         </div>
@@ -74,8 +74,16 @@ export default function RainfallCrossCheck({ lang, cellId }) {
           <tbody>
             <tr>
               <td>{lang === 'bis' ? 'Taunang ulan' : 'Annual rainfall'}</td>
-              <td>{Math.round(row.power_annual).toLocaleString()} mm, about 50 km grid</td>
-              <td>{Math.round(row.imerg_annual).toLocaleString()} mm, about 10 km grid, 25 years daily</td>
+              <td>
+                {Math.round(row.power_annual).toLocaleString()} mm,{' '}
+                {lang === 'bis' ? 'mga 50 km nga grid' : 'about 50 km grid'}
+              </td>
+              <td>
+                {Math.round(row.imerg_annual).toLocaleString()} mm,{' '}
+                {lang === 'bis'
+                  ? 'mga 10 km nga grid, 25 ka tuig nga adlaw-adlaw'
+                  : 'about 10 km grid, 25 years daily'}
+              </td>
             </tr>
             <tr>
               <td>{lang === 'bis' ? 'Pinak katag nga bulan' : 'Driest month'}</td>

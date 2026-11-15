@@ -282,7 +282,7 @@ export default function MapPanel({
       <div className="map" ref={containerRef}>
         {showHeatmap && (
           <div className="map-legend">
-            <span>Ube suitability 0 to 100</span>
+            <span>{lang === 'bis' ? 'Kasukto sa ube 0 hangtod sa 100' : 'Ube suitability 0 to 100'}</span>
             <div className="legend-bar" />
             <div className="legend-labels">
               <span>0</span><span>40</span><span>55</span><span>70</span><span>85</span><span>100</span>
@@ -298,7 +298,7 @@ export default function MapPanel({
           className={`chip ${activeLayer === '' ? 'on' : ''}`}
           onClick={() => onLayerChange('')}
         >
-          Street map
+          {lang === 'bis' ? 'Mapa sa dalan' : 'Street map'}
         </button>
         {Object.entries(NASA_LAYERS).map(([id, l]) => (
           <button
@@ -306,9 +306,9 @@ export default function MapPanel({
             key={id}
             className={`chip ${activeLayer === id ? 'on' : ''}`}
             onClick={() => onLayerChange(id)}
-            title={`${l.mission} - ${l.resolution} - ${l.what_en}`}
+            title={`${l.mission} - ${l.resolution} - ${lang === 'bis' ? l.what_bis : l.what_en}`}
           >
-            {l.label_en}
+            {lang === 'bis' ? l.label_bis : l.label_en}
           </button>
         ))}
         <button
@@ -316,14 +316,14 @@ export default function MapPanel({
           className={`chip ${showHeatmap ? 'on' : ''}`}
           onClick={onToggleHeatmap}
         >
-          UbiMap suitability
+          {lang === 'bis' ? 'Kasukto sa UbiMap' : 'UbiMap suitability'}
         </button>
         <button
           type="button"
           className={`chip ${view3d ? 'on' : ''}`}
           onClick={() => setView3d((v) => !v)}
         >
-          3D terrain
+          {lang === 'bis' ? 'Terrain sa 3D' : '3D terrain'}
         </button>
         <button
           type="button"
@@ -336,9 +336,9 @@ export default function MapPanel({
 
       {layer && (
         <div className="map-note">
-          <strong>{layer.label_en}</strong>{' '}
+          <strong>{lang === 'bis' ? layer.label_bis : layer.label_en}</strong>{' '}
           <span className="dim">
-            {layer.mission} &middot; {layer.resolution} &middot; {layer.period} &middot; image date{' '}
+            {layer.mission} &middot; {layer.resolution} &middot; {layer.period} &middot; {lang === 'bis' ? 'petsa sa adla' : 'image date'}{' '}
             {layer.time || 'static'} &middot; {layer.attribution}
           </span>
           <div>{lang === 'bis' ? layer.what_bis : layer.what_en}</div>

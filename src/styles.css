@@ -215,8 +215,12 @@ a { color: var(--sea); }
   justify-content: space-between;
   gap: 14px;
   padding: 12px 0;
-  background: linear-gradient(var(--ink) 72%, var(--topbar-fade));
-  backdrop-filter: blur(3px);
+  /* Solid, with a hairline under it. The bar is sticky, so a background that
+     fades out towards the bottom lets the page scroll through the lower part
+     of the header and the text behind it shows through. */
+  background: var(--ink);
+  border-bottom: 1px solid var(--rule);
+  backdrop-filter: blur(8px);
 }
 .brand { display: flex; align-items: center; gap: 11px; min-width: 0; }
 .brand h1 { display: flex; align-items: baseline; gap: 9px; }

@@ -24,9 +24,9 @@ export const CONSISTENCY_LIMIT = 0.1;
 export const SUITABILITY_MATRIX = {
   factors: [
     { id: 'rainfall', label_en: 'Rainfall pattern and dry maturation window', label_bis: 'Patron sa ulan ug panahon sa pagtiniug sa tubero', dataset: 'GPM IMERG (NASA GIBS)' },
-    { id: 'soil_moisture', label_en: 'Root zone soil moisture', label_bis: 'Katog sa yuta sa lawas sa gamot', dataset: 'NASA POWER (GWETROOT)' },
+    { id: 'soil_moisture', label_en: 'Root zone soil moisture', label_bis: 'Katog sa yuta sa ilawom sa gamot', dataset: 'NASA POWER (GWETROOT)' },
     { id: 'temperature', label_en: 'Temperature and heat stress', label_bis: 'Temperatura ug stress sa init', dataset: 'NASA POWER (T2M_MAX)' },
-    { id: 'slope', label_en: 'Slope and erosion risk', label_bis: 'Kantidad ug risk sa erosion', dataset: 'NASA SRTM' },
+    { id: 'slope', label_en: 'Slope and erosion risk', label_bis: 'Tilt ug risk sa erosion', dataset: 'NASA SRTM' },
     { id: 'soil_ph', label_en: 'Soil pH', label_bis: 'pH sa yuta', dataset: 'ISRIC SoilGrids' },
     { id: 'drainage', label_en: 'Soil texture and drainage', label_bis: 'Textura ug drainage sa yuta', dataset: 'ISRIC SoilGrids' },
   ],

@@ -152,14 +152,14 @@ export function RotationCompare({ lang, rotationResult, priorities }) {
   if (!rotationResult) return null;
   const { rotations } = rotationResult;
   const dimOrder = [
-    ['water_fit', 'Water fit'],
-    ['soil_cover', 'Soil cover'],
-    ['nitrogen', 'Nitrogen'],
-    ['erosion', 'Erosion protection'],
-    ['pest_break', 'Pest cycle break'],
-    ['income', 'Income'],
-    ['climate_risk', 'Climate risk'],
-    ['labour', 'Less work'],
+    ['water_fit', 'Water fit', 'Naayay sa tubig'],
+    ['soil_cover', 'Soil cover', 'Tabon sa yuta'],
+    ['nitrogen', 'Nitrogen', 'Nitrogen'],
+    ['erosion', 'Erosion protection', 'Proteksyon sa erosion'],
+    ['pest_break', 'Pest cycle break', 'Pagbasak sa siklo'],
+    ['income', 'Income', 'Potensyal sa kita'],
+    ['climate_risk', 'Climate risk', 'Risk sa klima'],
+    ['labour', 'Less work', 'Gamay nga trabaho'],
   ];
   const recLabel = {
     recommended: t(lang, 'recommended'),
@@ -197,12 +197,12 @@ export function RotationCompare({ lang, rotationResult, priorities }) {
             </div>
 
             <div className="bars">
-              {dimOrder.map(([id, label]) => {
+              {dimOrder.map(([id, label, labelBis]) => {
                 const d = r.dimensions[id];
                 if (!d) return null;
                 return (
                   <div className="bar-row" key={id}>
-                    <span className="bar-label">{label}</span>
+                    <span className="bar-label">{lang === 'bis' ? labelBis : label}</span>
                     <span className="bar-track">
                       <span
                         className={`bar-fill ${d.score >= 0.66 ? 'good' : d.score >= 0.4 ? 'mid' : 'bad'}`}
@@ -242,7 +242,7 @@ export function RotationCompare({ lang, rotationResult, priorities }) {
               <div className="dim-block">
                 <h4>{t(lang, 'gaps')}</h4>
                 <ul className="tight gap-list">
-                  {r.gaps_en.map((g, i) => <li key={i}>{g}</li>)}
+                  {(lang === 'bis' && r.gaps_bis?.length ? r.gaps_bis : r.gaps_en).map((g, i) => <li key={i}>{g}</li>)}
                 </ul>
               </div>
             )}
@@ -251,7 +251,7 @@ export function RotationCompare({ lang, rotationResult, priorities }) {
               <div className="dim-block">
                 <h4>{t(lang, 'risks')}</h4>
                 <ul className="tight risk-list">
-                  {r.risks_en.map((g, i) => <li key={i}>{g}</li>)}
+                  {(lang === 'bis' && r.risks_bis?.length ? r.risks_bis : r.risks_en).map((g, i) => <li key={i}>{g}</li>)}
                 </ul>
               </div>
             )}
@@ -297,20 +297,28 @@ export function PlantingCalendar({ lang, profile, plan }) {
               </div>
               <span className="cal-temp-val">{Math.round(m.tmax ?? 0)}°</span>
               <div className="cal-marks">
-                {plan?.planting?.includes(m.index) && <span className="mark plant" title="plant ube">P</span>}
-                {plan?.harvest?.includes(m.index) && <span className="mark harvest" title="harvest">H</span>}
-                {plan?.bare?.includes(m.index) && <span className="mark bare" title="bare field">B</span>}
-                {m.season === 'wet' && <span className="mark wet" title="wet season">~</span>}
+                {plan?.planting?.includes(m.index) && (
+                  <span className="mark plant" title={lang === 'bis' ? 'pagtani sa ube' : 'plant ube'}>P</span>
+                )}
+                {plan?.harvest?.includes(m.index) && (
+                  <span className="mark harvest" title={lang === 'bis' ? 'pag-ani' : 'harvest'}>H</span>
+                )}
+                {plan?.bare?.includes(m.index) && (
+                  <span className="mark bare" title={lang === 'bis' ? 'hubad nga uma' : 'bare field'}>B</span>
+                )}
+                {m.season === 'wet' && (
+                  <span className="mark wet" title={lang === 'bis' ? 'panahon sa ulan' : 'wet season'}>~</span>
+                )}
               </div>
             </div>
           ))}
         </div>
         <div className="cal-legend">
-          <span><i className="sw plant" /> plant ube</span>
-          <span><i className="sw harvest" /> harvest</span>
-          <span><i className="sw bare" /> bare field</span>
-          <span><i className="sw wet" /> wet season</span>
-          <span className="dim">rain mm (bar) / max temp °C (bar)</span>
+          <span><i className="sw plant" /> {lang === 'bis' ? 'pagtani sa ube' : 'plant ube'}</span>
+          <span><i className="sw harvest" /> {lang === 'bis' ? 'pag-ani' : 'harvest'}</span>
+          <span><i className="sw bare" /> {lang === 'bis' ? 'hubad nga uma' : 'bare field'}</span>
+          <span><i className="sw wet" /> {lang === 'bis' ? 'panahon sa ulan' : 'wet season'}</span>
+          <span className="dim">{lang === 'bis' ? 'ulan mm (bar) / max temp °C (bar)' : 'rain mm (bar) / max temp °C (bar)'}</span>
         </div>
       </div>
 
@@ -325,87 +333,10 @@ export function PlantingCalendar({ lang, profile, plan }) {
           <h4>{lang === 'bis' ? 'Pinak katag nga panahon nga walay ulan' : 'Longest dry spell'}</h4>
           <p className="dim small">
             {lang === 'bis'
-              ? `${profile.drySpellMonths} ka bulan sa panahon sa tanom nga ubos sa 40 mm nga ulan.`
-              : `${profile.drySpellMonths} month${profile.drySpellMonths === 1 ? '' : 's'} in the growing season with under 40 mm of rain.`}
+              ? `${plan?.drySpellMonths ?? 0} ka bulan sa panahon sa tanom nga ubos sa 40 mm nga ulan.`
+              : `${plan?.drySpellMonths ?? 0} month${plan?.drySpellMonths === 1 ? '' : 's'} in the growing season with under 40 mm of rain.`}
           </p>
         </div>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/* Satellite versus ground                                               */
-/* ------------------------------------------------------------------ */
-export function SatelliteVsGround({ lang }) {
-  return (
-    <section className="card">
-      <h2>{t(lang, 'satelliteVsGround')}</h2>
-      <p>
-        {lang === 'bis'
-          ? 'Ang matag-iya nga limitation niini sa spatial scale, ipakita diri sa simple nga numero. Esensyal nga mahitungod kung unsa ang mapakita niini sa imong uma.'
-          : 'The honest limitation of this tool is spatial scale, so here it is in plain numbers.'}
-      </p>
-
-      <table className="cmp">
-        <thead>
-          <tr>
-            <th />
-            <th>{lang === 'bis' ? 'Satellite' : 'Satellite'}</th>
-            <th>{lang === 'bis' ? 'Sensor sa yuta' : 'Ground sensor'}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{lang === 'bis' ? 'Area nga ginalugdan' : 'Area it covers'}</td>
-            <td>SMAP L3: about 36 km across one pixel. MODIS: 250 m. POWER: about 50 km.</td>
-            <td>One ESP32 node: about 1 square metre.</td>
-          </tr>
-          <tr>
-            <td>{lang === 'bis' ? 'Unsa iyang nakita' : 'What it sees'}</td>
-            <td>The neighbourhood. Bare soil, water, canopy and heat mixed together in one pixel.</td>
-            <td>One spot of soil. Moisture and temperature at root depth, every 15 minutes.</td>
-          </tr>
-          <tr>
-            <td>{lang === 'bis' ? 'Kusog' : 'Strength'}</td>
-            <td>Covers the whole province, every 2 to 3 days, for 25 years of history, at no cost.</td>
-            <td>Real ground truth at the scale the farmer actually works.</td>
-          </tr>
-          <tr>
-            <td>{lang === 'bis' ? 'Kahuyag' : 'Weakness'}</td>
-            <td>Cannot separate a wet corner from a dry corner of the same field.</td>
-            <td>One point. Cannot say anything about the rest of the field or the season behind it.</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div className="dim-block">
-        <h4>{lang === 'bis' ? 'Giunsa nga maayo ang duha' : 'Why combining them is better'}</h4>
-        <p>
-          {lang === 'bis'
-            ? 'Usa ka pixel sa SMAP mga 36 km ka lapad. Usa ka uma gamay lang sa pixel, so ang SMAP number kay "average" sa dako nga lugar, dili sa imong plot. Usa ka sensor lang sa sulat sa langit, mahimong mapalabas kung kinsa nga bahin sa uma ang basahi. Pagduha nga gi-combine, naa tana i-check kung ang sensor naayon sa satellite, kay kung dili, naa tana lokal nga anomalya (baso nga utod, maa kanal, giablado nga yuta). Mao kana ang "SI" nga gi-validate sa ground.'
-            : 'One SMAP pixel is about 36 km wide. A farm is a small part of that pixel, so the SMAP number is an average over a large area, not your plot. A single sensor reads one point of soil. Put the two together and you can check whether the ground reading agrees with the satellite reading. If it does not, the difference points to a local anomaly: a wet corner, a blocked drain, or a patch of compacted soil. That is the value of validation against ground truth.'}
-        </p>
-      </div>
-
-      <div className="dim-block plan-box">
-        <h4>UbiSense: what we built and what is still to do</h4>
-        <ul className="tight">
-          <li>
-            <strong>Built.</strong> ESP32 firmware for a capacitive soil moisture probe plus a
-            DS18B20 soil temperature probe, reading every 15 minutes and posting to the
-            UbiMap endpoint. The source is in <code>firmware/ubisense/</code> in this repository.
-          </li>
-          <li>
-            <strong>Not yet done, and we are not pretending otherwise.</strong> No node has been
-            deployed in the field yet, so this build shows <em>no</em> ground measurements. We
-            would rather show an empty chart with an honest label than a chart full of invented numbers.
-          </li>
-          <li>
-            <strong>Next step.</strong> One node per barangay, shared by a cooperative. The node
-            cost is roughly PHP 1,000 to 1,500, which is one basket of ube.
-          </li>
-        </ul>
       </div>
     </section>
   );
@@ -438,12 +369,12 @@ export function Provenance({ lang, rows, meta }) {
           <tbody>
             {rows.map((r) => (
               <tr key={r.name}>
-                <td><a href={r.url} target="_blank" rel="noreferrer">{r.name}</a></td>
+                <td><a href={r.url} target="_blank" rel="noreferrer">{lang === 'bis' && r.name_bis ? r.name_bis : r.name}</a></td>
                 <td className="dim">{r.mission}</td>
-                <td>{r.used_for}</td>
-                <td className="dim">{r.resolution}</td>
+                <td>{lang === 'bis' && r.used_for_bis ? r.used_for_bis : r.used_for}</td>
+                <td className="dim">{lang === 'bis' && r.resolution_bis ? r.resolution_bis : r.resolution}</td>
                 <td className="dim">{String(r.retrieved).slice(0, 16).replace('T', ' ')}</td>
-                <td>{r.group === 'gibs' ? 'Live' : r.live}</td>
+                <td>{r.group === 'gibs' ? 'Live' : (lang === 'bis' && r.live_bis ? r.live_bis : r.live)}</td>
               </tr>
             ))}
           </tbody>
@@ -564,9 +495,9 @@ export function NasaDataPanel({ lang, rows }) {
       <ul className="tight nasa-list">
         {nasa.map((r) => (
           <li key={r.name}>
-            <strong>{r.name}</strong>
-            <span className="dim"> &middot; {r.mission} &middot; {r.resolution}</span>
-            <div>{r.used_for}</div>
+            <strong>{lang === 'bis' && r.name_bis ? r.name_bis : r.name}</strong>
+            <span className="dim"> &middot; {r.mission} &middot; {lang === 'bis' && r.resolution_bis ? r.resolution_bis : r.resolution}</span>
+            <div>{lang === 'bis' && r.used_for_bis ? r.used_for_bis : r.used_for}</div>
           </li>
         ))}
       </ul>

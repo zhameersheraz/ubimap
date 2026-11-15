@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import MapPanel from './components/MapPanel.jsx';
 import {
   FarmProfile, ReadinessCard, RotationCompare, PlantingCalendar,
@@ -80,6 +80,19 @@ export default function App() {
   }, [theme]);
 
   const toggleTheme = () => setTheme((v) => (v === 'dark' ? 'light' : 'dark'));
+
+  // Every step is a new screen, and the browser keeps the old scroll offset when
+  // the content swaps. Step 1 is much taller than step 2 because of the map, so
+  // Continue used to drop you at the bottom of the page instead of the top of
+  // the new step. Jump to the top whenever the step changes.
+  const firstRender = useRef(true);
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }, [step]);
 
   // The logo doubles as a back to top control, so it has to work from the
   // bottom of a long page as well as from the top.
@@ -186,6 +199,22 @@ export default function App() {
           </div>
         </div>
         <div className="langs">
+          <span className="dim tiny langs-label">
+            {t(lang, 'langLabel')}
+          </span>
+          <div className="lang-group" role="group" aria-label={t(lang, 'langLabel')}>
+            {LANGS.map((l) => (
+              <button
+                key={l.id}
+                type="button"
+                className={`chip ${lang === l.id ? 'chip-on' : ''}`}
+                onClick={() => setLang(l.id)}
+                aria-pressed={lang === l.id}
+              >
+                {l.short}
+              </button>
+            ))}
+          </div>
           <button
             type="button"
             className="theme-toggle"
@@ -203,22 +232,6 @@ export default function App() {
               <path d="M20.5 14.6A8.6 8.6 0 0 1 9.4 3.5a8.6 8.6 0 1 0 11.1 11.1z" />
             </svg>
           </button>
-          <span className="dim tiny langs-label">
-            {t(lang, 'langLabel')}
-          </span>
-          <div className="lang-group" role="group" aria-label={t(lang, 'langLabel')}>
-            {LANGS.map((l) => (
-              <button
-                key={l.id}
-                type="button"
-                className={`chip ${lang === l.id ? 'chip-on' : ''}`}
-                onClick={() => setLang(l.id)}
-                aria-pressed={lang === l.id}
-              >
-                {l.short}
-              </button>
-            ))}
-          </div>
         </div>
       </header>
 
@@ -400,7 +413,7 @@ export default function App() {
                   <p>{cropLabel(farmer.currentCrop)}</p>
                 </div>
                 <div>
-                  <h4>{lang === 'bis' ? 'Gipili nga rotation' : 'Suggested rotation'}</h4>
+                  <h4>{lang === 'bis' ? 'Girekomenda nga rotation' : 'Suggested rotation'}</h4>
                   <p>
                     {rotationResult?.rotations?.[0]?.sequence?.map(cropLabel).join(' → ')}
                   </p>
@@ -419,7 +432,15 @@ export default function App() {
                 </div>
                 <div>
                   <h4>{lang === 'bis' ? 'Kasaligan' : 'Confidence'}</h4>
-                  <p>{result.confidence.level}</p>
+                  <p>
+                    {lang === 'bis'
+                      ? {
+                          high: t(lang, 'confidenceHigh'),
+                          medium: t(lang, 'confidenceMedium'),
+                          low: t(lang, 'confidenceLow'),
+                        }[result.confidence.level]
+                      : result.confidence.level}
+                  </p>
                 </div>
               </div>
               <ul className="fc-reasons">
