@@ -12,6 +12,15 @@ observations with local soil information, crop characteristics and the farmer's 
 priorities, then compares at least three rotation strategies including the one the farmer
 already uses.
 
+<p align="center">
+  <img src="docs/images/map.png" width="920" alt="The UbiMap app in a browser. NASA GIBS MODIS true colour imagery over Pagadian City, with the UbiMap ube suitability grid on top and the NASA layer selector underneath.">
+</p>
+
+<p align="center">
+  <em>The live app: NASA imagery streaming over Pagadian City, with the UbiMap ube
+  suitability grid on top. Every green dot is a grid cell scored for ube.</em>
+</p>
+
 ---
 
 ## The problem
@@ -82,6 +91,29 @@ English, because the NASA judges are international, and the Language toggle swit
 to Bisaya or Filipino for the pilot farmers in Pagadian. There is also a light and a dark
 theme, and the choice is remembered between visits.
 
+<p align="center">
+  <img src="docs/images/farm-card.png" width="900" alt="The Farm Card: a ube readiness score of 71 out of 100, the band it falls in, the confidence, and the note explaining what the score is based on.">
+</p>
+
+<p align="center">
+  <em>The Farm Card. One score, the band it falls in, the confidence, and the honest
+  note about what the number is built on.</em>
+</p>
+
+<table>
+<tr>
+  <td width="62%" valign="top">
+    <img src="docs/images/rotation-card.png" alt="One rotation card showing the score, the RECOMMENDED badge, why it is suggested, the eight scored dimensions, the evidence, the benefits and the information gaps.">
+    <p><em>Every rotation card carries the five things the brief asks for: why it is
+    suggested, the evidence, the benefits, the information gaps and the risks.</em></p>
+  </td>
+  <td width="38%" valign="top">
+    <img src="docs/images/phone.png" width="300" alt="The Farm Card on a phone, showing the ube readiness gauge of 71 out of 100 and the reasons behind it.">
+    <p><em>The same card on a phone, which is where it is actually used.</em></p>
+  </td>
+</tr>
+</table>
+
 ---
 
 ## NASA data used
@@ -103,6 +135,15 @@ resources and are used for comparison.
 No NASA account is needed, nothing is paid for, and no information about a farmer's
 field is sent anywhere. Every number is baked into the app, so it works with no network
 at all.
+
+<p align="center">
+  <img src="docs/images/nasa-plate.png" width="900" alt="NASA MODIS Terra true colour image of the Zamboanga peninsula, showing the Sulu Sea and the coastal plain around Pagadian City, with the date, resolution and position of the frame printed underneath.">
+</p>
+
+<p align="center">
+  <em>The plate the app opens on: NASA MODIS Terra true colour over the Zamboanga
+  peninsula, with the exact frame, resolution and date printed underneath it.</em>
+</p>
 
 ---
 
@@ -184,6 +225,15 @@ came out. See `data/validation_results.json` and the *Model validation* panel in
 A tool that reports its own validation failure, explains the cause, and states the
 conditions under which it should not be used is more useful to a farmer than a tool that
 shows a confident number.
+
+<p align="center">
+  <img src="docs/images/validation-table.png" width="880" alt="The validation table in the app: the UbiMap score for each Philippine province against its Philippine Statistics Authority production, with the non producing provinces marked.">
+</p>
+
+<p align="center">
+  <em>The validation panel in the app: every scored province against its real PSA
+  production, with the provinces that grow no ube marked at the bottom.</em>
+</p>
 
 ---
 
@@ -284,6 +334,7 @@ UbiMap/
   firmware/        UbiSense ESP32 firmware
   data/            the precomputed grids, all regenerable from the scripts
   deck/            the 7 slide NASA deck: index.html source, shots/, and the build script
+  docs/images/     the screenshots used in this README
   research_notes/  the research that produced the thresholds and the sources
 ```
 
