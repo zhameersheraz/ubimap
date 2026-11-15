@@ -375,7 +375,7 @@ export default function App() {
             </label>
             <p className="dim small">
               {lang === 'bis'
-                ? 'Gidoktor para sa "unsa kung naa bag-o na klima". Dili bag-o nga datos gikan sa NASA POWER, gipakita lang unsa naa mahimo kung mag-usab ang ulan o temperatura.'
+                ? 'Gipakaayo para sa "unsa kung naa bag-o na klima". Dili bag-o nga datos gikan sa NASA POWER, gipakita lang unsa naa mahimo kung mag-usab ang ulan o temperatura.'
                 : 'A what-if on the NASA POWER climate record. The numbers are not new data, they show what the model does when rainfall or temperature shifts.'}
             </p>
           </div>
@@ -385,7 +385,7 @@ export default function App() {
             <h2>{lang === 'bis' ? 'Live nga check' : 'Live check'}</h2>
             <p className="dim small">
               {lang === 'bis'
-                ? 'Ang mga numero sa screen gikan sa NASA POWER, gipull samtang gihatag ang grid. Ginatamon nato kung naa pa gyud nga live ang NASA para sa imong uma karon.'
+                ? 'Ang mga numero sa screen gikan sa NASA POWER, gipull samtang hinimo ang grid. Ginatamon nato kung naa pa gyud nga live ang NASA para sa imong uma karon.'
                 : 'The numbers on screen came from NASA POWER, fetched when the grid was built. This asks the NASA POWER API right now, for your field.'}
             </p>
             {nearest && <LiveCheck lang={lang} lat={nearest.cell.lat} lon={nearest.cell.lon} />}
