@@ -52,33 +52,45 @@ function WetnessChart({ profile }) {
 export default function SatelliteVsGroundPanel({ lang, profile }) {
   return (
     <section className="card">
-      <h2>{'Satellite versus ground'}</h2>
+      <h2>{lang === 'bis' ? 'Satellite kontra ground' : 'Satellite versus ground'}</h2>
       <p>
-        {'The honest limitation of this tool is spatial scale, so here it is in plain numbers.'}
+        {lang === 'bis'
+          ? 'Ang matag-iya nga limitation niini sa spatial scale, ipakita diri sa simple nga numero.'
+          : 'The honest limitation of this tool is spatial scale, so here it is in plain numbers.'}
       </p>
 
       <div className="chart-block">
         <h4>
-          {'Satellite side: monthly root zone wetness (NASA POWER / MERRA-2)'}
+          {lang === 'bis'
+            ? 'Satellite nga bahin: moisture sa lawas sa gamot, matag bulan (NASA POWER / MERRA-2)'
+            : 'Satellite side: monthly root zone wetness (NASA POWER / MERRA-2)'}
         </h4>
         {profile ? <WetnessChart profile={profile} /> : null}
         <p className="dim small">
-          {'The index runs from 0 to 1, it is not a volume. This is still regional: one SMAP pixel is about 36 km across, so every point on the line is an average over a large area, not a reading of your plot.'}
+          {lang === 'bis'
+            ? 'Index gikan sa 0 hangtod sa 1, dili kubo. Nasud pa nga naa ang usa ka pixel sa SMAP, mga 36 km, so matag iya nga average sa dako nga lugar, dili sa imong plot.'
+            : 'The index runs from 0 to 1, it is not a volume. This is still regional: one SMAP pixel is about 36 km across, so every point on the line is an average over a large area, not a reading of your plot.'}
         </p>
       </div>
 
       <div className="chart-block empty">
         <h4>
-          {'Ground side: the UbiSense node at the field'}
+          {lang === 'bis'
+            ? 'Ground nga bahin: ang sensor node sa uma (UbiSense)'
+            : 'Ground side: the UbiSense node at the field'}
         </h4>
         <div className="empty-chart" aria-label="No ground data yet">
           <span className="empty-line" />
           <span className="empty-note">
-            {'No node has been deployed in the field, so there is no ground data on this chart yet. An honest empty chart beats a chart full of invented numbers.'}
+            {lang === 'bis'
+              ? 'Wala pa nga node nga gina-deploy sa uma, so walay ground data sa graph niini. Mas matag-iya kaysa datos nga imantin-aw.'
+              : 'No node has been deployed in the field, so there is no ground data on this chart yet. An honest empty chart beats a chart full of invented numbers.'}
           </span>
         </div>
         <p className="dim small">
-          {'The protocol: read every 15 minutes, post to UbiMap, then compare against the satellite line for the same dates. Where they agree, the field is behaving like its neighbourhood. Where they do not, the difference points to a local anomaly: a wet corner, a blocked drain, a patch of compacted soil. That is how the uncertainty range actually gets narrowed.'}
+          {lang === 'bis'
+            ? 'Ang protocol: basahi kada 15 minuto, i-post sa UbiMap, unya itandi sa satellite line sa parehong petsa. Kon agree, ang uma gikawag sa iyang kighborhood. Kon dili agree, naa tana lokal nga anomalya: baso nga utod, maa kanal, o giablado nga yuta. Mao kana ang paagi aron mapugong ang uncertainty.'
+            : 'The protocol: read every 15 minutes, post to UbiMap, then compare against the satellite line for the same dates. Where they agree, the field is behaving like its neighbourhood. Where they do not, the difference points to a local anomaly: a wet corner, a blocked drain, a patch of compacted soil. That is how the uncertainty range actually gets narrowed.'}
         </p>
       </div>
 
@@ -86,28 +98,28 @@ export default function SatelliteVsGroundPanel({ lang, profile }) {
         <thead>
           <tr>
             <th />
-            <th>{'Satellite'}</th>
-            <th>{'Ground sensor'}</th>
+            <th>{lang === 'bis' ? 'Satellite' : 'Satellite'}</th>
+            <th>{lang === 'bis' ? 'Sensor sa yuta' : 'Ground sensor'}</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>{'Area it covers'}</td>
+            <td>{lang === 'bis' ? 'Area nga ginalugdan' : 'Area it covers'}</td>
             <td>SMAP L3: about 36 km across one pixel. MODIS: 250 m. POWER: about 50 km.</td>
             <td>One ESP32 node: about 1 square metre.</td>
           </tr>
           <tr>
-            <td>{'What it sees'}</td>
+            <td>{lang === 'bis' ? 'Unsa iyang nakita' : 'What it sees'}</td>
             <td>The neighbourhood. Bare soil, water, canopy and heat mixed together in one pixel.</td>
             <td>One spot of soil. Moisture and temperature at root depth, every 15 minutes.</td>
           </tr>
           <tr>
-            <td>{'Strength'}</td>
+            <td>{lang === 'bis' ? 'Kusog' : 'Strength'}</td>
             <td>Covers the whole province, every 2 to 3 days, for 25 years of history, at no cost.</td>
             <td>Real ground truth at the scale the farmer actually works.</td>
           </tr>
           <tr>
-            <td>{'Weakness'}</td>
+            <td>{lang === 'bis' ? 'Kahuyag' : 'Weakness'}</td>
             <td>Cannot separate a wet corner from a dry corner of the same field.</td>
             <td>One point. Cannot say anything about the rest of the field or the season behind it.</td>
           </tr>

@@ -9,6 +9,7 @@ import RainfallCrossCheck from './components/RainfallCrossCheck.jsx';
 import LiveCheck from './components/LiveCheck.jsx';
 import { AGRONOMY, DEMO_FIELD, GRID_META, nearestCell, provenanceRows } from './engine/grid.js';
 import validationData from '../data/validation_results.json';
+import HERO from './data/heroPlate.json';
 import { evaluateCell, monthlyProfile, classifySeasons, longestDryRun } from './engine/suitability.js';
 import { scoreRotations } from './engine/rotations.js';
 import { LANGS, t } from './i18n/strings.js';
@@ -80,6 +81,12 @@ export default function App() {
 
   const toggleTheme = () => setTheme((v) => (v === 'dark' ? 'light' : 'dark'));
 
+  // The logo doubles as a back to top control, so it has to work from the
+  // bottom of a long page as well as from the top.
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const scenario = useMemo(
     () => ({ scenarioRainFactor: rainFactor, scenarioTempDelta: tempDelta }),
     [rainFactor, tempDelta],
@@ -143,32 +150,39 @@ export default function App() {
   const cropLabel = (id) => {
     const c = AGRONOMY.companion_crops[id];
     if (!c) return id;
-    return c.common_en;
+    return lang === 'bis' ? c.common_bis : c.common_en;
   };
 
   return (
     <div className="app">
       <header className="topbar">
         <div className="brand">
-          <span className="logo" aria-hidden="true">
-            {/* A topographic contour mark: the subject is a field seen from orbit,
-                so the mark is a hill read as elevation rings. */}
+          <button
+            type="button"
+            className="logo"
+            onClick={scrollToTop}
+            aria-label="Back to the top"
+            title="Back to the top"
+          >
+            {/* A minimal contour mark: three nested rings and a summit point,
+                the subject read as elevation. The wordmark sits beside it so
+                the mark stays small and quiet. */}
             <svg viewBox="0 0 32 32" width="32" height="32" focusable="false">
               <defs>
                 <linearGradient id="ubimap-mark" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#d9a3ee" />
+                  <stop offset="0%" stopColor="#e0b3f2" />
                   <stop offset="55%" stopColor="#b36ad4" />
-                  <stop offset="100%" stopColor="#6f9fd0" />
+                  <stop offset="100%" stopColor="#5f97cd" />
                 </linearGradient>
               </defs>
               <g fill="none" stroke="url(#ubimap-mark)" strokeLinecap="round">
-                <path d="M16 4.5c5.6 0 9.4 3.6 9.4 8.3 0 4.4-3 6.4-4.6 9.1-1.2 2-1.8 3.6-1.8 5.6" strokeWidth="1.9" opacity="0.95" />
-                <path d="M16 9.6c3.5 0 5.8 2.3 5.8 5.2 0 2.8-2 4-3.1 5.8-.9 1.4-1.3 2.4-1.3 3.9" strokeWidth="1.9" opacity="0.8" />
-                <path d="M16 14.6c1.6 0 2.7 1.1 2.7 2.5 0 1.5-1 2.2-1.5 3.2-.4.8-.6 1.3-.6 2" strokeWidth="1.7" opacity="0.65" />
+                <path d="M16 4.6c6 0 10.2 3.9 10.2 9.2S21.4 26 16 27.4C10.6 26 5.8 19.6 5.8 13.8S10 4.6 16 4.6z" strokeWidth="1.7" opacity="0.55" />
+                <path d="M16 9.3c3.7 0 6.4 2.5 6.4 5.9s-2.6 7.1-6.4 8c-3.8-.9-6.4-4.6-6.4-8s2.7-5.9 6.4-5.9z" strokeWidth="1.8" opacity="0.8" />
+                <path d="M16 13.9c1.9 0 3.1 1.3 3.1 2.9s-1.3 3.4-3.1 3.8c-1.8-.4-3.1-2.2-3.1-3.8s1.2-2.9 3.1-2.9z" strokeWidth="1.9" />
               </g>
-              <circle cx="16" cy="12.4" r="2.5" fill="#f4e6fb" />
+              <circle cx="16" cy="16.8" r="1.7" fill="#f7ecfd" />
             </svg>
-          </span>
+          </button>
           <div>
             <h1>
               UbiMap <em>NASA Space Apps 2026</em>
@@ -221,12 +235,12 @@ export default function App() {
             />
             <div className="plate-caption">
               <span>
-                <b>Plate 01</b> MODIS Terra true colour
+                <b>Plate 01</b> {HERO.plate_layer}
               </span>
-              <span>2026-11-14</span>
-              <span>250 m</span>
-              <span>7.8397 N, 123.4373 E</span>
-              <span>NASA EOSDIS GIBS</span>
+              <span>{HERO.plate_date}</span>
+              <span>{HERO.plate_resolution}</span>
+              <span>{HERO.plate_lat}, {HERO.plate_lon}</span>
+              <span>{HERO.plate_source}</span>
             </div>
           </section>
 
@@ -246,14 +260,36 @@ export default function App() {
               </button>
             </div>
             {pin && (
-              <p className="pin-readout">
-                <strong>{pin.lat.toFixed(4)}°N, {pin.lon.toFixed(4)}°E</strong>
-                {nearest && (
-                  <span className="dim">
-                    {' '}· grid cell {nearest.cell.id} · {nearest.offsetKm.toFixed(2)} km from the pin
-                  </span>
-                )}
-              </p>
+              <>
+                <p className="pin-readout">
+                  <strong>{pin.lat.toFixed(4)}°N, {pin.lon.toFixed(4)}°E</strong>
+                  {nearest && (
+                    <span className="dim">
+                      {' '}· grid cell {nearest.cell.id} · {nearest.offsetKm.toFixed(2)} km from the pin
+                    </span>
+                  )}
+                </p>
+                <p className="dim small explore-row">
+                  {lang === 'bis'
+                    ? 'Panalawid ang lugar nga imong gipili:'
+                    : 'Look around the field you picked:'}{' '}
+                  <a
+                    href={`https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${pin.lat},${pin.lon}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {lang === 'bis' ? 'Street View' : 'Street View'}
+                  </a>
+                  {' · '}
+                  <a
+                    href={`https://www.google.com/maps/@?api=1&map_action=map&center=${pin.lat},${pin.lon}&zoom=15`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {lang === 'bis' ? 'Mapa' : 'Map'}
+                  </a>
+                </p>
+              </>
             )}
           </section>
 
@@ -273,6 +309,13 @@ export default function App() {
             <button type="button" className="btn" disabled={!pin} onClick={() => setStep(2)}>
               {t(lang, 'continue')}
             </button>
+            {!pin && (
+              <span className="dim small nav-hint">
+                {lang === 'bis'
+                  ? 'Tap ang mapa o gamit ang demo field una.'
+                  : 'Tap the map or use the demo field first.'}
+              </span>
+            )}
           </div>
         </>
       )}
@@ -320,17 +363,19 @@ export default function App() {
               <span className="slider-val">{tempDelta > 0 ? '+' : ''}{tempDelta}°C</span>
             </label>
             <p className="dim small">
-              A what-if on the NASA POWER climate record. The numbers are not new data, they show
-              what the model does when rainfall or temperature shifts.
+              {lang === 'bis'
+                ? 'Gidoktor para sa "unsa kung naa bag-o na klima". Dili bag-o nga datos gikan sa NASA POWER, gipakita lang unsa naa mahimo kung mag-usab ang ulan o temperatura.'
+                : 'A what-if on the NASA POWER climate record. The numbers are not new data, they show what the model does when rainfall or temperature shifts.'}
             </p>
           </div>
 
           <ReadinessCard lang={lang} result={result} />
           <section className="card livecard">
-            <h2>Live check</h2>
+            <h2>{lang === 'bis' ? 'Live nga check' : 'Live check'}</h2>
             <p className="dim small">
-              The numbers on screen came from NASA POWER, fetched when the grid was built. This
-              asks the NASA POWER API right now, for your field.
+              {lang === 'bis'
+                ? 'Ang mga numero sa screen gikan sa NASA POWER, gipull samtang gihatag ang grid. Ginatamon nato kung naa pa gyud nga live ang NASA para sa imong uma karon.'
+                : 'The numbers on screen came from NASA POWER, fetched when the grid was built. This asks the NASA POWER API right now, for your field.'}
             </p>
             {nearest && <LiveCheck lang={lang} lat={nearest.cell.lat} lon={nearest.cell.lon} />}
           </section>
@@ -353,29 +398,29 @@ export default function App() {
               </header>
               <div className="fc-grid">
                 <div>
-                  <h4>Your current crop</h4>
+                  <h4>{lang === 'bis' ? 'Imong tanom' : 'Your current crop'}</h4>
                   <p>{cropLabel(farmer.currentCrop)}</p>
                 </div>
                 <div>
-                  <h4>Suggested rotation</h4>
+                  <h4>{lang === 'bis' ? 'Gipili nga rotation' : 'Suggested rotation'}</h4>
                   <p>
                     {rotationResult?.rotations?.[0]?.sequence?.map(cropLabel).join(' → ')}
                   </p>
                 </div>
                 <div>
-                  <h4>Plant ube</h4>
-                  <p>{plan?.planting?.map((i) => result.profile.months[i].label_en).join(', ')}</p>
+                  <h4>{lang === 'bis' ? 'Paglugod sa ube' : 'Plant ube'}</h4>
+                  <p>{plan?.planting?.map((i) => (lang === 'bis' ? result.profile.months[i].label_bis : result.profile.months[i].label_en)).join(', ')}</p>
                 </div>
                 <div>
-                  <h4>Harvest ube</h4>
-                  <p>{plan?.harvest?.map((i) => result.profile.months[i].label_en).join(', ')}</p>
+                  <h4>{lang === 'bis' ? 'Ani sa ube' : 'Harvest ube'}</h4>
+                  <p>{plan?.harvest?.map((i) => (lang === 'bis' ? result.profile.months[i].label_bis : result.profile.months[i].label_en)).join(', ')}</p>
                 </div>
                 <div>
-                  <h4>Rainfall a year</h4>
+                  <h4>{lang === 'bis' ? 'Ulan sa tuig' : 'Rainfall a year'}</h4>
                   <p>{Math.round(result.profile.annual_mm).toLocaleString()} mm</p>
                 </div>
                 <div>
-                  <h4>Confidence</h4>
+                  <h4>{lang === 'bis' ? 'Kasaligan' : 'Confidence'}</h4>
                   <p>{result.confidence.level}</p>
                 </div>
               </div>
@@ -383,7 +428,7 @@ export default function App() {
                 {result.reasons.map((f) => (
                   <li key={f.id}>
                     <span className="chip-dataset">{f.dataset}</span>{' '}
-                    {f.detail_en}
+                    {lang === 'bis' ? f.detail_bis : f.detail_en}
                   </li>
                 ))}
               </ul>

@@ -1,16 +1,77 @@
 /**
- * UbiMap interface text in Filipino and English.
- *
+ * UbiMap interface text in Bisaya, Filipino and English.
  * English is the default because the NASA judges are international, so the app has to
- * open in a language every judge can read. Filipino is offered for the pilot farmers in
- * Pagadian, who speak it at home.
+ * open in a language every judge can read. Bisaya and Filipino are offered for the
+ * pilot farmers in Pagadian, who speak them at home.
  */
 export const LANGS = [
+  { id: 'bis', label: 'Bisaya', short: 'Bis' },
   { id: 'fil', label: 'Filipino', short: 'Fil' },
   { id: 'en', label: 'English', short: 'EN' },
 ];
 
 export const STRINGS = {
+  bis: {
+    appName: 'UbiMap',
+    tagline: 'NASA data para sa mga mag-ubang',
+    step1_title: 'Asa ang imong uma?',
+    step1_body: 'I-tap ang mapa o gamit ang GPS. Isang gamay lang nga representasyon ang gihatag, dili ang imong tibuok nga uma.',
+    useGps: 'Gamit ang GPS',
+    useDemo: 'Gamit ang demo field sa Pagadian',
+    step2_title: 'Imong uma',
+    step2_body: 'Isama na nimo ang tanom nga imong gina-planta karon ug ang pinakaimportante nga gusto mo.',
+    currentCrop: 'Unsa ang imong gina-planta karon?',
+    areaHa: 'Kaayo sa uma (hectare)',
+    priorities: 'Unsa ang pinakaimportante para saimo?',
+    moreIncome: 'Mas daghan nga kita',
+    saveWater: 'Hagdangan ang tubig',
+    healthySoil: 'Mas maayo nga yuta',
+    lessWork: 'Mas gamay nga trabaho',
+    irrigation: 'Naa ba kay irrigasyon?',
+    irrigationYes: 'Naa',
+    irrigationNo: 'Wala',
+    continue: 'Kontinuha',
+    back: 'Balik',
+    result_title: 'Farm Card nimo',
+    readiness: 'Kasuretso sa ube',
+    excellent: 'Hantur kaayo',
+    good: 'Maayo',
+    fair: 'Katamtaman',
+    poor: 'Manghina',
+    reasons: 'Ngano nga maayo',
+    concerns: 'Ang dapat bantayan',
+    confidence: 'Kasaligan sa resulta',
+    confidenceHigh: 'Taas',
+    confidenceMedium: 'Katamtaman',
+    confidenceLow: 'Mababa',
+    rotations: 'Compare sa mga rotation',
+    why: 'Ngano nga gipili nga kini',
+    evidence: 'Ebidensya',
+    benefits: 'Mga kaayo',
+    gaps: 'Mga kulang nga datos',
+    risks: 'Mga risgo nga kinahanglan nga i-check sa lokal',
+    calendar: 'Kalendaryo sa pagtani',
+    yourPlan: 'Imong rotation',
+    recommended: 'Gipili',
+    possible: 'Posible',
+    current: 'Karon',
+    weak: 'Manghina',
+    scenario: 'Unsa kung naa bag-o nga ulan?',
+    satelliteVsGround: 'Satellite kontra ground',
+    provenance: 'Mga pinagmulan',
+    disclaimer: 'Ang tool naa nga matabang, dili nga nagsusupay sa imong hudhud ug sa imong lokal na agronomista.',
+    print: 'I-print / i-save',
+    share: 'I-share',
+    rain: 'Ulan',
+    temp: 'Temperatura',
+    soilMoisture: 'Katog sa yuta',
+    slope: 'Kantidad',
+    suitability: 'Heatmap sa kaayo',
+    noSoil: 'Walay datos sa yuta diri',
+    loading: 'Gipull ang datos...',
+    error: 'Sayop',
+    langLabel: 'Wika',
+  },
   fil: {
     appName: 'UbiMap',
     tagline: 'NASA data para sa mga magsasaka ng ube',
@@ -70,7 +131,7 @@ export const STRINGS = {
     noSoil: 'Walang datos ng lupa dito',
     loading: 'Naglo-load...',
     error: 'Error',
-    langLabel: 'Wika',
+    langLabel: 'Language',
   },
   en: {
     appName: 'UbiMap',

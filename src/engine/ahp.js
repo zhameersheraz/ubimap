@@ -23,12 +23,12 @@ export const CONSISTENCY_LIMIT = 0.1;
  */
 export const SUITABILITY_MATRIX = {
   factors: [
-    { id: 'rainfall', label_en: 'Rainfall pattern and dry maturation window', dataset: 'GPM IMERG (NASA GIBS)' },
-    { id: 'soil_moisture', label_en: 'Root zone soil moisture', dataset: 'NASA POWER (GWETROOT)' },
-    { id: 'temperature', label_en: 'Temperature and heat stress', dataset: 'NASA POWER (T2M_MAX)' },
-    { id: 'slope', label_en: 'Slope and erosion risk', dataset: 'NASA SRTM' },
-    { id: 'soil_ph', label_en: 'Soil pH', dataset: 'ISRIC SoilGrids' },
-    { id: 'drainage', label_en: 'Soil texture and drainage', dataset: 'ISRIC SoilGrids' },
+    { id: 'rainfall', label_en: 'Rainfall pattern and dry maturation window', label_bis: 'Patron sa ulan ug panahon sa pagtiniug sa tubero', dataset: 'GPM IMERG (NASA GIBS)' },
+    { id: 'soil_moisture', label_en: 'Root zone soil moisture', label_bis: 'Katog sa yuta sa lawas sa gamot', dataset: 'NASA POWER (GWETROOT)' },
+    { id: 'temperature', label_en: 'Temperature and heat stress', label_bis: 'Temperatura ug stress sa init', dataset: 'NASA POWER (T2M_MAX)' },
+    { id: 'slope', label_en: 'Slope and erosion risk', label_bis: 'Kantidad ug risk sa erosion', dataset: 'NASA SRTM' },
+    { id: 'soil_ph', label_en: 'Soil pH', label_bis: 'pH sa yuta', dataset: 'ISRIC SoilGrids' },
+    { id: 'drainage', label_en: 'Soil texture and drainage', label_bis: 'Textura ug drainage sa yuta', dataset: 'ISRIC SoilGrids' },
   ],
   // A[i][j] = importance of factor i relative to factor j
   A: [
@@ -88,13 +88,13 @@ export function ahpWeights({ factors, A }) {
 /** Weights for the rotation comparison dimensions. */
 export const ROTATION_MATRIX = {
   factors: [
-    { id: 'water_fit', label_en: 'Fits your water' },
-    { id: 'soil_cover', label_en: 'Soil cover' },
-    { id: 'nitrogen', label_en: 'Nitrogen balance' },
-    { id: 'erosion', label_en: 'Erosion protection' },
-    { id: 'pest_break', label_en: 'Breaks pest cycles' },
-    { id: 'income', label_en: 'Income potential' },
-    { id: 'climate_risk', label_en: 'Climate risk' },
+    { id: 'water_fit', label_en: 'Fits your water', label_bis: 'Naayay sa imong tubig' },
+    { id: 'soil_cover', label_en: 'Soil cover', label_bis: 'Tabon sa yuta' },
+    { id: 'nitrogen', label_en: 'Nitrogen balance', label_bis: 'Balance sa nitrogen' },
+    { id: 'erosion', label_en: 'Erosion protection', label_bis: 'Proteksyon sa erosion' },
+    { id: 'pest_break', label_en: 'Breaks pest cycles', label_bis: 'Pagbasak sa siklo sa peste' },
+    { id: 'income', label_en: 'Income potential', label_bis: 'Potensyal sa kita' },
+    { id: 'climate_risk', label_en: 'Climate risk', label_bis: 'Risk sa klima' },
   ],
   A: [
     [1, 2, 2, 2, 1, 2, 1],

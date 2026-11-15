@@ -9,7 +9,7 @@
   "note": "One row per sampled point inside each province. The engine scores every point, then the province score is the mean.",
   "slope_source": "NASA SRTM 30 m via opentopodata srtm30m, five point gradient over about 555 m",
   "imerg_rainfall_note": "Province level GPM IMERG monthly climatology applied to each point of that province. 85 of 110 points received it. Provinces with no IMERG province level data: Apayao, Basilan, Dinagat, Sorsogon, Surigao del Norte.",
-  "scored_utc": "2026-11-14T18:34:13.011Z",
+  "scored_utc": "2026-11-15T09:05:11.863Z",
   "statistics": {
    "pearson_score_vs_yield": 0.3233,
    "spearman_score_vs_yield": 0.2982,

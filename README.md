@@ -77,10 +77,10 @@ UbiMap does exactly that, and it says what it does not know.
 7. **Check the sources.** Every dataset, its resolution, its retrieval time and a link
    that reopens the original data.
 
-The interface runs in **Filipino and English**, and is phone first. It opens in English,
-because the NASA judges are international, and the Language toggle switches it to Filipino
-for the pilot farmers in Pagadian. There is also a light and a dark theme, and the choice
-is remembered between visits.
+The interface runs in **Bisaya, Filipino and English**, and is phone first. It opens in
+English, because the NASA judges are international, and the Language toggle switches it
+to Bisaya or Filipino for the pilot farmers in Pagadian. There is also a light and a dark
+theme, and the choice is remembered between visits.
 
 ---
 
@@ -278,7 +278,7 @@ UbiMap/
     engine/        the model: AHP weights, suitability, rotation scoring, grid access
     data/          agronomy thresholds with citations, verified NASA layer config
     components/    map, panels, farm card
-    i18n/          Filipino and English strings
+    i18n/          Bisaya, Filipino and English strings
   scripts/         the reproducible data pipeline and the validation harness
   server/          zero dependency Node server, static plus NASA POWER proxy
   firmware/        UbiSense ESP32 firmware

@@ -81,7 +81,10 @@ export default function MapPanel({
   const [ready, setReady] = useState(false);
   const [mapError, setMapError] = useState(null);
   const [terrain, setTerrain] = useState(true);
-  const [view3d, setView3d] = useState(true);
+  // The map opens flat. A tilted view looked impressive but it hid the field
+  // shape that the whole tool is about, and on a phone it was unreadable.
+  // The 3D toggle is one tap away.
+  const [view3d, setView3d] = useState(false);
 
   const geo = useMemo(() => gridGeoJSON(scoreFn), [scoreFn]);
 
@@ -130,8 +133,8 @@ export default function MapPanel({
         // real terrain, from the SRTM derived elevation tiles
         map.addSource('ubimap-dem', TERRAIN_SOURCE);
         map.setTerrain({ source: 'ubimap-dem', exaggeration: 1.25 });
-        map.setPitch(48);
-        map.setBearing(-16);
+        map.setPitch(0);
+        map.setBearing(0);
 
         map.on('click', 'ubimap-heat', (e) => {
           const f = e.features?.[0];
@@ -338,7 +341,7 @@ export default function MapPanel({
             {layer.mission} &middot; {layer.resolution} &middot; {layer.period} &middot; image date{' '}
             {layer.time || 'static'} &middot; {layer.attribution}
           </span>
-          <div>{layer.what_en}</div>
+          <div>{lang === 'bis' ? layer.what_bis : layer.what_en}</div>
         </div>
       )}
     </div>

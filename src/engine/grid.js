@@ -96,10 +96,11 @@ function pickDemoField() {
     }
   }
   if (!best) {
-    return { ...target, name: 'Demo field, Pagadian City', currentCrop: 'corn' };
+    return { ...target, name: 'Demo field, Pagadian City', name_bis: 'Demo field, Pagadian City', currentCrop: 'corn' };
   }
   return {
     name: 'Demo field, Pagadian City',
+    name_bis: 'Demo field, Pagadian City',
     lat: best.lat,
     lon: best.lon,
     currentCrop: 'corn',
@@ -163,6 +164,7 @@ export function provenanceRows() {
       retrieved: l.time || 'live tile service',
       auth: 'none',
       live: 'LIVE in the browser, rendered straight from NASA GIBS',
+      group: 'gibs',
     })),
     {
       name: 'NASA CMR (Common Metadata Repository)',

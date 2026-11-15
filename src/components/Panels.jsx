@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MONTHS_EN, SEASON_LABEL } from '../engine/suitability.js';
+import { MONTHS_EN, MONTHS_BIS, SEASON_LABEL } from '../engine/suitability.js';
 import { t } from '../i18n/strings.js';
 
 function Dim({ children }) {
@@ -49,7 +49,7 @@ export function ReadinessCard({ lang, result }) {
             {t(lang, 'confidence')}: <strong>{conf}</strong>
           </p>
           <p className="note">
-            {result.confidence.note_en}
+            {lang === 'bis' ? result.confidence.note_bis : result.confidence.note_en}
           </p>
         </div>
       </div>
@@ -61,7 +61,7 @@ export function ReadinessCard({ lang, result }) {
             {result.reasons.map((f) => (
               <li key={f.id}>
                 <span className="chip-dataset">{f.dataset}</span>
-                <span className="txt">{f.detail_en}</span>
+                <span className="txt">{lang === 'bis' ? f.detail_bis : f.detail_en}</span>
               </li>
             ))}
           </ul>
@@ -72,7 +72,7 @@ export function ReadinessCard({ lang, result }) {
             {result.concerns.map((f) => (
               <li key={f.id}>
                 <span className="chip-dataset">{f.dataset}</span>
-                <span className="txt">{f.detail_en}</span>
+                <span className="txt">{lang === 'bis' ? f.detail_bis : f.detail_en}</span>
               </li>
             ))}
           </ul>
@@ -81,7 +81,7 @@ export function ReadinessCard({ lang, result }) {
 
       {result.profile.rain_years && (
         <div className="rainrange">
-          <h4>{'Rainfall a year, 2015 to 2024'}</h4>
+          <h4>{lang === 'bis' ? 'Ulan sa taun, 2015 to 2024' : 'Rainfall a year, 2015 to 2024'}</h4>
           <div className="rr-bar">
             <span
               className="rr-range"
@@ -96,32 +96,36 @@ export function ReadinessCard({ lang, result }) {
             />
           </div>
           <p className="dim small">
-            {`${result.profile.rain_years.min.toLocaleString()} to ${result.profile.rain_years.max.toLocaleString()} mm across ten years, median ${result.profile.rain_years.median.toLocaleString()} mm. The climate value is an average, not a single year, so the range is the honest thing to look at.`}
+            {lang === 'bis'
+              ? `${result.profile.rain_years.min.toLocaleString()} to ${result.profile.rain_years.max.toLocaleString()} mm sa tulo nga tuig, median ${result.profile.rain_years.median.toLocaleString()} mm. Klima ang average, dili ang usa ka tuig, so mas maayo nga tan-awon ang range, dili ang usa ka numero.`
+              : `${result.profile.rain_years.min.toLocaleString()} to ${result.profile.rain_years.max.toLocaleString()} mm across ten years, median ${result.profile.rain_years.median.toLocaleString()} mm. The climate value is an average, not a single year, so the range is the honest thing to look at.`}
           </p>
         </div>
       )}
 
       <details className="factor-table">
         <summary>
-          {'How the score was computed (AHP)'}
+          {lang === 'bis' ? 'Tanaw sa matematyka (AHP)' : 'How the score was computed (AHP)'}
         </summary>
         <p className="dim small">
-          {'Weights come from the Analytic Hierarchy Process. A consistency ratio below 0.10 means the judgements are internally consistent. These are the team judgement and still need validation by a local extension expert.'}
+          {lang === 'bis'
+            ? 'Ang mga timbang gikan sa AHP (Analytic Hierarchy Process). Ang CR below 0.10 nga naa pa gyud consistent ang mga judgments. Kinuha ni nato ang team judgment, unya gyud i-validate sa extension expert.'
+            : 'Weights come from the Analytic Hierarchy Process. A consistency ratio below 0.10 means the judgements are internally consistent. These are the team judgement and still need validation by a local extension expert.'}
         </p>
         <table>
           <thead>
             <tr>
-              <th>{'Factor'}</th>
-              <th>{'Dataset'}</th>
-              <th>{'Weight'}</th>
-              <th>{'Score'}</th>
-              <th>{'Contribution'}</th>
+              <th>{lang === 'bis' ? 'Faktar' : 'Factor'}</th>
+              <th>{lang === 'bis' ? 'Mga datos' : 'Dataset'}</th>
+              <th>{lang === 'bis' ? 'Timbang' : 'Weight'}</th>
+              <th>{lang === 'bis' ? 'Puntos' : 'Score'}</th>
+              <th>{lang === 'bis' ? 'Nakatabak' : 'Contribution'}</th>
             </tr>
           </thead>
           <tbody>
             {result.factors.map((f) => (
               <tr key={f.id} className={f.missing ? 'missing' : ''}>
-                <td>{f.label_en}</td>
+                <td>{lang === 'bis' ? f.label_bis : f.label_en}</td>
                 <td className="dim">{f.dataset}</td>
                 <td>{(f.weight * 100).toFixed(1)}%</td>
                 <td>{f.score === null ? 'n/a' : f.score.toFixed(2)}</td>
@@ -168,7 +172,9 @@ export function RotationCompare({ lang, rotationResult, priorities }) {
     <section className="card">
       <h2>{t(lang, 'rotations')}</h2>
       <p className="dim small">
-        {'Each rotation is scored against the priorities you set. The same scoring model is applied to every option, so the comparison is fair.'}
+        {lang === 'bis'
+          ? 'Limbag ang score para sa imong mga priority. Usa ka gyud ang score model sa tanan, para makita nimo unsay gyud naayo.'
+          : 'Each rotation is scored against the priorities you set. The same scoring model is applied to every option, so the comparison is fair.'}
       </p>
 
       <div className="rot-cards">
@@ -176,7 +182,7 @@ export function RotationCompare({ lang, rotationResult, priorities }) {
           <article key={r.id} className={`rot rot-${r.recommendation}`}>
             <header>
               <div>
-                <h3>{r.name_en}</h3>
+                <h3>{lang === 'bis' ? r.name_bis : r.name_en}</h3>
                 <p className="seq">{r.sequence.join(' → ')}</p>
               </div>
               <div className="rot-score">
@@ -187,7 +193,7 @@ export function RotationCompare({ lang, rotationResult, priorities }) {
 
             <div className="dim-block">
               <h4>{t(lang, 'why')}</h4>
-              <p>{r.why_en}</p>
+              <p>{lang === 'bis' ? r.why_bis : r.why_en}</p>
             </div>
 
             <div className="bars">
@@ -215,7 +221,7 @@ export function RotationCompare({ lang, rotationResult, priorities }) {
                 {Object.entries(r.dimensions).map(([id, d]) => (
                   <li key={id}>
                     <strong>{d.raw && Object.values(d.raw).length ? '' : ''}</strong>
-                    {d.detail_en}
+                    {lang === 'bis' ? d.detail_bis : d.detail_en}
                   </li>
                 ))}
               </ul>
@@ -226,7 +232,7 @@ export function RotationCompare({ lang, rotationResult, priorities }) {
                 <h4>{t(lang, 'benefits')}</h4>
                 <ul className="tight pos-list">
                   {r.benefits_en.map((b, i) => (
-                    <li key={i}>{b}</li>
+                    <li key={i}>{lang === 'bis' && r.benefits_bis?.[i] ? r.benefits_bis[i] : b}</li>
                   ))}
                 </ul>
               </div>
@@ -269,14 +275,16 @@ export function PlantingCalendar({ lang, profile, plan }) {
     <section className="card">
       <h2>{t(lang, 'calendar')}</h2>
       <p className="dim small">
-        {'The climate strip comes from NASA POWER (MERRA-2). Seasons use the PAGASA rule: wet season when three consecutive months get at least 250 mm, dry season when three consecutive months get below 50 mm.'}
+        {lang === 'bis'
+          ? 'Ang klima gikan sa NASA POWER (MERRA-2). Gi-classify ang season sa PAGASA nga rule: panahon sa ulan kung tulo ka bulan nga sunod nga labaw sa 250 mm, panahon sa katag kung tulo ka bulan nga sunod nga ubos sa 50 mm.'
+          : 'The climate strip comes from NASA POWER (MERRA-2). Seasons use the PAGASA rule: wet season when three consecutive months get at least 250 mm, dry season when three consecutive months get below 50 mm.'}
       </p>
 
       <div className="cal">
         <div className="cal-months">
           {months.map((m) => (
             <div key={m.index} className="cal-m" data-season={m.season}>
-              <span className="cal-m-label">{m.label_en}</span>
+              <span className="cal-m-label">{lang === 'bis' ? m.label_bis : m.label_en}</span>
               <div className="cal-rain">
                 <span className="cal-rain-fill" style={{ height: `${((m.precip_mm ?? 0) / maxPrecip) * 100}%` }} />
               </div>
@@ -308,15 +316,17 @@ export function PlantingCalendar({ lang, profile, plan }) {
 
       <div className="two-col tight-cols">
         <div className="dim-block">
-          <h4>{'Season by month'}</h4>
+          <h4>{lang === 'bis' ? 'Mga bulan kada season' : 'Season by month'}</h4>
           <p className="dim small">
-            {months.map((m) => `${m.label_en}: ${SEASON_LABEL[m.season].en}`).join(' · ')}
+            {months.map((m) => `${lang === 'bis' ? m.label_bis : m.label_en}: ${lang === 'bis' ? SEASON_LABEL[m.season].bis : SEASON_LABEL[m.season].en}`).join(' · ')}
           </p>
         </div>
         <div className="dim-block">
-          <h4>{'Longest dry spell'}</h4>
+          <h4>{lang === 'bis' ? 'Pinak katag nga panahon nga walay ulan' : 'Longest dry spell'}</h4>
           <p className="dim small">
-            {`${profile.drySpellMonths} month${profile.drySpellMonths === 1 ? '' : 's'} in the growing season with under 40 mm of rain.`}
+            {lang === 'bis'
+              ? `${profile.drySpellMonths} ka bulan sa panahon sa tanom nga ubos sa 40 mm nga ulan.`
+              : `${profile.drySpellMonths} month${profile.drySpellMonths === 1 ? '' : 's'} in the growing season with under 40 mm of rain.`}
           </p>
         </div>
       </div>
@@ -332,35 +342,37 @@ export function SatelliteVsGround({ lang }) {
     <section className="card">
       <h2>{t(lang, 'satelliteVsGround')}</h2>
       <p>
-        {'The honest limitation of this tool is spatial scale, so here it is in plain numbers.'}
+        {lang === 'bis'
+          ? 'Ang matag-iya nga limitation niini sa spatial scale, ipakita diri sa simple nga numero. Esensyal nga mahitungod kung unsa ang mapakita niini sa imong uma.'
+          : 'The honest limitation of this tool is spatial scale, so here it is in plain numbers.'}
       </p>
 
       <table className="cmp">
         <thead>
           <tr>
             <th />
-            <th>{'Satellite'}</th>
-            <th>{'Ground sensor'}</th>
+            <th>{lang === 'bis' ? 'Satellite' : 'Satellite'}</th>
+            <th>{lang === 'bis' ? 'Sensor sa yuta' : 'Ground sensor'}</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>{'Area it covers'}</td>
+            <td>{lang === 'bis' ? 'Area nga ginalugdan' : 'Area it covers'}</td>
             <td>SMAP L3: about 36 km across one pixel. MODIS: 250 m. POWER: about 50 km.</td>
             <td>One ESP32 node: about 1 square metre.</td>
           </tr>
           <tr>
-            <td>{'What it sees'}</td>
+            <td>{lang === 'bis' ? 'Unsa iyang nakita' : 'What it sees'}</td>
             <td>The neighbourhood. Bare soil, water, canopy and heat mixed together in one pixel.</td>
             <td>One spot of soil. Moisture and temperature at root depth, every 15 minutes.</td>
           </tr>
           <tr>
-            <td>{'Strength'}</td>
+            <td>{lang === 'bis' ? 'Kusog' : 'Strength'}</td>
             <td>Covers the whole province, every 2 to 3 days, for 25 years of history, at no cost.</td>
             <td>Real ground truth at the scale the farmer actually works.</td>
           </tr>
           <tr>
-            <td>{'Weakness'}</td>
+            <td>{lang === 'bis' ? 'Kahuyag' : 'Weakness'}</td>
             <td>Cannot separate a wet corner from a dry corner of the same field.</td>
             <td>One point. Cannot say anything about the rest of the field or the season behind it.</td>
           </tr>
@@ -368,9 +380,11 @@ export function SatelliteVsGround({ lang }) {
       </table>
 
       <div className="dim-block">
-        <h4>{'Why combining them is better'}</h4>
+        <h4>{lang === 'bis' ? 'Giunsa nga maayo ang duha' : 'Why combining them is better'}</h4>
         <p>
-          {'One SMAP pixel is about 36 km wide. A farm is a small part of that pixel, so the SMAP number is an average over a large area, not your plot. A single sensor reads one point of soil. Put the two together and you can check whether the ground reading agrees with the satellite reading. If it does not, the difference points to a local anomaly: a wet corner, a blocked drain, or a patch of compacted soil. That is the value of validation against ground truth.'}
+          {lang === 'bis'
+            ? 'Usa ka pixel sa SMAP mga 36 km ka lapad. Usa ka uma gamay lang sa pixel, so ang SMAP number kay "average" sa dako nga lugar, dili sa imong plot. Usa ka sensor lang sa sulat sa langit, mahimong mapalabas kung kinsa nga bahin sa uma ang basahi. Pagduha nga gi-combine, naa tana i-check kung ang sensor naayon sa satellite, kay kung dili, naa tana lokal nga anomalya (baso nga utod, maa kanal, giablado nga yuta). Mao kana ang "SI" nga gi-validate sa ground.'
+            : 'One SMAP pixel is about 36 km wide. A farm is a small part of that pixel, so the SMAP number is an average over a large area, not your plot. A single sensor reads one point of soil. Put the two together and you can check whether the ground reading agrees with the satellite reading. If it does not, the difference points to a local anomaly: a wet corner, a blocked drain, or a patch of compacted soil. That is the value of validation against ground truth.'}
         </p>
       </div>
 
@@ -405,18 +419,20 @@ export function Provenance({ lang, rows, meta }) {
     <section className="card">
       <h2>{t(lang, 'provenance')}</h2>
       <p className="dim small">
-        {'Every number in this tool came from one of these sources. Open any link to see the data yourself. No NASA account, no payment, and nothing about your farm is sent anywhere.'}
+        {lang === 'bis'
+          ? 'Matag numero niini nga tool gikan sa usa sa mga kini. Openi ang bisan unsang link aron matan-aw nimo ang datos. Walay NASA account, walay bayad, walay tracking sa imong uma.'
+          : 'Every number in this tool came from one of these sources. Open any link to see the data yourself. No NASA account, no payment, and nothing about your farm is sent anywhere.'}
       </p>
       <div className="prov-scroll">
         <table className="prov">
           <thead>
             <tr>
-              <th>{'Source'}</th>
-              <th>{'Mission'}</th>
-              <th>{'Used for'}</th>
-              <th>{'Resolution'}</th>
-              <th>{'Retrieved'}</th>
-              <th>{'Status'}</th>
+              <th>{lang === 'bis' ? 'Pinagmulan' : 'Source'}</th>
+              <th>{lang === 'bis' ? 'Misyon' : 'Mission'}</th>
+              <th>{lang === 'bis' ? 'Gigamit para sa' : 'Used for'}</th>
+              <th>{lang === 'bis' ? 'Resolusyon' : 'Resolution'}</th>
+              <th>{lang === 'bis' ? 'Nakuha' : 'Retrieved'}</th>
+              <th>{lang === 'bis' ? 'Kahimugaan' : 'Status'}</th>
             </tr>
           </thead>
           <tbody>
@@ -427,12 +443,17 @@ export function Provenance({ lang, rows, meta }) {
                 <td>{r.used_for}</td>
                 <td className="dim">{r.resolution}</td>
                 <td className="dim">{String(r.retrieved).slice(0, 16).replace('T', ' ')}</td>
-                <td>{r.live}</td>
+                <td>{r.group === 'gibs' ? 'Live' : r.live}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+      <p className="dim small prov-note">
+        {lang === 'bis'
+          ? 'Ang mga NASA GIBS nga live naa nga siyeng gamut. Ang adla niini nga usa ka screenshot, apan dili aron, kay ang URL nga wala nga petsa nga gikan sa NASA gyud nga bag-o nga available.'
+          : 'The NASA GIBS rows marked Live are streaming straight from NASA, not a screenshot. The date-less tile URL means the browser always gets the newest image NASA has for that layer, so the date column is the newest pass available when the app was built.'}
+      </p>
       {meta && (
         <p className="dim small">
           Grid: {meta.cells} cells at {meta.step_deg}° ({meta.step_km_approx} km), bbox{' '}
@@ -459,27 +480,29 @@ export function ValidationPanel({ lang, validation }) {
 
   return (
     <section className="card">
-      <h2>{'Validation against PSA data'}</h2>
+      <h2>{lang === 'bis' ? 'Validation sa datos sa PSA' : 'Validation against PSA data'}</h2>
       <p className="dim small">
-        {'The model was scored at 110 points across 18 ube-producing provinces and 4 provinces with no reported ube, then compared with real PSA production figures.'}
+        {lang === 'bis'
+          ? 'Gin-score ang modelo sa 110 ka punto sa 18 ka probinsiya nga nagpoproduce ug sa 4 ka probinsiya nga walay ube, dayon gitawag sa aktuwal nga produksyon gikan sa PSA OpenSTAT.'
+          : 'The model was scored at 110 points across 18 ube-producing provinces and 4 provinces with no reported ube, then compared with real PSA production figures.'}
       </p>
 
       <div className="val-stats">
         <div>
           <strong>{st.mean_score_producers}</strong>
-          <span>{'mean score, with production'}</span>
+          <span>{lang === 'bis' ? 'mean score, may produksyon' : 'mean score, with production'}</span>
         </div>
         <div>
           <strong>{st.mean_score_non_producers}</strong>
-          <span>{'mean score, no production'}</span>
+          <span>{lang === 'bis' ? 'mean score, walang produksyon' : 'mean score, no production'}</span>
         </div>
         <div>
           <strong>{st.spearman_score_vs_yield}</strong>
-          <span>{'Spearman r vs yield'}</span>
+          <span>{lang === 'bis' ? 'Spearman r kontra yield' : 'Spearman r vs yield'}</span>
         </div>
         <div>
           <strong>{st.spearman_score_vs_log_volume}</strong>
-          <span>{'Spearman r vs volume'}</span>
+          <span>{lang === 'bis' ? 'Spearman r kontra volume' : 'Spearman r vs volume'}</span>
         </div>
       </div>
 
@@ -487,9 +510,9 @@ export function ValidationPanel({ lang, validation }) {
         <table className="prov val">
           <thead>
             <tr>
-              <th>{'Province'}</th>
-              <th>{'Score'}</th>
-              <th>{'Rain mm'}</th>
+              <th>{lang === 'bis' ? 'Probinsiya' : 'Province'}</th>
+              <th>{lang === 'bis' ? 'Puntos' : 'Score'}</th>
+              <th>{lang === 'bis' ? 'Ulan mm' : 'Rain mm'}</th>
               <th>PSA MT</th>
               <th>t/ha</th>
             </tr>
@@ -509,12 +532,16 @@ export function ValidationPanel({ lang, validation }) {
       </div>
 
       <div className="dim-block honest">
-        <h4>{'The finding, including the part that did not work'}</h4>
+        <h4>{lang === 'bis' ? 'Ang nakatabak nga finding, mao pa gikan pa' : 'The finding, including the part that did not work'}</h4>
         <p>
-          {'The first version of this model did not work: its correlation with real provincial yield was essentially zero. The reason was the rainfall. Ube needs a dry maturation window, and the number of months under 50 mm of rain is the strongest observable that predicts real provincial yield (r = +0.36 for POWER and +0.30 for IMERG across 17 provinces). NASA POWER works on a roughly 50 km grid, so it smooths the Philippine dry season away. We rebuilt the model\'s rainfall from GPM IMERG at about 10 km, from 9,124 daily NASA GIBS tiles. On the same 18 provinces the correlation with real yield went from r = +0.00 to r = +0.32, and with production volume from r = +0.21 to r = +0.48. The finer product was not enough on its own; the model works because six factors are combined. r = +0.32 is a real signal and a modest one, so this is a screening tool and not a yield predictor.'}
+          {lang === 'bis'
+            ? 'Ang una nga bersyon sa modelo wala nagkaayo: ang correlation nga niya kontra sa aktuwal nga yield sa probinsiya halos zero. Ngano? Ang ulan. Ang ube nangkinang sa dry window para sa pagtiniug sa tubero, ug ang usa ka bulan nga ubos sa 50 mm nga ulan mao ang labing kusog nga predictor nga nakaabot sa aktuwal nga yield (r = +0.36 sa POWER, r = +0.30 sa IMERG, sa 17 ka probinsiya). Nasa halos 50 km nga grid ang NASA POWER, so naa magkawala ang dry season sa Pilipinas. Gibuild nami ang ulan sa modelo gikan sa GPM IMERG sa mga 10 km, gikan sa 9,124 ka daily nga tile sa NASA GIBS. Sa parehong 18 ka probinsiya, ang correlation kontra sa aktuwal nga yield gikan sa r = +0.00 to r = +0.32, ug kontra sa volume gikan sa r = +0.21 to r = +0.48. Dili lang iya ang detalyadong produkto nga nakaabot, kay andamit ani kung naa gikan sa six factors. Usa ka real nga signal ka r = +0.32, ug gamay ra, so screening tool niini, dili predictor sa yield.'
+            : 'The first version of this model did not work: its correlation with real provincial yield was essentially zero. The reason was the rainfall. Ube needs a dry maturation window, and the number of months under 50 mm of rain is the strongest observable that predicts real provincial yield (r = +0.36 for POWER and +0.30 for IMERG across 17 provinces). NASA POWER works on a roughly 50 km grid, so it smooths the Philippine dry season away. We rebuilt the model\'s rainfall from GPM IMERG at about 10 km, from 9,124 daily NASA GIBS tiles. On the same 18 provinces the correlation with real yield went from r = +0.00 to r = +0.32, and with production volume from r = +0.21 to r = +0.48. The finer product was not enough on its own; the model works because six factors are combined. r = +0.32 is a real signal and a modest one, so this is a screening tool and not a yield predictor.'}
         </p>
         <p>
-          {'What is left open is the interesting part: the nearest representative PAGASA station is Cotabato City, 110 kilometres away on the same Sulu Sea coast, with 2,414.3 mm a year. IMERG reads 2,421.9 mm at Pagadian, within 0.3%, and POWER reads 2,246 mm, about 7% low. There is no PAGASA station at Pagadian itself. That is the gap a field sensor would close. Meanwhile the honest conclusion stands: UbiMap is a screening tool for a conversation with a farmer, not a yield predictor.'}
+          {lang === 'bis'
+            ? 'Ang nga pa: ang PAGASA station nga pinak malapit kay Cotabato City, 110 ka kilometro sa parehong baybayin, nga narekord 2,414.3 mm sa tuig. Ang IMERG nagsaad og 2,421.9 mm sa Pagadian, mga 0.3% lang ang gibanayaw, pero ang POWER nagsaad og 2,246 mm, mga 7% nga ubos. Walay PAGASA station mismo sa Pagadian. Mao kana ang gap nga ang sensor sa uma unya ma-close. Ang UbiMap kay screening tool para sa pagtambag sa farmer, dili predictor sa yield.'
+            : 'What is left open is the interesting part: the nearest representative PAGASA station is Cotabato City, 110 kilometres away on the same Sulu Sea coast, with 2,414.3 mm a year. IMERG reads 2,421.9 mm at Pagadian, within 0.3%, and POWER reads 2,246 mm, about 7% low. There is no PAGASA station at Pagadian itself. That is the gap a field sensor would close. Meanwhile the honest conclusion stands: UbiMap is a screening tool for a conversation with a farmer, not a yield predictor.'}
         </p>
       </div>
     </section>
@@ -528,9 +555,11 @@ export function NasaDataPanel({ lang, rows }) {
   const nasa = rows.filter((r) => /NASA|GIBS|MODIS|SMAP|IMERG|SRTM|GRACE|Landsat|VIIRS|ECOSTRESS|POWER|CMR/i.test(`${r.name} ${r.mission}`));
   return (
     <section className="card">
-      <h2>{'NASA data used'}</h2>
+      <h2>{lang === 'bis' ? 'NASA data nga among gigamit' : 'NASA data used'}</h2>
       <p className="dim small">
-        {'Seven datasets, not one. The imagery streams live from NASA GIBS straight into the browser, and the NASA POWER numbers are precomputed so the app keeps working with no network.'}
+        {lang === 'bis'
+          ? 'Pit ka dataset, dili usa. Naa tana live gikan sa NASA GIBS direkta sa browser, ug nasa tana NASA POWER nga pre-computed para ma-offline ang app.'
+          : 'Seven datasets, not one. The imagery streams live from NASA GIBS straight into the browser, and the NASA POWER numbers are precomputed so the app keeps working with no network.'}
       </p>
       <ul className="tight nasa-list">
         {nasa.map((r) => (
@@ -549,13 +578,13 @@ export function NasaDataPanel({ lang, rows }) {
 /* Farm profile (step 2)                                                */
 /* ------------------------------------------------------------------ */
 const CROPS = [
-  { id: 'corn', en: 'Corn' },
-  { id: 'cassava', en: 'Cassava' },
-  { id: 'sweetpotato', en: 'Sweet potato' },
-  { id: 'mungbean', en: 'Mungbean' },
-  { id: 'peanut', en: 'Peanut' },
-  { id: 'coconut', en: 'Coconut' },
-  { id: 'ube', en: 'Ube (already growing)' },
+  { id: 'corn', en: 'Corn', bis: 'Mais' },
+  { id: 'cassava', en: 'Cassava', bis: 'Kamoteng' },
+  { id: 'sweetpotato', en: 'Sweet potato', bis: 'Kamote' },
+  { id: 'mungbean', en: 'Mungbean', bis: 'Mungbean' },
+  { id: 'peanut', en: 'Peanut', bis: 'Peanut' },
+  { id: 'coconut', en: 'Coconut', bis: 'Niyo' },
+  { id: 'ube', en: 'Ube (already growing)', bis: 'Ube (naa na)' },
 ];
 
 export function FarmProfile({ lang, farmer, setFarmer }) {
@@ -573,14 +602,16 @@ export function FarmProfile({ lang, farmer, setFarmer }) {
             className={`chip ${farmer.currentCrop === c.id ? 'chip-on' : ''}`}
             onClick={() => set('currentCrop', c.id)}
           >
-            {c.en}
+            {lang === 'bis' ? c.bis : c.en}
           </button>
         ))}
       </div>
 
       <h2 className="mt">{t(lang, 'priorities')}</h2>
       <p className="dim small">
-        {'Move each slider to what matters most. More than one can be high.'}
+        {lang === 'bis'
+          ? 'Ibutang ang slider kung unsa ang labing importante. Mahimong duha o tulo nga mataas.'
+          : 'Move each slider to what matters most. More than one can be high.'}
       </p>
       <div className="sliders">
         {[

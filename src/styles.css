@@ -159,6 +159,17 @@ body {
   padding: 0 16px 72px;
 }
 
+/* On a laptop or a desktop the fixed 1120px column left a lot of dead space
+   on the sides while the map, the charts and the tables all had room to
+   breathe. The column grows on wide screens and the map gets taller to
+   match, so the page fills the display instead of floating in the middle. */
+@media (min-width: 1360px) {
+  .app { max-width: 1520px; padding: 0 32px 88px; }
+  .map { height: 560px; }
+  .two-col { gap: 28px; }
+  .plate img { height: clamp(280px, 34vw, 460px); }
+}
+
 /* ---------- type ---------- */
 h1, h2, h3, h4 {
   font-family: var(--display);
@@ -232,7 +243,13 @@ a { color: var(--sea); }
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12);
   overflow: hidden;
   flex: 0 0 auto;
+  padding: 0;
+  cursor: pointer;
+  transition: filter .15s, transform .08s;
 }
+.logo:hover { filter: brightness(1.12); }
+.logo:active { transform: scale(.96); }
+.logo:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
 .logo svg { display: block; }
 
 .langs { display: flex; gap: 4px; flex: 0 0 auto; align-items: center; }
@@ -310,10 +327,20 @@ a { color: var(--sea); }
 }
 .btn:hover { filter: brightness(1.1); }
 .btn:active { transform: translateY(1px); }
-.btn:disabled { opacity: .45; cursor: not-allowed; }
+/* A disabled button must still read as a button. Flattening it to a tinted
+   outline keeps the label legible, where opacity over a light purple left
+   the white text looking like a dark smudge. */
+.btn:disabled {
+  background: transparent;
+  border-color: var(--rule);
+  color: var(--dim);
+  opacity: 1;
+  cursor: not-allowed;
+}
 .btn-ghost { background: transparent; color: var(--dim); border-color: var(--rule); }
 .btn-ghost:hover { color: var(--text); border-color: var(--rule-lit); }
-.navrow { display: flex; gap: 10px; justify-content: space-between; margin: 16px 0 4px; }
+.navrow { display: flex; gap: 10px; align-items: center; justify-content: space-between; margin: 16px 0 4px; }
+.nav-hint { flex: 1 1 auto; text-align: right; }
 
 /* ---------- panels ---------- */
 .card {
@@ -403,8 +430,13 @@ a { color: var(--sea); }
 .maplibregl-ctrl-attrib {
   background: var(--attrib-bg) !important;
   border-radius: 4px !important;
+  font-size: 10px;
+  max-width: min(100%, 520px);
 }
 .maplibregl-ctrl-attrib a { color: var(--dim) !important; }
+/* The attribution bar runs along the bottom edge, so the suitability legend
+   has to sit clear of it or the two overlap and neither is readable. */
+.maplibregl-ctrl-bottom-right { z-index: 5; }
 
 /* layer selector as a film strip */
 .filmstrip {
@@ -433,7 +465,10 @@ a { color: var(--sea); }
 .map-note .dim { font-family: var(--mono); font-size: .72rem; }
 
 .map-legend {
-  position: absolute; right: 10px; bottom: 30px; z-index: 4;
+  /* Top left. The bottom edge belongs to the MapLibre attribution bar and
+     the bottom right to the zoom buttons, so the legend was colliding with
+     both and the text underneath was unreadable. */
+  position: absolute; left: 10px; top: 10px; z-index: 4;
   background: var(--overlay-card);
   border: 1px solid var(--rule);
   border-radius: 4px; padding: 7px 9px; font-family: var(--mono); font-size: .66rem;
@@ -617,6 +652,7 @@ table.cmp th:first-child, table.cmp td:first-child { width: 104px; color: var(--
 
 /* ---------- provenance ---------- */
 .prov-scroll { overflow-x: auto; }
+.prov-note { margin-top: 10px; }
 table.prov { font-size: .77rem; min-width: 660px; }
 table.prov td { vertical-align: top; }
 table.prov td:first-child { color: var(--text); }
@@ -627,6 +663,8 @@ table.prov tr.nonprod td { background: rgba(226, 112, 95, .08); }
 /* ---------- pin readout ---------- */
 .pin-readout { font-family: var(--mono); font-size: .8rem; color: var(--text); margin: 10px 0 0; }
 .pin-readout .dim { color: var(--dim); }
+.explore-row { margin: 6px 0 0; }
+.explore-row a { color: var(--sea); }
 
 /* ---------- live check ---------- */
 .livecheck { margin-top: 10px; }

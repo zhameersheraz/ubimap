@@ -9,6 +9,7 @@
 import { ahpWeights, SUITABILITY_MATRIX } from './ahp.js';
 
 export const MONTHS_EN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+export const MONTHS_BIS = ['Ene', 'Peb', 'Mar', 'Abr', 'May', 'Hun', 'Hul', 'Ago', 'Sep', 'Okt', 'Nob', 'Dis'];
 export const DAYS_IN_MONTH = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 /**
@@ -70,6 +71,7 @@ export function monthlyProfile(cell) {
     return {
       index: i,
       label_en: label,
+      label_bis: MONTHS_BIS[i],
       precip_mm: imergMm !== null ? imergMm : powerMm,
       precip_mm_power: powerMm,
       precip_source: imergMm !== null ? 'GPM IMERG' : 'NASA POWER',
@@ -155,9 +157,9 @@ export function longestDryRun(months, thresholdMm, restrictTo = null) {
 }
 
 export const SEASON_LABEL = {
-  wet: { en: 'Wet season', fil: 'Tag-ulan' },
-  dry: { en: 'Dry season', fil: 'Tag-tuyo' },
-  shoulder: { en: 'Shoulder season', fil: 'Panahon ng pagitanaw' },
+  wet: { en: 'Wet season', bis: 'Panahon sa ulan', fil: 'Tag-ulan' },
+  dry: { en: 'Dry season', bis: 'Panahon sa katag', fil: 'Tag-tuyo' },
+  shoulder: { en: 'Shoulder season', bis: 'Panahon sa pagpugong', fil: 'Panahon ng pagitanaw' },
 };
 
 /**
@@ -213,6 +215,7 @@ function scoreRainfall(months, t, wetMonths) {
       in_season_months: inSeason.length,
     },
     detail_en: `${Math.round(wetSeasonTotal).toLocaleString()} mm falls in the growing season and the field has ${dryRun50} month${dryRun50 === 1 ? '' : 's'} under ${t.drought_monthly_rain_mm} mm at the end. Ube needs that dry window: the tubers are lifted then, and a field that is wet all year cannot cure them. ${dryRun50 >= t.dry_season_requirement.min_dry_months ? 'Your field has it.' : 'Your field does not have one, and that is the biggest thing working against ube here.'}`,
+    detail_bis: `${Math.round(wetSeasonTotal).toLocaleString()} mm ang nahugsa sa panahon sa tanom, ug ${dryRun50} ka bulan nga ubos sa ${t.drought_monthly_rain_mm} mm sa katapusan. Ube nangkinang niini nga dry window: diin naa gi-ani ang tubero, ug ang yuta nga basahi sa tuig walang mahimong maayo. ${dryRun50 >= t.dry_season_requirement.min_dry_months ? 'Naa ang imong uma niini.' : 'Wala ang imong uma niini, ug mao kana ang pinak dako nga problema para sa ube diri.'}`,
   };
 }
 
@@ -227,7 +230,7 @@ function scoreRainfall(months, t, wetMonths) {
 function scoreSoilMoisture(months, t, wetMonths) {
   const inSeason = wetMonths.length ? months.filter((m) => wetMonths.includes(m.index)) : months;
   if (!inSeason.length) {
-    return { score: null, raw: null, detail_en: 'No soil moisture data available for this cell.', missing: true };
+    return { score: null, raw: null, detail_en: 'No soil moisture data available for this cell.', detail_bis: 'Walay datos sa soil moisture alang sa cell niini.', missing: true };
   }
   let sum = 0;
   let n = 0;
@@ -267,6 +270,7 @@ function scoreSoilMoisture(months, t, wetMonths) {
       peak_wetness_month: peakMonth,
     },
     detail_en: `${waterloggingMonths} month${waterloggingMonths === 1 ? '' : 's'} get more than ${t.waterlogging_monthly_rain_mm} mm of rain, which is when ube tubers rot, and ${droughtMonths} month${droughtMonths === 1 ? '' : 's'} fall under ${t.drought_monthly_rain_mm} mm, which is the dry stress. The modelled root zone wetness peaks at ${wetnessPeak.toFixed(2)} in ${peakMonth}.`,
+    detail_bis: `${waterloggingMonths} ka bulan nga labaw sa ${t.waterlogging_monthly_rain_mm} mm nga ulan, kay naa diin mamatong ang mga tubero, ug ${droughtMonths} ka bulan nga ubos sa ${t.drought_monthly_rain_mm} mm, kay naa diin stress sa katag. Ang modeled nga wetness sa lawas sa gamot gikan sa ${wetnessPeak.toFixed(2)} sa ${peakMonth}.`,
   };
 }
 
@@ -289,39 +293,42 @@ function scoreTemperature(months, t, wetMonths) {
     n += 1;
   }
   if (!n) {
-    return { score: null, raw: null, detail_en: 'No temperature data available for this cell.', missing: true };
+    return { score: null, raw: null, detail_en: 'No temperature data available for this cell.', detail_bis: 'Walay datos sa temperatura alang sa cell niini.', missing: true };
   }
   const score = sum / n;
   return {
     score,
     raw: { hottest_month_max_c: peak ? peak.v : null, heat_stress_months: hot },
     detail_en: `Hottest month reaches ${peak ? peak.v.toFixed(1) : '-'} degrees C. ${hot} month${hot === 1 ? '' : 's'} go above the ${t.air_temp_c.heat_stress} degrees C heat stress line for ube.`,
+    detail_bis: `${peak ? peak.v.toFixed(1) : '-'} grados ang pinak taas nga temperatura. ${hot} ka bulan nga labaw sa ${t.air_temp_c.heat_stress} grados, naa stress sa init para sa ube.`,
   };
 }
 
 function scoreSlope(cell, t) {
   const s = cell.slope_deg;
   if (s === null || s === undefined) {
-    return { score: null, raw: null, detail_en: 'No slope value available for this cell.', missing: true };
+    return { score: null, raw: null, detail_en: 'No slope value available for this cell.', detail_bis: 'Walay datos sa kantidad alang sa cell niini.', missing: true };
   }
   const score = ramp(s, [[0, 1], [t.slope_deg.ideal, 1], [t.slope_deg.tolerable, 0.55], [t.slope_deg.reject_above, 0]]);
   return {
     score,
     raw: { slope_deg: s, elevation_m: cell.elev_m ?? null },
     detail_en: `Ground slopes ${s.toFixed(1)} degrees (about ${cell.elev_m ?? '?'} m above sea level). Ube wants ${t.slope_deg.ideal} degrees or less; above ${t.slope_deg.tolerable} degrees the tubers sit exposed.`,
+    detail_bis: `${s.toFixed(1)} grados ang kantidad sa yuta (mga ${cell.elev_m ?? '?'} m sa ibabaw sa dagat). Gusto nga ube ang ${t.slope_deg.ideal} grados pababa; labaw sa ${t.slope_deg.tolerable} grados, gipagtray ang mga tubero.`,
   };
 }
 
 function scoreSoilPh(cell, t) {
   const ph = cell.soil?.phh2o;
   if (ph === null || ph === undefined) {
-    return { score: null, raw: null, detail_en: 'No soil pH data for this cell. Ask your municipal agriculturist for a soil test, this is a real gap in our data.', missing: true };
+    return { score: null, raw: null, detail_en: 'No soil pH data for this cell. Ask your municipal agriculturist for a soil test, this is a real gap in our data.', detail_bis: 'Walay datos sa pH sa yuta alang sa cell niini. Pangutnag ang imong lokal na agronomista para sa soil test, kay naa gyud na gap sa among datos.', missing: true };
   }
   const score = ramp(ph, [[t.soil_ph.tolerable[0], 0.15], [t.soil_ph.optimal[0], 1], [t.soil_ph.optimal[1], 1], [t.soil_ph.tolerable[1], 0.25]]);
   return {
     score,
     raw: { ph, depth: cell.soil._depth ?? '0-30cm' },
     detail_en: `Soil pH is ${ph.toFixed(1)} at ${cell.soil._depth ?? '0-30cm'} depth. Ube grows best at pH ${t.soil_ph.optimal[0]}-${t.soil_ph.optimal[1]}.`,
+    detail_bis: `Ang pH sa yuta kay ${ph.toFixed(1)} sa ${cell.soil._depth ?? '0-30cm'}. Maayo ang ube sa pH ${t.soil_ph.optimal[0]}-${t.soil_ph.optimal[1]}.`,
   };
 }
 
@@ -330,7 +337,7 @@ function scoreDrainage(cell, t) {
   const clay = soil.clay;
   const bdod = soil.bdod;
   if (clay === undefined || clay === null) {
-    return { score: null, raw: null, detail_en: 'No soil texture data for this cell, so drainage could not be checked. This is a real gap.', missing: true };
+    return { score: null, raw: null, detail_en: 'No soil texture data for this cell, so drainage could not be checked. This is a real gap.', detail_bis: 'Walay datos sa textura sa yuta alang sa cell niini, kaya dili na-check ang drainage. Naa gyud na gap.', missing: true };
   }
   const clayScore = ramp(clay, [[15, 1], [30, 0.9], [t.clay_percent.max, 0.35], [60, 0.1]]);
   const bdodScore = bdod === undefined || bdod === null ? null : ramp(bdod, [[1.0, 1], [1.35, 0.9], [1.55, 0.45], [1.8, 0.15]]);
@@ -339,6 +346,7 @@ function scoreDrainage(cell, t) {
     score,
     raw: { clay_percent: clay, sand_percent: soil.sand ?? null, silt_percent: soil.silt ?? null, bulk_density: bdod ?? null, organic_carbon: soil.soc ?? null },
     detail_en: `Soil is ${clay.toFixed(0)}% clay with ${soil.sand?.toFixed?.(0) ?? '?'}% sand${bdod ? ` and bulk density ${bdod.toFixed(2)} g/cm3` : ''}. Heavy clay holds water against the tubers, so drainage matters more here than fertility.`,
+    detail_bis: `${clay.toFixed(0)}% clay ang yuta, uban sa ${soil.sand?.toFixed?.(0) ?? '?'}% sand${bdod ? ` ug ${bdod.toFixed(2)} g/cm3 nga bulk density` : ''}. Ang heavy clay nga nagpugong sa tubig, kaya ang drainage labaw sa fertility ang importante.`,
   };
 }
 
@@ -383,12 +391,14 @@ export function evaluateCell(cell, agronomy, opts = {}) {
     return {
       id: f.id,
       label_en: f.label_en,
+      label_bis: f.label_bis,
       dataset: f.dataset,
       weight: Number(weight.toFixed(4)),
       score: p.score === null ? null : Number(p.score.toFixed(3)),
       contribution: scored === null ? null : Number((scored * 100).toFixed(2)),
       raw: p.raw,
       detail_en: p.detail_en,
+      detail_bis: p.detail_bis,
       missing: !!p.missing,
     };
   });
@@ -416,6 +426,9 @@ export function evaluateCell(cell, agronomy, opts = {}) {
     note_en: missing.length === 0
       ? 'All six factors have data for this cell. The climate and soil numbers are gridded NASA and ISRIC products, so they describe the neighbourhood, not your exact plot.'
       : `We are missing ${missing.length} of the six factors (${missing.map((f) => f.label_en).join(', ')}). Treat the score as a screening result and confirm those points locally.`,
+    note_bis: missing.length === 0
+      ? 'May datos sa unom ka factor alang sa cell niini. Gridded lang ang NASA ug ISRIC, so naa gikan lang sa kighborhood, dili sa imong eksaktong plot.'
+      : `Wala kami sa ${missing.length} sa unom ka factor (${missing.map((f) => f.label_bis).join(', ')}). Isaha ang score, screening lang, ug kumpirma sa lokal ang mga hangtud nga imong area.`,
   };
 
   return {

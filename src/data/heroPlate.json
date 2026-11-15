@@ -1,0 +1,9 @@
+{
+  "plate_date": "2026-04-30",
+  "plate_layer": "MODIS Terra true colour",
+  "plate_resolution": "250 m",
+  "plate_lat": "7.8397 N",
+  "plate_lon": "123.4373 E",
+  "plate_source": "NASA EOSDIS GIBS",
+  "note": "Written by scripts/build_hero.py so the hero caption always matches the image that is actually deployed."
+}
