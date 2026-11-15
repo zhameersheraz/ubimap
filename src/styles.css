@@ -365,7 +365,9 @@ a { color: var(--sea); }
   width: 100%;
   height: clamp(210px, 40vw, 390px);
   object-fit: cover;
-  object-position: 50% 54%;
+  /* Biased towards the lower part of the plate, where the farmland and the city
+     are, rather than the open sea and the cloud band. */
+  object-position: 50% 72%;
 }
 .plate::before, .plate::after {
   content: "";
