@@ -52,7 +52,7 @@ export default function LiveCheck({ lang, lat, lon }) {
           {state === 'loading'
             ? 'Asking NASA...'
             : lang === 'bis'
-              ? 'Kinsa og live ang NASA POWER'
+              ? 'Live nga check sa NASA POWER'
               : 'Check live with NASA POWER'}
         </button>
         {data && (
@@ -68,7 +68,7 @@ export default function LiveCheck({ lang, lat, lon }) {
             <tr>
               <th>{lang === 'bis' ? 'Petsa' : 'Date'}</th>
               <th>T2M °C</th>
-              <th>{lang === 'bis' ? 'Ulan mm/day' : 'Rain mm/day'}</th>
+              <th>{lang === 'bis' ? 'Ulan mm/adlaw' : 'Rain mm/day'}</th>
             </tr>
           </thead>
           <tbody>
@@ -86,7 +86,7 @@ export default function LiveCheck({ lang, lat, lon }) {
       {state === 'failed' && (
         <p className="dim tiny">
           {lang === 'bis'
-            ? 'Dili available ang live nga NASA POWER call sa niining deployment. (GitHub Pages kay static lang, walay server function.) Ang mga numero sa screen gikan sa same nga API, gi-fetch sulod sa 2026-11-14.'
+            ? 'Dili available ang live nga NASA POWER call sa niining deployment. (GitHub Pages kay static lang, walay server function.) Ang mga numero sa screen gikan sa same nga API, gipull noong 2026-11-14.'
             : 'A live NASA POWER call is not available on this deployment, because GitHub Pages serves static files only and has no server function. The numbers on screen came from the same API, fetched on 2026-11-14.'}
           {error ? ` (${error})` : ''}
         </p>

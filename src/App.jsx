@@ -51,7 +51,7 @@ function buildPlan(profile, rotation) {
 }
 
 export default function App() {
-  const [lang, setLang] = useState('bis');
+  const [lang, setLang] = useState('en');
   const [step, setStep] = useState(1);
   const [pin, setPin] = useState(null);
   const [farmer, setFarmer] = useState(DEFAULT_FARMER);
@@ -139,6 +139,9 @@ export default function App() {
           </div>
         </div>
         <div className="langs">
+          <span className="dim tiny" style={{ marginRight: '6px' }}>
+            {t(lang, 'langLabel')}
+          </span>
           {LANGS.map((l) => (
             <button
               key={l.id}
@@ -263,7 +266,7 @@ export default function App() {
             </label>
             <p className="dim small">
               {lang === 'bis'
-                ? 'Islider para sa "unsa kung naa bag-o na klima". Mga numero dili usab gikan sa NASA POWER, gipakita lang unsa naa mahimo kung mag-usab ang ulan o temperatura.'
+                ? 'Gidoktor para sa "unsa kung naa bag-o na klima". Dili bag-o nga datos gikan sa NASA POWER, gipakita lang unsa naa mahimo kung mag-usab ang ulan o temperatura.'
                 : 'A what-if on the NASA POWER climate record. The numbers are not new data, they show what the model does when rainfall or temperature shifts.'}
             </p>
           </div>
@@ -273,7 +276,7 @@ export default function App() {
             <h2>{lang === 'bis' ? 'Live nga check' : 'Live check'}</h2>
             <p className="dim small">
               {lang === 'bis'
-                ? 'Ang mga numero sa screen gikan sa NASA POWER, gi-fetch sulod. I-check nato kung naa pa gyud nga live ang NASA para sa imong uma karon.'
+                ? 'Ang mga numero sa screen gikan sa NASA POWER, gipull samtang gihatag ang grid. Ginatamon nato kung naa pa gyud nga live ang NASA para sa imong uma karon.'
                 : 'The numbers on screen came from NASA POWER, fetched when the grid was built. This asks the NASA POWER API right now, for your field.'}
             </p>
             {nearest && <LiveCheck lang={lang} lat={nearest.cell.lat} lon={nearest.cell.lon} />}
@@ -297,22 +300,22 @@ export default function App() {
               </header>
               <div className="fc-grid">
                 <div>
-                  <h4>{lang === 'bis' ? 'Yung imong tanom' : 'Your current crop'}</h4>
+                  <h4>{lang === 'bis' ? 'Imong tanom' : 'Your current crop'}</h4>
                   <p>{cropLabel(farmer.currentCrop)}</p>
                 </div>
                 <div>
-                  <h4>{lang === 'bis' ? 'Gisuggest nga rotation' : 'Suggested rotation'}</h4>
+                  <h4>{lang === 'bis' ? 'Gipili nga rotation' : 'Suggested rotation'}</h4>
                   <p>
                     {rotationResult?.rotations?.[0]?.sequence?.map(cropLabel).join(' → ')}
                   </p>
                 </div>
                 <div>
                   <h4>{lang === 'bis' ? 'Paglugod sa ube' : 'Plant ube'}</h4>
-                  <p>{plan?.planting?.map((i) => result.profile.months[i].label_en).join(', ')}</p>
+                  <p>{plan?.planting?.map((i) => (lang === 'bis' ? result.profile.months[i].label_bis : result.profile.months[i].label_en)).join(', ')}</p>
                 </div>
                 <div>
                   <h4>{lang === 'bis' ? 'Ani sa ube' : 'Harvest ube'}</h4>
-                  <p>{plan?.harvest?.map((i) => result.profile.months[i].label_en).join(', ')}</p>
+                  <p>{plan?.harvest?.map((i) => (lang === 'bis' ? result.profile.months[i].label_bis : result.profile.months[i].label_en)).join(', ')}</p>
                 </div>
                 <div>
                   <h4>{lang === 'bis' ? 'Ulan sa tuig' : 'Rainfall a year'}</h4>

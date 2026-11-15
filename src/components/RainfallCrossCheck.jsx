@@ -78,7 +78,7 @@ export default function RainfallCrossCheck({ lang, cellId }) {
               <td>{Math.round(row.imerg_annual).toLocaleString()} mm, about 10 km grid, 25 years daily</td>
             </tr>
             <tr>
-              <td>{lang === 'bis' ? 'Pinak dry nga bulan' : 'Driest month'}</td>
+              <td>{lang === 'bis' ? 'Pinak katag nga bulan' : 'Driest month'}</td>
               <td>{Math.round(row.power_driest)} mm</td>
               <td>{Math.round(row.imerg_driest)} mm</td>
             </tr>
@@ -100,12 +100,12 @@ export default function RainfallCrossCheck({ lang, cellId }) {
         <h4>{lang === 'bis' ? 'Ang resulta, ug ang gap' : 'What the cross-check shows, and the gap it leaves'}</h4>
         <p>
           {lang === 'bis'
-            ? 'Ang duha ka produkto nga magkasabot sa kadako, mga 2.5% lang ang kasabaan sa average sa tibuk nga grid. Ang mas detalyadong usa mao ang mas husto kung mahitungod sa ground: ang PAGASA station nga Cotabato City, 110 ka kilometro sa parehong baybayin, nga narekord 2,414.3 mm sa tuig, ug ang IMERG nagsaad og 2,421.9 mm sa Pagadian, mga 0.3% lang ang gibanayaw, pero ang POWER nagsaad og 2,246 mm, mga 7% nga ubos. Pagpalit sa ulan sa modelo gikan sa POWER to IMERG, mao kana ang nakausab sa correlation kontra sa aktuwal nga yield sa probinsiya gikan sa r = +0.00 to r = +0.32. Tanan sa 300 ka cell nga pareho nga walay bulan nga ubos sa 50 mm sa Pagadian, so tinuod nga wala ang dry season didto. Ang gap nga naa pa gikan mao kana ang gap nga ma-close sa sensor sa uma: walay PAGASA station mismo sa Pagadian.'
+            ? 'Ang duha ka produkto nga magkasabot sa kadako, mga 2.5% lang ang kasabaan sa average sa tibuk nga grid. Ang mas detalyadong usa mao ang mas husto kung mahitungod sa ground: ang PAGASA station nga Cotabato City, 110 ka kilometro sa parehong baybayin, nga narekord 2,414.3 mm sa tuig, ug ang IMERG nagsaad og 2,421.9 mm sa Pagadian, mga 0.3% lang ang gibanayaw, pero ang POWER nagsaad og 2,246 mm, mga 7% nga ubos. Pagpalit sa ulan sa modelo gikan sa POWER to IMERG, kay naa tana gikan sa r = +0.00 to r = +0.32 ang correlation kontra sa aktuwal nga yield sa probinsiya. Tanan sa 300 ka cell nga pareho nga walay bulan nga ubos sa 50 mm sa Pagadian, so tinuod nga wala ang dry season didto. Ang gap nga naa pa gikan mao kana ang gap nga ma-close sa sensor sa uma: walay PAGASA station mismo sa Pagadian.'
             : 'The two products agree on magnitude, within about 2.5% on average over the grid. And the finer one is the more accurate one when it is checked against the ground: PAGASA\'s Cotabato City station, 110 kilometres away on the same Sulu Sea coast, records 2,414.3 mm a year, and IMERG reads 2,421.9 mm at Pagadian, within 0.3%, while POWER reads 2,246 mm, about 7% low. Swapping the model\'s rainfall from POWER to IMERG is what took the model\'s correlation with real provincial yield from r = +0.00 to r = +0.32. All 300 grid cells agree that no month falls below 50 mm at Pagadian, so the dry season really is absent there. The gap that remains is the one a field sensor would close: there is no PAGASA station at Pagadian itself.'}
         </p>
         <p>
           {lang === 'bis'
-            ? 'Mao nga ang hustong konklusyon sa model: sa Pagadian, ang klima wala sa kondisyon nga normal para sa ube, kay walay kasaligan nga dry window para sa pagtiniug sa tubero. Mao kana ang kiniy klase sa problema nga ang mapa makatabang nga makita: ang ube mahimong mapag-grow sa climate nga iyang, apan kung ang dry season dili, ang ani dili usab mahimong maayo.'
+            ? 'Mao nga ang hustong konklusyon sa model: sa Pagadian, ang klima dili naa sa normal nga range para sa ube, kay walay kasaligan nga dry window para sa pagtiniug sa tubero. Mao kana ang kining klase sa problema nga ang mapa makatabang nga makita: basin ma-grow ang ube sa klima nga naa sa Pagadian, apan kung ang dry season dili, ang ani dili usab mahimong maayo.'
             : 'So the honest conclusion about the model is this: at Pagadian the climate is not in the normal range for ube, because there is no reliable dry window for the tuber to mature in. That is exactly the kind of problem the map is for. Ube may be growable in the climate the field has, but if the dry season does not arrive, the harvest will not be good either.'}
         </p>
       </div>

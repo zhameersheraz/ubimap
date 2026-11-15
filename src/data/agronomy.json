@@ -90,9 +90,9 @@
       "notes": "Ube does not fix nitrogen. It is a monocot in Dioscoreaceae with no rhizobial symbiosis, and a hectare yielding 35 t removes about 128 kg N, 39 kg P2O5 and 195 kg K2O. Waterlogging is not tolerated at all: the DA guide requires a well-drained area, because the tuber rots in standing water. The same-family rule is a yam-to-yam rule, not a Philippine published rule: the anthracnose pathogen Colletotrichum gloeosporioides infects many crops and weeds and survives on crop debris, so a yam crop after a yam crop is the risk. The IPPC advice for yam anthracnose names maize barrier crops, crop rotation, and ploughing in residues immediately after harvest; ATI-7 lists a cropping system with legumes."
     },
     "risks": [
-      { "id": "waterlogging", "text_en": "Waterlogging rot", "text_bis": "Ugnot sa humod nga yuta", "mitigation_en": "Plant on a ridge or raised bed and clear drainage ditches before the peak of the rains. The crop does not tolerate standing water at all.", "mitigation_bis": "Tabon og gamay nga alima, ug himoon ang dugo sa dili pa mahumug ang ulan. Dili gtiyawan sa ube ang tuyub nga tubig." },
-      { "id": "anthracnose", "text_en": "Anthracnose, the most limiting disease of ube", "text_bis": "Anthracnose, ang labing hadlok nga sakit sa ube", "mitigation_en": "Use clean planting material, avoid overhead watering late in the day, plough crop residues in immediately after harvest, and confirm a spray programme with your municipal agriculturist.", "mitigation_bis": "Gamit nga limpyong material sa pagtani, ayaw mog watering sa gab-i, iplow ang mga basang sa umang abot dayon, ug kumpirma ang spray plan sa imong municipal agriculturist." },
-      { "id": "nematode", "text_en": "Root knot nematode and tuber rot carry over", "text_bis": "Nematode ug kadaot sa tubero nga naa labaw", "mitigation_en": "Do not follow ube with another yam on the same plot. Rotate with a non-yam crop and plough the residues in.", "mitigation_bis": "Ayaw followan ang ube og lain nga yam sa samang luna. Palit og crop nga dili yam, ug iplow ang basang." }
+      { "id": "waterlogging", "text_en": "Waterlogging rot", "text_bis": "Ugnot sa humod nga yuta", "mitigation_en": "Plant on a ridge or raised bed and clear drainage ditches before the peak of the rains. The crop does not tolerate standing water at all.", "mitigation_bis": "Tabon og gamay nga alima, ug himoon ang dugo sa dili pa mahumug ang ulan. Dili gyawan sa ube ang tuyob nga tubig." },
+      { "id": "anthracnose", "text_en": "Anthracnose, the most limiting disease of ube", "text_bis": "Anthracnose, ang labing hadlok nga sakit sa ube", "mitigation_en": "Use clean planting material, avoid overhead watering late in the day, plough crop residues in immediately after harvest, and confirm a spray programme with your municipal agriculturist.", "mitigation_bis": "Gamit nga limpyong material sa pagtani, ayaw i-water sa gab-i, i-plow ang mga basag sa umang abot dayon, ug kumpirma ang spray plan sa imong lokal na agronomista." },
+      { "id": "nematode", "text_en": "Root knot nematode and tuber rot carry over", "text_bis": "Nematode ug kadaot sa tubero nga naa labaw", "mitigation_en": "Do not follow ube with another yam on the same plot. Rotate with a non-yam crop and plough the residues in.", "mitigation_bis": "Ayaw i-follow ang ube og lain nga yam sa samang luna. Palit og tanom nga dili yam, ug i-plow ang basag." }
     ]
   },
 
@@ -150,7 +150,7 @@
       "name_fil": "Ang inyong tanim ngayon",
       "sequence": ["current"],
       "why_en": "This is your existing rotation. We compare every other option against it so you can see what actually changes.",
-      "why_bis": "Kini ang imong kasamtanan karon. Ih compares tanan sa laing opsyon aron makita mo unsay gyud naayo.",
+      "why_bis": "Kini ang imong kasamtanan karon. Gitawag nato ang tanan nga opsyon labaw niini aron makita nimo unsay gyud naayo.",
       "benefits_en": ["No change in cost or routine", "You already know the market and the buyers"],
       "gaps_en": ["Bare soil between seasons lets the topsoil wash away", "Same crop every year drains nitrogen", "No added income source"],
       "risks_en": ["Repeated cropping of the same plant family keeps pest pressure high", "Nitrogen falls every season without a legume to fix it"]
@@ -164,11 +164,11 @@
       "sequence": ["ube", "mungbean"],
       "alt_sequence": ["ube", "peanut"],
       "why_en": "Ube takes the rainy season, when your field already has reliable rain, and the legume takes the dry season and puts nitrogen back.",
-      "why_bis": "Ube ang una sa rainy season, kung naa nga regular nga ulan, ang legume dayon sa dry season aron maibalik ang nitrogen.",
+      "why_bis": "Ube ang una sa panahon sa ulan, kung regular nga ulan, ang legume dayon sa panahon sa katag aron mabalik og nitrogen sa yuta.",
       "benefits_en": ["Two marketable harvests in one year", "The legume fixes nitrogen the ube took", "Different plant families, so the ube pest cycle breaks"],
       "gaps_en": ["No field-level soil pH for your plot yet", "Ube planting material is the real bottleneck. The Department of Agriculture suspended fresh tuber exports in September 2026 to protect seed stocks, so setts are scarce and dear", "Anthracnose pressure cannot be predicted from satellite data"],
       "risks_en": ["Waterlogging in the peak rains can rot the tubers. Ube does not tolerate standing water at all", "Anthracnose is the most limiting disease of ube and survives on crop debris, so plough the residues in"],
-      "benefits_bis": ["Duha ka marketable nga ani sa usa ka tuig", "Ang legume ang naibalik ang nitrogen", "Lain nga pamilya sa tanom, maa break ang peste sa ube"]
+      "benefits_bis": ["Duha ka marketable nga ani sa usa ka tuig", "Ang legume ang mabalik og nitrogen sa yuta", "Lain nga pamilya sa tanom, maa mapahili ang peste sa ube"]
     },
     {
       "id": "R_AGROFORESTRY",
@@ -178,11 +178,11 @@
       "name_fil": "Ube sa ilalim ng niyo, may legume na cover",
       "sequence": ["ube", "coconut", "mungbean"],
       "why_en": "If your farm has coconut, the ube vines climb the palms and use the shade. The palm keeps the soil covered and the legume between palms adds nitrogen.",
-      "why_bis": "Kon may niyo ang imong uma, ang mga ube nga uyab mukut sa palayot ug gamit ang anino. Ang niyo nagpugong sa yuta, ang legume nga pod nga dayon nakaayo og nitrogen.",
+      "why_bis": "Kon may niyo ang imong uma, ang mga ube nga uyab sa palayot ug saka, gamit ang anino. Ang niyo nagpugong sa yuta, ang legume nga naa tali-tali sa palayot makatabang og nitrogen.",
       "benefits_en": ["Coconut income continues while the ube establishes", "Permanent soil cover protects the slope", "Lower cost because you already own the land and the palms"],
       "gaps_en": ["We need a field visit to confirm palm density and shade level", "Mechanisation is difficult between the palms"],
       "risks_en": ["Too much shade lowers tuber size", "Coconut and ube compete for water during a dry spell"],
-      "benefits_bis": ["Padili ang kita sa niyo samtang gikatukang ang ube", "Perminente nga cover nga nagpugong sa yuta", "Mas mura tungod sa imong gipukong na yuta ug mga palayot"]
+      "benefits_bis": ["Padili ang kita sa niyo samtang gikaabot ang ube", "Perminente nga cover nga nagpugong sa yuta", "Mas mura tungod sa imong gipukong na yuta ug mga palayot"]
     },
     {
       "id": "R_DIVERSIFIED",
@@ -192,18 +192,18 @@
       "name_fil": "Ube, kamote, pagkatapos ay legume",
       "sequence": ["ube", "sweetpotato", "mungbean"],
       "why_en": "Three different plant families in three seasons. Sweet potato keeps the ground covered after the ube is lifted and feeds the livestock.",
-      "why_bis": "Tatlong lain nga pamilya sa tanom sa tulo ka season. Ang kamote nagpugong sa yuta humani ang ube, ug naa usab nga ammoon sa hayop.",
+      "why_bis": "Tatlong lain nga pamilya sa tanom sa tulo ka panahon. Ang kamote nagpugong sa yuta human ma-ani ang ube, ug naa usab nga ammo sa hayop.",
       "benefits_en": ["Strongest pest cycle break because no family repeats", "Almost no bare soil through the year", "Sweet potato vines are good fodder"],
       "gaps_en": ["Three crops means more labour and more risk of a mistake", "Sweet potato market price is not tracked in this build"],
       "risks_en": ["More complex, so it needs more careful scheduling", "If the ube harvest slips, the sweet potato planting window is squeezed"],
-      "benefits_bis": ["Kusang maayo nga pagbasak sa peste kay walay pamilya nga naaulit", "Wala nga bare soil sa tibuk nga tuig", "Ang mga kontrim ng kamote maayo nga ampermo"]
+      "benefits_bis": ["Kusog nga pagbasak sa siklo sa peste kay walay pamilya nga naaulit", "Walay hubad nga yuta sa tibuk nga tuig", "Ang mga tanom sa kamote maayo nga ammo sa hayop"]
     }
   ],
 
   "priority_dimensions": {
     "income": { "en": "More income", "bis": "Mas daghan nga kita", "fil": "Mas malaki ang kita" },
-    "water": { "en": "Save water", "bis": "Tipig ang tubig", "fil": "Magtipid ng tubig" },
+    "water": { "en": "Save water", "bis": "Hagdangan ang tubig", "fil": "Magtipid ng tubig" },
     "soil": { "en": "Healthier soil", "bis": "Mas maayo nga yuta", "fil": "Mas magandang lupa" },
-    "labour": { "en": "Less work", "bis": "Less trabaho", "fil": "Mas kaunting gawain" }
+    "labour": { "en": "Less work", "bis": "Mas gamay nga trabaho", "fil": "Mas kaunting gawain" }
   }
 }

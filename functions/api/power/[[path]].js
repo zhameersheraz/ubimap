@@ -8,13 +8,25 @@
  *
  * Route:  /api/power/<rest of the POWER path>
  * Example: /api/power/temporal/daily/point?parameters=T2M&community=AG&longitude=123.4&latitude=7.8
+ *
+ * The file lives at functions/api/power/[[path]].js on purpose. A flat file at
+ * functions/api/power.js is only routed for the exact path /api/power, so every
+ * deeper POWER path such as /api/power/temporal/daily/point fell through to the
+ * single page app fallback and returned HTML instead of JSON. The optional
+ * catch-all [[path]] matches /api/power and every path under it.
  */
 const POWER_BASE = 'https://power.larc.nasa.gov/api';
 
-export async function onRequest({ request }) {
+export async function onRequest(context) {
+  const { request, params } = context;
   const url = new URL(request.url);
-  const rest = url.pathname.replace(/^\/api\/power/, '') || '/';
-  const target = `${POWER_BASE}${rest}${url.search}`;
+
+  // Prefer the catch-all parameter, fall back to stripping the mount prefix.
+  const fromParams = params?.path ? String(params.path) : null;
+  const fromPath = url.pathname.replace(/^\/api\/power/, '').replace(/^\//, '');
+  const rest = fromParams || fromPath || '';
+
+  const target = `${POWER_BASE}/${rest}${url.search}`;
 
   const headers = {
     'Access-Control-Allow-Origin': '*',

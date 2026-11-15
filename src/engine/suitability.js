@@ -158,7 +158,7 @@ export function longestDryRun(months, thresholdMm, restrictTo = null) {
 
 export const SEASON_LABEL = {
   wet: { en: 'Wet season', bis: 'Panahon sa ulan', fil: 'Tag-ulan' },
-  dry: { en: 'Dry season', bis: 'Panahon sa drynessa', fil: 'Tag-tuyo' },
+  dry: { en: 'Dry season', bis: 'Panahon sa katag', fil: 'Tag-tuyo' },
   shoulder: { en: 'Shoulder season', bis: 'Panahon sa pagpugong', fil: 'Panahon ng pagitanaw' },
 };
 
@@ -230,7 +230,7 @@ function scoreRainfall(months, t, wetMonths) {
 function scoreSoilMoisture(months, t, wetMonths) {
   const inSeason = wetMonths.length ? months.filter((m) => wetMonths.includes(m.index)) : months;
   if (!inSeason.length) {
-    return { score: null, raw: null, detail_en: 'No soil moisture data available for this cell.', detail_bis: 'Walay available nga soil moisture data alang sa cell niini.', missing: true };
+    return { score: null, raw: null, detail_en: 'No soil moisture data available for this cell.', detail_bis: 'Walay datos sa soil moisture alang sa cell niini.', missing: true };
   }
   let sum = 0;
   let n = 0;
@@ -270,7 +270,7 @@ function scoreSoilMoisture(months, t, wetMonths) {
       peak_wetness_month: peakMonth,
     },
     detail_en: `${waterloggingMonths} month${waterloggingMonths === 1 ? '' : 's'} get more than ${t.waterlogging_monthly_rain_mm} mm of rain, which is when ube tubers rot, and ${droughtMonths} month${droughtMonths === 1 ? '' : 's'} fall under ${t.drought_monthly_rain_mm} mm, which is the dry stress. The modelled root zone wetness peaks at ${wetnessPeak.toFixed(2)} in ${peakMonth}.`,
-    detail_bis: `${waterloggingMonths} ka bulan nga labaw sa ${t.waterlogging_monthly_rain_mm} mm nga ulan, kay naa diin naa mamatong ang mga tubero, ug ${droughtMonths} ka bulan nga ubos sa ${t.drought_monthly_rain_mm} mm, kay naa diin naa stress sa drynessa. Ang modeled nga wetness sa lawas sa gamot gikan sa ${wetnessPeak.toFixed(2)} sa ${peakMonth}.`,
+    detail_bis: `${waterloggingMonths} ka bulan nga labaw sa ${t.waterlogging_monthly_rain_mm} mm nga ulan, kay naa diin mamatong ang mga tubero, ug ${droughtMonths} ka bulan nga ubos sa ${t.drought_monthly_rain_mm} mm, kay naa diin stress sa katag. Ang modeled nga wetness sa lawas sa gamot gikan sa ${wetnessPeak.toFixed(2)} sa ${peakMonth}.`,
   };
 }
 
@@ -314,14 +314,14 @@ function scoreSlope(cell, t) {
     score,
     raw: { slope_deg: s, elevation_m: cell.elev_m ?? null },
     detail_en: `Ground slopes ${s.toFixed(1)} degrees (about ${cell.elev_m ?? '?'} m above sea level). Ube wants ${t.slope_deg.ideal} degrees or less; above ${t.slope_deg.tolerable} degrees the tubers sit exposed.`,
-    detail_bis: `${s.toFixed(1)} grados ang kantidad sa yuta (mga ${cell.elev_m ?? '?'} m sa ibabaw sa dagat). Gusto nga ube ang ${t.slope_deg.ideal} grados pababa; labaw sa ${t.slope_deg.tolerable} grados, exposed ang mga tubero.`,
+    detail_bis: `${s.toFixed(1)} grados ang kantidad sa yuta (mga ${cell.elev_m ?? '?'} m sa ibabaw sa dagat). Gusto nga ube ang ${t.slope_deg.ideal} grados pababa; labaw sa ${t.slope_deg.tolerable} grados, gipagtray ang mga tubero.`,
   };
 }
 
 function scoreSoilPh(cell, t) {
   const ph = cell.soil?.phh2o;
   if (ph === null || ph === undefined) {
-    return { score: null, raw: null, detail_en: 'No soil pH data for this cell. Ask your municipal agriculturist for a soil test, this is a real gap in our data.', detail_bis: 'Walay datos sa pH sa yuta alang sa cell niini. Pangutanag ang imong municipal agriculturist para sa soil test, kay naa gyud na gap sa among datos.', missing: true };
+    return { score: null, raw: null, detail_en: 'No soil pH data for this cell. Ask your municipal agriculturist for a soil test, this is a real gap in our data.', detail_bis: 'Walay datos sa pH sa yuta alang sa cell niini. Pangutnag ang imong lokal na agronomista para sa soil test, kay naa gyud na gap sa among datos.', missing: true };
   }
   const score = ramp(ph, [[t.soil_ph.tolerable[0], 0.15], [t.soil_ph.optimal[0], 1], [t.soil_ph.optimal[1], 1], [t.soil_ph.tolerable[1], 0.25]]);
   return {
@@ -427,8 +427,8 @@ export function evaluateCell(cell, agronomy, opts = {}) {
       ? 'All six factors have data for this cell. The climate and soil numbers are gridded NASA and ISRIC products, so they describe the neighbourhood, not your exact plot.'
       : `We are missing ${missing.length} of the six factors (${missing.map((f) => f.label_en).join(', ')}). Treat the score as a screening result and confirm those points locally.`,
     note_bis: missing.length === 0
-      ? 'May datos sa unang siyam ka результado alang sa cell niini. Gridded lang ka NASA ug ISRIC, so nga describes sa kighborhood, dili sa imong eksaktong plot.'
-      : `Wala kami sa ${missing.length} sa unang siyam (${missing.map((f) => f.label_bis).join(', ')}). Isaha nga score isang screening lang, confirmon og mga hangtud nga imong area.`,
+      ? 'May datos sa unom ka factor alang sa cell niini. Gridded lang ang NASA ug ISRIC, so naa gikan lang sa kighborhood, dili sa imong eksaktong plot.'
+      : `Wala kami sa ${missing.length} sa unom ka factor (${missing.map((f) => f.label_bis).join(', ')}). Isaha ang score, screening lang, ug kumpirma sa lokal ang mga hangtud nga imong area.`,
   };
 
   return {
