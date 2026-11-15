@@ -43,7 +43,7 @@ LEVEL = 9
 # city, the farmland and the coast all read, and the cloud band sits offshore rather
 # than over the pilot area.
 PLATE_DATE = "2026-04-30"
-COLS, ROWS = 2, 2
+COLS, ROWS = 3, 2
 EAST, SOUTH = 0, 0
 
 
@@ -118,22 +118,19 @@ def save_crops(canvas: Image.Image, out_dir: str) -> None:
     """
     w, h = canvas.size
 
-    # 16:9 wide banner for social previews
-    crop_w = int(h * 16 / 9)
-    if crop_w <= w:
-        left = int((w - crop_w) / 2)
-        banner = canvas.crop((left, 0, left + crop_w, h))
+    # 16:9 wide banner for social previews. The source is 3:2, so this trims the
+    # top and bottom a little rather than the sides, which keeps the coast and the
+    # farmland in frame.
+    crop_h = int(w * 9 / 16)
+    if crop_h <= h:
+        top = int((h - crop_h) / 2)
+        banner = canvas.crop((0, top, w, top + crop_h))
     else:
         banner = canvas
     banner.save(os.path.join(out_dir, "hero-wide.jpg"), quality=88, optimize=True)
 
-    # the plate, taller so it reads on a phone
-    plate_w = int(h * 3 / 2)
-    if plate_w <= w:
-        left = int((w - plate_w) / 2)
-        plate = canvas.crop((left, 0, left + plate_w, h))
-    else:
-        plate = banner
+    # the plate, 3:2 as stitched, so the app header crop does not lose the subject
+    plate = canvas
     plate.save(os.path.join(out_dir, "hero-plate.jpg"), quality=90, optimize=True)
 
 

@@ -231,7 +231,7 @@ export default function App() {
               src={`${import.meta.env.BASE_URL}hero-plate.jpg`}
               alt="NASA MODIS Terra true colour image of the Zamboanga peninsula, showing the Sulu Sea and the coastal plain around Pagadian City"
               width="768"
-              height="768"
+              height="512"
             />
             <div className="plate-caption">
               <span>
