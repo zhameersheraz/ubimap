@@ -98,8 +98,8 @@
   --red: #b23a2c;
 
   --good: #4c8a2a;
-  --plate-caption-ink: #f2f6fb;
-  --plate-fade: rgba(8, 14, 22, .88);
+  --plate-caption-ink: #ffffff;
+  --plate-fade: rgba(8, 14, 22, .82);
   --map-bg: #dfe6ee;
   --overlay: rgba(255, 255, 255, .95);
   --overlay-soft: rgba(255, 255, 255, .9);
@@ -235,12 +235,11 @@ a { color: var(--sea); }
 .brand p { margin: 0; font-size: .8rem; }
 
 .logo {
-  width: 34px; height: 34px;
+  width: 38px; height: 38px;
   display: grid; place-items: center;
-  border-radius: 8px;
-  background: linear-gradient(150deg, var(--ube) 0%, var(--ube-deep) 58%, #24405c 100%);
+  border-radius: 9px;
+  background: linear-gradient(150deg, rgba(179, 106, 212, .16) 0%, rgba(31, 74, 107, .22) 100%);
   border: 1px solid var(--rule);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12);
   overflow: hidden;
   flex: 0 0 auto;
   padding: 0;
@@ -250,10 +249,36 @@ a { color: var(--sea); }
 .logo:hover { filter: brightness(1.12); }
 .logo:active { transform: scale(.96); }
 .logo:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
-.logo svg { display: block; }
+.logo img { display: block; width: 34px; height: 34px; object-fit: contain; }
 
-.langs { display: flex; gap: 4px; flex: 0 0 auto; align-items: center; }
+.langs { display: flex; gap: 10px; flex: 0 0 auto; align-items: center; }
 .langs-label { white-space: nowrap; }
+/* The three language buttons are one control, so they share a single bordered
+   group with the active one filled in. Set apart from the theme button, which
+   stands on its own. Without the divider the row read as three unrelated
+   buttons, and on a narrow screen it read as a hamburger menu. */
+.lang-group {
+  display: flex;
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+  overflow: hidden;
+  background: var(--ink-2);
+}
+.lang-group .chip {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 6px 11px;
+  font-size: .76rem;
+  color: var(--dim);
+}
+.lang-group .chip + .chip { border-left: 1px solid var(--rule); }
+.lang-group .chip:hover { color: var(--text); }
+.lang-group .chip.chip-on {
+  background: var(--ube-deep);
+  color: #fff;
+  font-weight: 600;
+}
 
 /* theme switch */
 .theme-toggle {
@@ -388,7 +413,7 @@ a { color: var(--sea); }
   text-transform: uppercase;
   color: var(--plate-caption-ink);
 }
-.plate-caption b { color: var(--amber); font-weight: 500; }
+.plate-caption b { color: #ffd166; font-weight: 500; }
 
 /* ---------- pin ---------- */
 .pin { position: relative; }
@@ -434,8 +459,17 @@ a { color: var(--sea); }
   border-radius: 4px !important;
   font-size: 10px;
   max-width: min(100%, 520px);
+  color: var(--dim) !important;
 }
-.maplibregl-ctrl-attrib a { color: var(--dim) !important; }
+/* MapLibre ships the attribution text in its own dark grey, which is unreadable
+   on the dark panel in the dark theme. The links needed the override too, and
+   the "i" button is an inline SVG that has to be lightened by hand. */
+.maplibregl-ctrl-attrib,
+.maplibregl-ctrl-attrib a,
+.maplibregl-ctrl-attrib-inner { color: var(--dim) !important; }
+[data-theme="dark"] .maplibregl-ctrl-attrib-button {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpath fill='%23cfdcea' d='M10 1a9 9 0 100 0 0 18 9 9 0 000-18zm0 1a8 8 0 110 16 8 8 0 010-16zm0 3a5 5 0 100 0 0 5 5 0 000 0zm0 1a4 4 0 110 8 4 4 0 010-8z'/%3E%3C/svg%3E");
+}
 /* The attribution bar runs along the bottom edge, so the suitability legend
    has to sit clear of it or the two overlap and neither is readable. */
 .maplibregl-ctrl-bottom-right { z-index: 5; }
@@ -537,10 +571,10 @@ td a { color: var(--sea); }
 .rot h3 { margin: 0; }
 .rot .seq { margin: 3px 0 0; color: var(--dim); font-family: var(--mono); font-size: .78rem; }
 .rot-score { text-align: right; flex: 0 0 auto; }
-.rot-score strong { font-size: 1.7rem; line-height: 1; }
+.rot-score strong { font-size: 1.7rem; line-height: 1; display: block; }
 .badge {
   display: inline-block; font-family: var(--mono); font-size: .62rem; letter-spacing: .1em;
-  text-transform: uppercase; padding: 2px 7px; border-radius: 3px; margin-top: 5px;
+  text-transform: uppercase; padding: 2px 7px; border-radius: 3px; margin-top: 7px;
   background: var(--badge-bg); color: var(--dim);
 }
 .b-recommended { background: var(--mint); color: var(--on-mint); }

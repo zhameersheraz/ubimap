@@ -490,11 +490,11 @@ export function ValidationPanel({ lang, validation }) {
       <div className="val-stats">
         <div>
           <strong>{st.mean_score_producers}</strong>
-          <span>{lang === 'bis' ? 'mean score, may produksyon' : 'mean score, with production'}</span>
+          <span>{lang === 'bis' ? 'Puntos, may produksyon' : 'mean score, with production'}</span>
         </div>
         <div>
           <strong>{st.mean_score_non_producers}</strong>
-          <span>{lang === 'bis' ? 'mean score, walang produksyon' : 'mean score, no production'}</span>
+          <span>{lang === 'bis' ? 'Puntos, walang produksyon' : 'mean score, no production'}</span>
         </div>
         <div>
           <strong>{st.spearman_score_vs_yield}</strong>
@@ -555,7 +555,7 @@ export function NasaDataPanel({ lang, rows }) {
   const nasa = rows.filter((r) => /NASA|GIBS|MODIS|SMAP|IMERG|SRTM|GRACE|Landsat|VIIRS|ECOSTRESS|POWER|CMR/i.test(`${r.name} ${r.mission}`));
   return (
     <section className="card">
-      <h2>{lang === 'bis' ? 'NASA data nga among gigamit' : 'NASA data used'}</h2>
+      <h2>{lang === 'bis' ? 'NASA data nga gigamit' : 'NASA data used'}</h2>
       <p className="dim small">
         {lang === 'bis'
           ? 'Pit ka dataset, dili usa. Naa tana live gikan sa NASA GIBS direkta sa browser, ug nasa tana NASA POWER nga pre-computed para ma-offline ang app.'

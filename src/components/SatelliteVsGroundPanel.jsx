@@ -52,7 +52,7 @@ function WetnessChart({ profile }) {
 export default function SatelliteVsGroundPanel({ lang, profile }) {
   return (
     <section className="card">
-      <h2>{lang === 'bis' ? 'Satellite kontra ground' : 'Satellite versus ground'}</h2>
+      <h2>{lang === 'bis' ? 'Satellite kontra yuta' : 'Satellite versus ground'}</h2>
       <p>
         {lang === 'bis'
           ? 'Ang matag-iya nga limitation niini sa spatial scale, ipakita diri sa simple nga numero.'

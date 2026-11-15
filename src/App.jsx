@@ -87,6 +87,15 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  // The logo is also the home button: it takes you back to the start of the
+  // tool and clears the field you had picked, so there is always a way out
+  // of a scored field and back to the beginning.
+  const goHome = () => {
+    setStep(1);
+    setPin(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const scenario = useMemo(
     () => ({ scenarioRainFactor: rainFactor, scenarioTempDelta: tempDelta }),
     [rainFactor, tempDelta],
@@ -160,28 +169,14 @@ export default function App() {
           <button
             type="button"
             className="logo"
-            onClick={scrollToTop}
-            aria-label="Back to the top"
-            title="Back to the top"
+            onClick={goHome}
+            aria-label="UbiMap home"
+            title="Back to the start"
           >
-            {/* A minimal contour mark: three nested rings and a summit point,
-                the subject read as elevation. The wordmark sits beside it so
-                the mark stays small and quiet. */}
-            <svg viewBox="0 0 32 32" width="32" height="32" focusable="false">
-              <defs>
-                <linearGradient id="ubimap-mark" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#e0b3f2" />
-                  <stop offset="55%" stopColor="#b36ad4" />
-                  <stop offset="100%" stopColor="#5f97cd" />
-                </linearGradient>
-              </defs>
-              <g fill="none" stroke="url(#ubimap-mark)" strokeLinecap="round">
-                <path d="M16 4.6c6 0 10.2 3.9 10.2 9.2S21.4 26 16 27.4C10.6 26 5.8 19.6 5.8 13.8S10 4.6 16 4.6z" strokeWidth="1.7" opacity="0.55" />
-                <path d="M16 9.3c3.7 0 6.4 2.5 6.4 5.9s-2.6 7.1-6.4 8c-3.8-.9-6.4-4.6-6.4-8s2.7-5.9 6.4-5.9z" strokeWidth="1.8" opacity="0.8" />
-                <path d="M16 13.9c1.9 0 3.1 1.3 3.1 2.9s-1.3 3.4-3.1 3.8c-1.8-.4-3.1-2.2-3.1-3.8s1.2-2.9 3.1-2.9z" strokeWidth="1.9" />
-              </g>
-              <circle cx="16" cy="16.8" r="1.7" fill="#f7ecfd" />
-            </svg>
+            {/* The ube itself, drawn by the team. It doubles as the home button,
+                so it goes back to the start of the tool, not just to the top
+                of the page. */}
+            <img src={`${import.meta.env.BASE_URL}logo-ube-256.png`} alt="" width="34" height="34" />
           </button>
           <div>
             <h1>
@@ -208,19 +203,22 @@ export default function App() {
               <path d="M20.5 14.6A8.6 8.6 0 0 1 9.4 3.5a8.6 8.6 0 1 0 11.1 11.1z" />
             </svg>
           </button>
-          <span className="dim tiny langs-label" style={{ marginRight: '6px' }}>
+          <span className="dim tiny langs-label">
             {t(lang, 'langLabel')}
           </span>
-          {LANGS.map((l) => (
-            <button
-              key={l.id}
-              type="button"
-              className={`chip ${lang === l.id ? 'chip-on' : ''}`}
-              onClick={() => setLang(l.id)}
-            >
-              {l.short}
-            </button>
-          ))}
+          <div className="lang-group" role="group" aria-label={t(lang, 'langLabel')}>
+            {LANGS.map((l) => (
+              <button
+                key={l.id}
+                type="button"
+                className={`chip ${lang === l.id ? 'chip-on' : ''}`}
+                onClick={() => setLang(l.id)}
+                aria-pressed={lang === l.id}
+              >
+                {l.short}
+              </button>
+            ))}
+          </div>
         </div>
       </header>
 
