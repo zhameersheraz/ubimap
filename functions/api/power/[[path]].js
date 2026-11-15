@@ -18,13 +18,14 @@
 const POWER_BASE = 'https://power.larc.nasa.gov/api';
 
 export async function onRequest(context) {
-  const { request, params } = context;
+  const { request } = context;
   const url = new URL(request.url);
 
-  // Prefer the catch-all parameter, fall back to stripping the mount prefix.
-  const fromParams = params?.path ? String(params.path) : null;
-  const fromPath = url.pathname.replace(/^\/api\/power/, '').replace(/^\//, '');
-  const rest = fromParams || fromPath || '';
+  // Take the path from the request URL, not from the catch-all parameter.
+  // For a [[path]] catch-all, params.path is an array of segments, so
+  // String(params.path) produced "temporal,daily,point" and NASA answered 404.
+  // The pathname is always the real, slash separated path.
+  const rest = url.pathname.replace(/^\/api\/power/, '').replace(/^\/+/, '');
 
   const target = `${POWER_BASE}/${rest}${url.search}`;
 
