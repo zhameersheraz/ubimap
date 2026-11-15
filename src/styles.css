@@ -130,7 +130,8 @@ a { color: var(--sea); }
   flex: 0 0 auto;
 }
 
-.langs { display: flex; gap: 4px; flex: 0 0 auto; }
+.langs { display: flex; gap: 4px; flex: 0 0 auto; align-items: center; }
+.langs-label { white-space: nowrap; }
 
 /* ---------- chips ---------- */
 .chips { display: flex; flex-wrap: wrap; gap: 7px; }
@@ -521,6 +522,12 @@ table.prov tr.nonprod td { background: rgba(226, 112, 95, .08); }
   .brand h1 { font-size: 1.2rem; }
   .brand h1 em { display: none; }
   .brand p { display: none; }
+  /* The masthead is tight on a phone. The chips alone read as a language
+     switch, so the word "Language" is dropped rather than left to collide
+     with the wordmark. */
+  .langs-label { display: none; }
+  .brand { flex: 1 1 auto; min-width: 0; }
+  .brand h1 { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .map { height: 340px; }
   .readiness-head { flex-direction: column; align-items: flex-start; gap: 14px; }
   .gauge { width: 104px; height: 104px; }

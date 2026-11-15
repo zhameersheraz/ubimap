@@ -139,7 +139,7 @@ export default function App() {
           </div>
         </div>
         <div className="langs">
-          <span className="dim tiny" style={{ marginRight: '6px' }}>
+          <span className="dim tiny langs-label" style={{ marginRight: '6px' }}>
             {t(lang, 'langLabel')}
           </span>
           {LANGS.map((l) => (
