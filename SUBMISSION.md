@@ -13,7 +13,7 @@ Placeholders you must fill in before submitting:
 |---|---|
 | `https://ubimap.pages.dev` | Your deployed demo link. This is the Cloudflare Pages build, and it is the one to give the judges, because it also runs the NASA POWER proxy, so the live NASA button in the app really works |
 | `https://github.com/zhameersheraz/ubimap` | Your public GitHub repository link |
-| `[VIDEO_URL]` | Link to the 30 second demo video |
+| `[VIDEO_URL]` | Link to the 30 second demo video. Already recorded and hosted: `https://ubimap.pages.dev/ubimap-demo.mp4` |
 | `[DECK_URL]` | Link to the 7 slide deck, if you use slides instead of a video. It is already built and hosted: `https://ubimap.pages.dev/ubimap-deck.pdf` (also at `https://zhameersheraz.github.io/ubimap/ubimap-deck.pdf`) |
 | `[TEAM_MEMBERS]` | Team names and roles, max 6 members, all registered for the Universal Event |
 | `[MAILBOX]` | The mailbox that receives NASA emails, in case the organisers need to reach you. Use `zhameersheraztampugao@gmail.com` |
@@ -76,7 +76,13 @@ sources, and every screen carries a reminder to consult a local agriculturist.
 
 ## 3. Link to Project Demo
 
-`[VIDEO_URL]`
+`https://ubimap.pages.dev/ubimap-demo.mp4`
+
+*(A video of 30 seconds or less, recorded from the live app with English
+subtitles burned in. It is hosted with the app, so it needs no login. Mirror:
+`https://zhameersheraz.github.io/ubimap/ubimap-demo.mp4`. The source is
+`demo/` in this repository, and `scripts/record_demo.mjs` plus
+`scripts/build_demo_video.py` rebuild it from scratch.)*
 
 *(A video of 30 seconds or less. The guide states: "Projects that exceed these limits will
 not be eligible for Global Judging.")*
