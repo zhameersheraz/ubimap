@@ -97,6 +97,22 @@ const scrollTo = async (selector, offset = 80, duration = 1100) => {
   await sleep(duration + 120);
 };
 
+/** Eased scroll by a pixel amount, so the shot keeps producing frames. */
+const scrollBy = async (dy, duration = 2400) => {
+  await evaluate(`(() => {
+    const start = window.scrollY;
+    const target = start + ${dy};
+    const t0 = performance.now();
+    const step = (now) => {
+      const k = Math.min(1, (now - t0) / ${duration});
+      window.scrollTo(0, start + (target - start) * (1 - Math.pow(1 - k, 3)));
+      if (k < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  })()`);
+  await sleep(duration + 150);
+};
+
 const click = (selector, index = 0) => evaluate(`(() => {
   const els = document.querySelectorAll(${JSON.stringify(selector)});
   if (!els[${index}]) return false;
@@ -159,9 +175,12 @@ await mark('live NASA check', 2600);
 await scrollTo('.rot-cards', 60, 1100);
 await mark('rotations', 1700);
 
-// 8. The validation table.
+// 8. The validation table, then a slow move down through the honest paragraph
+// underneath it. A still page produces no frames, so the shot has to move for
+// the footage to keep running.
 await scrollTo('.prov-scroll', 60, 1200);
-await mark('validation table', 1900);
+await scrollBy(230, 2400);
+await mark('validation table', 400);
 
 await send('Page.stopScreencast');
 recording = false;

@@ -176,20 +176,31 @@ def main():
         sys.exit("too few frames, re-run the recorder")
 
     app_dur = frame_durations(frames)
+    title_len = 2.5
+    end_len = 4.5
+    max_app = TOTAL - title_len - end_len
+
+    # Trim the tail of the recording if it ran long, so the title and end cards
+    # still get their time.
+    total_app = sum(app_dur)
+    if total_app > max_app:
+        excess = total_app - max_app
+        for i in range(len(app_dur) - 1, -1, -1):
+            take = min(app_dur[i], excess)
+            app_dur[i] -= take
+            excess -= take
+            if excess <= 0.0001:
+                break
     app_len = sum(app_dur)
 
     os.makedirs(CARDS, exist_ok=True)
     title_card().save(os.path.join(CARDS, "title.png"))
     end_card().save(os.path.join(CARDS, "end.png"))
 
-    title_len = 3.2
+    title_len = 2.5
     end_len = TOTAL - title_len - app_len
     if end_len < 1.0:
-        # Footage ran long. Trim the tail of the app instead of a short end card.
-        end_len = 2.5
-        title_len = TOTAL - end_len - app_len
-        if title_len < 1.0:
-            sys.exit(f"footage is {app_len:.1f}s, too long for a {TOTAL}s cut")
+        sys.exit(f"footage is {app_len:.1f}s, too long for a {TOTAL}s cut")
 
     # Concat list with the exact per frame durations.
     listing = os.path.join(CARDS, "frames.txt")
@@ -213,52 +224,69 @@ def main():
 
     order = ["plate", "map, tiles loading", "demo field pinned", "profile",
              "farm card", "live NASA check", "rotations", "validation table"]
+    # One line per shot. The same text is spoken and burned in as the subtitle,
+    # so the English subtitle is exactly what the narrator says.
     shot_text = [
         ("plate",
-         "Ube production in the Philippines has fallen 43% in fifteen years,\n"
-         "and the area planted has halved."),
+         "Ube production has fallen 43%.",
+         "Ube production has fallen 43%."),
         ("map, tiles loading",
-         "Seven NASA datasets stream into the browser.\n"
-         "This is live NASA MODIS imagery over Pagadian City."),
+         "Seven NASA datasets, live in the browser.",
+         "Seven NASA datasets, live in the browser."),
         ("demo field pinned",
-         "The farmer pins their field, and the app scores the\n"
-         "NASA POWER grid cell around it."),
+         "The farmer pins their field.",
+         "The farmer pins their field."),
         ("profile",
-         "They say what they plant now and what matters most:\n"
-         "income, water, soil or work."),
+         "Set what matters most.",
+         "Set what matters most."),
         ("farm card",
-         "The Farm Card gives a ube readiness score out of 100,\n"
-         "the reasons behind it and the things to watch."),
+         "A Farm Card scores your field, and names every dataset.",
+         "A Farm Card scores your field, and every number names its dataset."),
         ("live NASA check",
-         "This button calls the NASA POWER API right now,\n"
-         "for this exact field."),
+         "This button calls NASA POWER, right now.",
+         "This button calls NASA POWER right now, for this exact field."),
         ("rotations",
-         "Four rotations, including the one you farm now, each with\n"
-         "why it is suggested, the evidence, the gaps and the risks."),
+         "Four rotations, including yours.",
+         "Four rotations, including the one you farm now."),
         ("validation table",
-         "We tested against Philippine Statistics Authority data. The first version\n"
-         "scored zero against real yield, so we rebuilt the rainfall from GPM IMERG.\n"
-         "The correlation went from zero to plus 0.32."),
+         "Tested against real Philippine data.",
+         "Tested against real Philippine Statistics Authority data."),
     ]
 
     cues = [(0.15, title_len - 0.15,
              "We are Team Messiah Project Digital, from Pagadian City in the Philippines.")]
+    narration = [{"label": "title", "start": 0.15, "end": title_len - 0.15,
+                  "text": "We are Team Messiah Project Digital."}]
     prev = 0.0
-    for label, txt in shot_text:
-        end = at(label)
+    for label, spoken, shown in shot_text:
+        end = min(at(label), app_len)
         if end <= prev:
-            end = prev + 0.4
-        cues.append((title_len + prev, title_len + end, txt))
+            end = min(prev + 0.4, app_len)
+        if end <= prev:
+            break
+        cues.append((title_len + prev, title_len + end, shown))
+        narration.append({"label": label, "start": round(title_len + prev, 3),
+                          "end": round(title_len + end, 3), "text": spoken})
         prev = end
-    cues.append((title_len + prev, title_len + app_len,
-                 "One node per barangay, ground truth against the satellite.\n"
+    cues.append((title_len + app_len, title_len + app_len + 0.2,
+                 "One node per barangay, to support the farmer.\n"
                  "This tool supports the farmer, it does not replace them."))
+    narration.append({"label": "end card", "start": round(title_len + app_len + 0.15, 3),
+                      "end": round(TOTAL - 0.1, 3),
+                      "text": "One node per barangay, to support the farmer. "
+                              "This tool supports the farmer, it does not replace them."})
     cues.append((title_len + app_len + 0.15, TOTAL - 0.1,
-                 "One node per barangay, ground truth against the satellite.\n"
+                 "One node per barangay, to support the farmer.\n"
                  "This tool supports the farmer, it does not replace them."))
+
+    with open(os.path.join(CARDS, "narration.json"), "w", encoding="utf-8") as f:
+        json.dump(narration, f, indent=1)
 
     ass = os.path.join(CARDS, "subs.ass")
     build_ass(0.0, cues, ass)
+    print("caption cues:")
+    for s, e, txt in cues:
+        print(f"  {s:6.2f} -> {e:6.2f}  ({e - s:4.2f}s)  {txt.splitlines()[0][:58]}")
 
     # Assemble: title card, the screen recording, end card, then burn the captions.
     # Everything runs from the cards folder with relative names, because the ass
@@ -287,7 +315,7 @@ def main():
         "-c:v", "libx264", "-preset", "slow", "-crf", "21",
         "-pix_fmt", "yuv420p", "-movflags", "+faststart",
         "-r", "30", "-t", f"{TOTAL:.3f}",
-        OUT,
+        "silent.mp4",
     ]
     r = subprocess.run(cmd, cwd=CARDS, capture_output=True, text=True)
     if r.returncode != 0:
@@ -296,10 +324,10 @@ def main():
 
     probe = subprocess.run([
         "ffprobe", "-v", "error", "-show_entries", "format=duration,size",
-        "-of", "default=noprint_wrappers=1", OUT,
+        "-of", "default=noprint_wrappers=1", os.path.join(CARDS, "silent.mp4"),
     ], capture_output=True, text=True)
     print(probe.stdout.strip())
-    print(f"wrote {OUT} ({os.path.getsize(OUT) / 1024:.0f} KB)")
+    print(f"wrote {os.path.join(CARDS, 'silent.mp4')} (no audio yet, run mix_narration.py)")
 
 
 if __name__ == "__main__":
