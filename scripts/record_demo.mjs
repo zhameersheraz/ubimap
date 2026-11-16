@@ -16,6 +16,9 @@ import os from 'node:os';
 const CHROME = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
 const url = process.argv[2] || 'https://ubimap.pages.dev';
 const outDir = path.resolve(process.argv[3] || 'demo/frames');
+// "long" records the whole app walkthrough, used for the project page. The
+// NASA demo video itself must stay at 30 seconds or less.
+const LONG = process.argv.includes('--long');
 const PORT = 9337;
 const W = 1280;
 const H = 720;
@@ -181,6 +184,37 @@ await mark('rotations', 1700);
 await scrollTo('.prov-scroll', 60, 1200);
 await scrollBy(230, 2400);
 await mark('validation table', 400);
+
+if (LONG) {
+  // 9. The planting calendar.
+  await scrollTo('.cal', 60, 1200);
+  await scrollBy(180, 1600);
+  await mark('calendar', 300);
+
+  // 10. The Farm Card as the farmer takes it away.
+  await scrollTo('.farmcard', 60, 1200);
+  await scrollBy(200, 1600);
+  await mark('farm card view', 300);
+
+  // 11. Satellite against ground.
+  await scrollTo('.cmp', 60, 1200);
+  await scrollBy(180, 1600);
+  await mark('satellite vs ground', 300);
+
+  // 12. The rainfall cross check.
+  await scrollTo('.val-stats', 60, 1200);
+  await scrollBy(200, 1600);
+  await mark('rainfall cross check', 300);
+
+  // 13. The NASA data list and the source table.
+  await scrollTo('.nasa-list', 60, 1200);
+  await scrollBy(200, 1600);
+  await mark('nasa data list', 300);
+
+  await scrollTo('.prov', 60, 1200);
+  await scrollBy(200, 1600);
+  await mark('sources table', 400);
+}
 
 await send('Page.stopScreencast');
 recording = false;

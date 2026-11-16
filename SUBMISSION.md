@@ -78,14 +78,19 @@ sources, and every screen carries a reminder to consult a local agriculturist.
 
 `https://ubimap.pages.dev/ubimap-demo.mp4`
 
-*(A video of 30 seconds or less, recorded from the live app with English
-subtitles burned in. It is hosted with the app, so it needs no login. Mirror:
-`https://zhameersheraz.github.io/ubimap/ubimap-demo.mp4`. The source is
-`demo/` in this repository, and `scripts/record_demo.mjs` plus
+*(A video of 30 seconds or less, recorded from the live app with an English
+voiceover and English subtitles burned in. It is hosted with the app, so it needs
+no login. Mirror: `https://zhameersheraz.github.io/ubimap/ubimap-demo.mp4`. The
+source is `demo/` in this repository, and `scripts/record_demo.mjs` plus
 `scripts/build_demo_video.py` rebuild it from scratch.)*
 
 *(A video of 30 seconds or less. The guide states: "Projects that exceed these limits will
 not be eligible for Global Judging.")*
+
+**Do not paste the long cut into the demo field.** A 53 second walkthrough of the
+whole app is hosted at `https://ubimap.pages.dev/ubimap-demo-long.mp4` for the
+project page and the demo video field, but the demo field itself must take the
+30 second cut above or the deck below.
 
 Or, if you prefer a slide deck:
 

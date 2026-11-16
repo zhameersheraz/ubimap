@@ -16,12 +16,20 @@ import sys
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-FRAMES = os.path.join(ROOT, "demo", "frames")
+TOTAL = float(sys.argv[1]) if len(sys.argv) > 1 else 30.0
+SUFFIX = sys.argv[2] if len(sys.argv) > 2 else ""
+FRAMES = os.path.join(ROOT, "demo", "frames" + (f"-{SUFFIX}" if SUFFIX else ""))
+CARDS = os.path.join(ROOT, "demo", "cards" + (f"-{SUFFIX}" if SUFFIX else ""))
+
+# The NASA demo video must be 30 seconds or less. The longer walkthrough for
+# the project page is built with a bigger total and a different output name.
+TOTAL = float(sys.argv[1]) if len(sys.argv) > 1 else 30.0
+SUFFIX = sys.argv[2] if len(sys.argv) > 2 else ""
+FRAMES = os.path.join(ROOT, "demo", "frames" + (f"-{SUFFIX}" if SUFFIX else ""))
+CARDS = os.path.join(ROOT, "demo", "cards" + (f"-{SUFFIX}" if SUFFIX else ""))
 OUT = os.path.join(ROOT, "demo", "ubimap-demo.mp4")
-CARDS = os.path.join(ROOT, "demo", "cards")
 
 W, H = 1280, 720
-TOTAL = 30.0
 
 INK = (11, 16, 23)
 PANEL = (16, 27, 40)
@@ -251,6 +259,25 @@ def main():
         ("validation table",
          "Tested against real Philippine data.",
          "Tested against real Philippine Statistics Authority data."),
+        ("calendar",
+         "A planting calendar from your own rainfall.",
+         "A twelve month planting calendar built from your own rainfall."),
+        ("farm card view",
+         "The farmer takes the card away.",
+         "The Farm Card itself, ready to print and take away."),
+        ("satellite vs ground",
+         "Satellite against a ground sensor, checked against each other.",
+         "Satellite against ground. Where they agree the field is behaving like its "
+         "neighbourhood, and where they do not, the difference is local."),
+        ("rainfall cross check",
+         "The rainfall cross check, two NASA products side by side.",
+         "The rainfall cross check, two independent NASA products side by side."),
+        ("nasa data list",
+         "Every dataset listed, with its resolution and its link.",
+         "Every dataset listed, with its resolution and a link back to the source."),
+        ("sources table",
+         "And every number traceable to its source.",
+         "Every number in the app is traceable to the dataset it came from."),
     ]
 
     cues = [(0.15, title_len - 0.15,
@@ -259,6 +286,8 @@ def main():
                   "text": "We are Team Messiah Project Digital."}]
     prev = 0.0
     for label, spoken, shown in shot_text:
+        if label not in {m["label"] for m in mk["marks"]}:
+            continue  # this shot was not recorded in this take
         end = min(at(label), app_len)
         if end <= prev:
             end = min(prev + 0.4, app_len)

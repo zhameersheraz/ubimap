@@ -12,9 +12,11 @@ import subprocess
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-CARDS = os.path.join(ROOT, "demo", "cards")
+SUFFIX = sys.argv[1] if len(sys.argv) > 1 else ""
+CARDS = os.path.join(ROOT, "demo", "cards" + (f"-{SUFFIX}" if SUFFIX else ""))
 VIDEO = os.path.join(CARDS, "silent.mp4")
-OUT = os.path.join(ROOT, "demo", "ubimap-demo.mp4")
+OUT = os.path.join(ROOT, "demo",
+                   "ubimap-demo.mp4" if not SUFFIX else f"ubimap-demo-{SUFFIX}.mp4")
 NARR = os.path.join(CARDS, "narration.json")
 
 
@@ -61,8 +63,9 @@ def main():
         at = max(start, floor + 0.06)
         places.append((path, at))
         floor = at + d
-    if floor > 30.0:
-        print(f"WARNING: narration ends at {floor:.2f}s, past the 30s cut")
+    vdur = dur(VIDEO)
+    if floor > vdur:
+        print(f"WARNING: narration ends at {floor:.2f}s, past the {vdur:.2f}s cut")
 
     inputs = []
     for path, _ in places:
@@ -78,13 +81,14 @@ def main():
         f"amix=inputs={len(places)}:normalize=0:duration=longest," \
         "loudnorm=I=-16:TP=-1.5:LRA=11[mix]"
 
+    vdur = dur(VIDEO)
     run([
         "ffmpeg", "-y", "-hide_banner", "-loglevel", "error",
         "-i", VIDEO, *inputs,
         "-filter_complex", fc,
         "-map", "0:v", "-map", "[mix]",
         "-c:v", "copy", "-c:a", "aac", "-b:a", "160k", "-ar", "44100",
-        "-t", "30.000", "-movflags", "+faststart",
+        "-t", f"{vdur:.3f}", "-movflags", "+faststart",
         OUT,
     ])
 

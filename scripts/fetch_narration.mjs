@@ -1,14 +1,15 @@
 /**
- * Download the generated narration clips and report their durations.
+ * Download the generated narration clips for the long version.
  *
- *   node scripts/fetch_narration.mjs
+ *   node scripts/fetch_narration.mjs long
  */
 import { execSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 
 const ROOT = 'C:/Users/ASUS/OneDrive/Documents/MiniMax/HACKATHON/NASA-HACKATHON/UbiMap';
-const CARDS = path.join(ROOT, 'demo', 'cards');
+const SUFFIX = process.argv[2] ? `-${process.argv[2]}` : '';
+const CARDS = path.join(ROOT, 'demo', `cards${SUFFIX}`);
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const out = JSON.parse(fs.readFileSync(path.join(CARDS, 'tts_out.json'), 'utf8').replace(/^\uFEFF/, ''));
@@ -26,10 +27,10 @@ for (let i = 0; i < ids.length; i++) {
       if (!res.ok) throw new Error(`http ${res.status}`);
       fs.writeFileSync(file, Buffer.from(await res.arrayBuffer()));
       ok = true;
-    } catch (e) {
+    } catch {
       await sleep(1500);
     }
   }
-  console.log(`${name} ${ok ? 'ok' : 'FAILED'} ${ok ? fs.statSync(file).size : 0} bytes`);
-  await sleep(600);
+  console.log(`${name} ${ok ? 'ok' : 'FAILED'}`);
+  await sleep(500);
 }
