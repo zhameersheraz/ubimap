@@ -467,14 +467,24 @@ a { color: var(--sea); }
   color: var(--dim) !important;
 }
 /* MapLibre ships the attribution text in its own dark grey, which is unreadable
-   on the dark panel in the dark theme. The links needed the override too, and
-   the "i" button is an inline SVG that has to be lightened by hand. */
+   on the dark panel in the dark theme. The links needed the override too.
+   The button itself is a 24x24 box with a 12px radius, so its icon has to be
+   drawn at 24x24 and centred, otherwise it sits in the top left corner and the
+   bar's rounded corner clips it. */
 .maplibregl-ctrl-attrib,
 .maplibregl-ctrl-attrib a,
 .maplibregl-ctrl-attrib-inner { color: var(--dim) !important; }
 [data-theme="dark"] .maplibregl-ctrl-attrib-button {
   background-color: transparent !important;
-  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='8.3' fill='%23101b28' stroke='%233b4f6b' stroke-width='1'/%3E%3Ccircle cx='10' cy='6' r='1.45' fill='%23e6edf5'/%3E%3Crect x='8.6' y='8.4' width='2.8' height='6.2' rx='1.4' fill='%23e6edf5'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='8.6' fill='%23101b28' stroke='%23455c78' stroke-width='1.2'/%3E%3Ccircle cx='12' cy='8.1' r='1.55' fill='%23e6edf5'/%3E%3Crect x='10.35' y='10.9' width='3.3' height='6.4' rx='1.65' fill='%23e6edf5'/%3E%3C/svg%3E") !important;
+  background-size: 24px 24px !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+/* Keep the button clear of the bar's rounded corner. */
+.maplibregl-ctrl-attrib .maplibregl-ctrl-attrib-button {
+  right: 3px !important;
+  top: 3px !important;
 }
 /* The attribution bar runs along the bottom edge, so the suitability legend
    has to sit clear of it or the two overlap and neither is readable. */

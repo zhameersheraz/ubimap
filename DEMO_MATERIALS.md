@@ -23,23 +23,8 @@ The official beat sheet, verbatim from the guide:
 
 # Option A: the 30 second video
 
-**The 30 second video is already recorded, voiced and hosted.** You do not have to
-record it yourself unless you want your own voice on it.
-
-> `https://ubimap.pages.dev/ubimap-demo.mp4`
-
-It was captured from the live app with Chrome's DevTools screencast, so every
-frame is the real interface with the real NASA data, with an English voiceover and
-English subtitles burned in. Exactly 30.000 seconds.
-
-A 53 second walkthrough of the whole app is hosted at
-`https://ubimap.pages.dev/ubimap-demo-long.mp4`. **Do not put that one in the demo
-field.** The guide is explicit that a longer video makes the project ineligible for
-global judging. The long cut is for the project page.
-
-If you want your own voice instead of the generated one, the shot list below is
-what the video follows, and the subtitles are the English lines. Record your voice
-over it and it will still be 30 seconds.
+**The deck in Option B is already built and hosted**, so you have a valid demo
+either way. This option is only if you want a video instead, or want both.
 
 **Setup before you record.** Open the app on your phone at the demo field (tap "Use the
 Pagadian demo field", then Continue, then Continue). The app opens in English, which is what

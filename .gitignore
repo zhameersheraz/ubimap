@@ -10,11 +10,8 @@ dist/
 deck/ubimap-deck.pdf
 deck/preview/
 
-# demo recording artefacts, the published copy lives in public/
-demo/frames/
-demo/cards/
-demo/*.png
-demo/ubimap-demo.mp4
+# scratch space for capture and render runs
+demo/
 
 # the NASA POWER proxy cache
 .cache/
