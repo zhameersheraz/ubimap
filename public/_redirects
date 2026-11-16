@@ -1,0 +1,5 @@
+# The two demo videos were removed after review. These rules make the old links
+# land on the 7 slide deck instead, which is the current demo for the project page.
+# Cloudflare Pages applies these even when a cached asset exists at the same path.
+/ubimap-demo.mp4 /ubimap-deck.pdf 301
+/ubimap-demo-long.mp4 /ubimap-deck.pdf 301
