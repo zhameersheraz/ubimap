@@ -66,6 +66,13 @@ await send('Emulation.setDeviceMetricsOverride', {
 await send('Page.navigate', { url });
 await sleep(7000);
 
+const theme = process.argv[5];
+if (theme) {
+  await evaluate(`localStorage.setItem('ubimap-theme', ${JSON.stringify(theme)})`);
+  await send('Page.reload', {});
+  await sleep(7000);
+}
+
 // Open the attribution so the button and the panel are both visible.
 await evaluate("document.querySelector('.maplibregl-ctrl-attrib').classList.add('maplibregl-compact-expanded')");
 await sleep(800);
