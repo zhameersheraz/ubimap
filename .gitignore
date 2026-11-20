@@ -12,6 +12,7 @@ deck/preview/
 
 # scratch space for capture and render runs
 demo/
+.tmp-shots/
 
 # the NASA POWER proxy cache
 .cache/

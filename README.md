@@ -13,6 +13,10 @@ priorities, then compares at least three rotation strategies including the one t
 already uses.
 
 <p align="center">
+  <img src="docs/images/hero.png" width="920" alt="The UbiMap landing screen: the headline, the NASA MODIS plate of the Zamboanga peninsula with its metadata, and the read out of the grid cells, the GIBS layers and the climate years.">
+</p>
+
+<p align="center">
   <img src="docs/images/map.png" width="920" alt="The UbiMap app in a browser. NASA GIBS MODIS true colour imagery over Pagadian City, with the UbiMap ube suitability grid on top and the NASA layer selector underneath.">
 </p>
 

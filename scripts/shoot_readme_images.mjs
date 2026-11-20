@@ -97,11 +97,14 @@ await send('Page.navigate', { url: baseUrl });
 await sleep(2500);
 
 console.log('README images:');
+// The landing screen, the headline and the NASA plate together.
+await shoot('hero', '.hero');
+
 // The NASA plate that opens the app, with its own caption strip.
 await shoot('nasa-plate', '.plate');
 
 // Pick the demo field so the map has a pin and the heat map has data.
-await evaluate("document.querySelectorAll('.card .chips button')[1].click()");
+await evaluate("document.querySelector('.btn-demo').click()");
 await sleep(1200);
 // The NASA GIBS tiles stream in, so give them time to fill the viewport
 // before the shot, otherwise the map is half dark.

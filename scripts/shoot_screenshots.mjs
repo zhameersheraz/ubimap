@@ -137,8 +137,12 @@ await sleep(2500);
 // The hero plate only exists on step 1, so grab it before walking forward.
 await shootEl('06-plate', '.plate', { pad: 0 });
 
+// The landing screen itself, the hero with the headline and the stat rail.
+await shoot('06-hero', { clip: { x: 0, y: 0, width: W, height: 760 } });
+
 // Step 1: the map with the MODIS layer and the suitability heatmap on.
-await evaluate("document.querySelectorAll('.card .chips button')[1].click()");
+// The demo field button now lives in the hero, not in a card.
+await evaluate("document.querySelector('.btn-demo').click()");
 await sleep(1500);
 await evaluate("document.querySelector('.mapwrap').scrollIntoView({block:'start'})");
 await sleep(2500);
@@ -172,10 +176,9 @@ await shootEl('05-crosscheck',
   "js:[...document.querySelectorAll('section.card')].find(s => s.querySelector('h2')?.textContent.includes('Rainfall cross-check'))?.querySelector('.cmp')",
   { pad: 14, maxH: 420, offset: 0 });
 
-// The hero plate on the landing screen.
+// The landing screen, after the walk, for the light background check.
 await evaluate("window.scrollTo(0,0)");
 await sleep(1500);
-await shoot('06-hero', { clip: { x: 0, y: 0, width: W, height: 560 } });
 
 ws.close();
 chrome.kill();

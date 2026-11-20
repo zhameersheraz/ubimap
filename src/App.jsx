@@ -13,6 +13,20 @@ import HERO from './data/heroPlate.json';
 import { evaluateCell, monthlyProfile, classifySeasons, longestDryRun } from './engine/suitability.js';
 import { scoreRotations } from './engine/rotations.js';
 import { LANGS, t } from './i18n/strings.js';
+import NASA_LAYERS from './data/nasaLayers.json';
+
+/** The three steps, shown as a pill nav in the masthead. */
+const STEPS = [
+  { n: '01', label: 'Field', step: 1 },
+  { n: '02', label: 'Farm', step: 2 },
+  { n: '03', label: 'Result', step: 3 },
+];
+
+/** Years of the NASA POWER climate record, read from the grid metadata. */
+const CLIMATE_YEARS = (() => {
+  const m = (GRID_META.power_years_for_soil_moisture || '').match(/(\d{4})\s*-\s*(\d{4})/);
+  return m ? Number(m[2]) - Number(m[1]) + 1 : null;
+})();
 
 const DEFAULT_FARMER = {
   currentCrop: 'corn',
@@ -189,15 +203,30 @@ export default function App() {
             {/* The ube itself, drawn by the team. It doubles as the home button,
                 so it goes back to the start of the tool, not just to the top
                 of the page. */}
-            <img src={`${import.meta.env.BASE_URL}logo-ube-256.png`} alt="" width="34" height="34" />
+            <img src={`${import.meta.env.BASE_URL}logo-ube-256.png`} alt="" width="36" height="36" />
           </button>
           <div>
-            <h1>
-              UbiMap <em>NASA Space Apps Hackathon 2026</em>
-            </h1>
-            <p className="dim small">{t(lang, 'tagline')}</p>
+            <div className="wordmark">
+              UbiMap <em>NASA Space Apps 2026</em>
+            </div>
+            <p>{t(lang, 'tagline')}</p>
           </div>
         </div>
+        <nav className="stepnav" aria-label="Steps">
+          {STEPS.map((s) => (
+            <button
+              key={s.n}
+              type="button"
+              onClick={() => setStep(s.step)}
+              aria-current={step === s.step ? 'true' : undefined}
+              disabled={s.step === 3 && !pin}
+              title={s.step === 3 && !pin ? 'Pick a field first' : s.label}
+            >
+              <b>{s.n}</b>
+              {s.label}
+            </button>
+          ))}
+        </nav>
         <div className="langs">
           <span className="dim tiny langs-label">
             {t(lang, 'langLabel')}
@@ -237,39 +266,30 @@ export default function App() {
 
       {step === 1 && (
         <>
-          <section className="plate">
-            <img
-              src={`${import.meta.env.BASE_URL}hero-plate.jpg`}
-              alt="NASA MODIS Terra true colour image of the Zamboanga peninsula, showing the Sulu Sea and the coastal plain around Pagadian City"
-              width="768"
-              height="512"
-            />
-            <div className="plate-caption">
-              <span>
-                <b>Plate 01</b> {HERO.plate_layer}
+          <section className="hero">
+            <div className="hero-copy">
+              <span className="status-pill">
+                <i />
+                {t(lang, 'heroStatus')}
               </span>
-              <span>{HERO.plate_date}</span>
-              <span>{HERO.plate_resolution}</span>
-              <span>{HERO.plate_lat}, {HERO.plate_lon}</span>
-              <span>{HERO.plate_source}</span>
-            </div>
-          </section>
-
-          <section className="card">
-            <h2>{t(lang, 'step1_title')}</h2>
-            <p className="dim">{t(lang, 'step1_body')}</p>
-            <div className="chips mt">
-              <button type="button" className="chip chip-on" onClick={useGps}>
-                {t(lang, 'useGps')}
-              </button>
-              <button
-                type="button"
-                className="chip"
-                onClick={() => setPin({ lat: DEMO_FIELD.lat, lon: DEMO_FIELD.lon })}
-              >
-                {t(lang, 'useDemo')}
-              </button>
-            </div>
+              <h1 className="hero-title">
+                {t(lang, 'heroTitleTop')}
+                <br />
+                <em>{t(lang, 'heroTitleBottom')}</em>
+              </h1>
+              <p className="hero-sub">{t(lang, 'step1_body')}</p>
+              <div className="hero-actions">
+                <button type="button" className="btn" onClick={useGps}>
+                  {t(lang, 'useGps')}
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-ghost btn-demo"
+                  onClick={() => setPin({ lat: DEMO_FIELD.lat, lon: DEMO_FIELD.lon })}
+                >
+                  {t(lang, 'useDemo')}
+                </button>
+              </div>
             {pin && (
               <>
                 <p className="pin-readout">
@@ -302,6 +322,86 @@ export default function App() {
                 </p>
               </>
             )}
+            </div>
+
+            <div className="hero-plate">
+              <svg className="orbit" viewBox="0 0 400 300" fill="none" aria-hidden="true">
+                <ellipse cx="200" cy="150" rx="198" ry="88" stroke="currentColor" strokeWidth="1" />
+                <ellipse cx="200" cy="150" rx="152" ry="60" stroke="currentColor" strokeWidth="1" opacity=".5" />
+                <circle cx="398" cy="150" r="3.5" fill="currentColor" />
+                <circle cx="352" cy="90" r="2.5" fill="currentColor" opacity=".75" />
+              </svg>
+              <section className="plate">
+                <img
+                  src={`${import.meta.env.BASE_URL}hero-plate.jpg`}
+                  alt="NASA MODIS Terra true colour image of the Zamboanga peninsula, showing the Sulu Sea and the coastal plain around Pagadian City"
+                  width="768"
+                  height="512"
+                />
+                <div className="plate-caption">
+                  <span>
+                    <b>Plate 01</b> {HERO.plate_layer}
+                  </span>
+                  <span>{HERO.plate_date}</span>
+                  <span>{HERO.plate_resolution}</span>
+                  <span>{HERO.plate_lat}, {HERO.plate_lon}</span>
+                </div>
+              </section>
+              <div className="plate-card">
+                <span className="micro">Plate 01</span>
+                <strong>{HERO.plate_layer}</strong>
+                <dl>
+                  <div>
+                    <dt>Date</dt>
+                    <dd>{HERO.plate_date}</dd>
+                  </div>
+                  <div>
+                    <dt>Centre</dt>
+                    <dd>
+                      {HERO.plate_lat} {HERO.plate_lon}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Resolution</dt>
+                    <dd>{HERO.plate_resolution}</dd>
+                  </div>
+                  <div>
+                    <dt>Source</dt>
+                    <dd>{HERO.plate_source}</dd>
+                  </div>
+                </dl>
+              </div>
+            </div>
+
+            <aside className="rail">
+              <div className="rail-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+                  <rect x="3.5" y="3.5" width="7" height="7" rx="1.6" />
+                  <rect x="13.5" y="3.5" width="7" height="7" rx="1.6" />
+                  <rect x="3.5" y="13.5" width="7" height="7" rx="1.6" />
+                  <rect x="13.5" y="13.5" width="7" height="7" rx="1.6" />
+                </svg>
+                <strong>{GRID_META.cells}</strong>
+                <span>Grid cells</span>
+              </div>
+              <div className="rail-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 3.2 21 8l-9 4.8L3 8z" />
+                  <path d="m3.6 12.6 8.4 4.4 8.4-4.4" />
+                  <path d="m3.6 16.8 8.4 4.4 8.4-4.4" />
+                </svg>
+                <strong>{Object.keys(NASA_LAYERS.layers).length}</strong>
+                <span>GIBS layers</span>
+              </div>
+              <div className="rail-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="8.6" />
+                  <path d="M12 7.2V12l3.2 2.2" />
+                </svg>
+                <strong>{CLIMATE_YEARS ?? '--'}</strong>
+                <span>Climate years</span>
+              </div>
+            </aside>
           </section>
 
           <MapPanel
@@ -338,7 +438,7 @@ export default function App() {
             <button type="button" className="btn btn-ghost" onClick={() => setStep(1)}>
               {t(lang, 'back')}
             </button>
-            <button type="button" className="btn" onClick={() => setStep(3)}>
+            <button type="button" className="btn" disabled={!pin} onClick={() => setStep(3)}>
               {t(lang, 'continue')}
             </button>
           </div>
