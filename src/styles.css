@@ -516,7 +516,30 @@ a { color: var(--sea); }
   border-radius: 50%;
   background: var(--mint);
   box-shadow: 0 0 0 3px rgba(95, 211, 155, .16), 0 0 10px rgba(95, 211, 155, .8);
+  animation: live-pulse 3.4s ease-in-out infinite;
 }
+
+/* ---------- motion ----------
+   One slow orbit for the plate and a quiet pulse on the live light. Nothing
+   loops fast enough to pull the eye off the numbers. */
+@keyframes live-pulse {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(95, 211, 155, .16), 0 0 10px rgba(95, 211, 155, .8); }
+  50% { box-shadow: 0 0 0 5px rgba(95, 211, 155, .05), 0 0 16px rgba(95, 211, 155, 1); }
+}
+@keyframes rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.hero-copy > * { animation: rise .65s cubic-bezier(.22, .68, .3, 1) both; }
+.hero-copy > *:nth-child(2) { animation-delay: .07s; }
+.hero-copy > *:nth-child(3) { animation-delay: .14s; }
+.hero-copy > *:nth-child(4) { animation-delay: .21s; }
+.hero-plate { animation: fade-in .9s ease .12s both; }
+.rail { animation: rise .7s cubic-bezier(.22, .68, .3, 1) .28s both; }
 
 .hero-title {
   font-family: var(--display);
@@ -715,6 +738,17 @@ a { color: var(--sea); }
   border-bottom: 1px solid var(--rule);
 }
 .card > h2 .dim { font-weight: 400; }
+/* The sub headings inside a card are not the card title. The title rule gives
+   every direct h2 a hairline under it and a flex row, which crammed the sub
+   headings into the control above them and drew a stray divider under them. */
+.card > h2.mt {
+  display: block;
+  margin: 30px 0 12px;
+  padding-bottom: 0;
+  border-bottom: 0;
+  font-size: .72rem;
+  letter-spacing: .18em;
+}
 
 /* ---------- pin ---------- */
 .pin { position: relative; }
@@ -774,28 +808,44 @@ a { color: var(--sea); }
 .maplibregl-ctrl-attrib-inner { color: var(--dim) !important; }
 .maplibregl-ctrl-attrib .maplibregl-ctrl-attrib-button {
   background: none !important;
-  width: 21px !important;
-  height: 21px !important;
+  width: 22px !important;
+  height: 22px !important;
   border: 1px solid var(--rule-lit) !important;
   border-radius: 50% !important;
   right: 4px !important;
   top: 4px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
+}
+/* The letter is drawn as a dot and a bar instead of a text glyph, so it sits
+   exactly in the middle of the circle in both themes. */
+.maplibregl-ctrl-attrib .maplibregl-ctrl-attrib-button::before,
+.maplibregl-ctrl-attrib .maplibregl-ctrl-attrib-button::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  margin-left: -1.5px;
+  background: var(--dim);
+}
+.maplibregl-ctrl-attrib .maplibregl-ctrl-attrib-button::before {
+  top: 4.5px;
+  width: 3px; height: 3px;
+  border-radius: 50%;
 }
 .maplibregl-ctrl-attrib .maplibregl-ctrl-attrib-button::after {
-  content: "i";
-  font-family: var(--sans);
-  font-weight: 700;
-  font-size: 12px;
-  line-height: 1;
-  color: var(--dim);
-  display: block;
-  margin-top: -1px;
+  top: 9.5px;
+  width: 3px; height: 8px;
+  border-radius: 1.5px;
+}
+/* The browser drew its own blue focus ring on this control, which sat on the
+   dark panel like a sticker. The ring now uses the app accent, and only for a
+   keyboard focus. */
+.maplibregl-ctrl-attrib .maplibregl-ctrl-attrib-button:focus { outline: none; }
+.maplibregl-ctrl-attrib .maplibregl-ctrl-attrib-button:focus-visible {
+  outline: 2px solid var(--ube);
+  outline-offset: 2px;
 }
 .maplibregl-ctrl-attrib .maplibregl-ctrl-attrib-button:hover { border-color: var(--dim) !important; }
-.maplibregl-ctrl-attrib .maplibregl-ctrl-attrib-button:hover::after { color: var(--text); }
+.maplibregl-ctrl-attrib .maplibregl-ctrl-attrib-button:hover::before,
+.maplibregl-ctrl-attrib .maplibregl-ctrl-attrib-button:hover::after { background: var(--text); }
 /* The attribution bar runs along the bottom edge, so the suitability legend
    has to sit clear of it or the two overlap and neither is readable. */
 .maplibregl-ctrl-bottom-right { z-index: 5; }
@@ -1164,5 +1214,9 @@ table.prov tr.nonprod td { background: rgba(233, 127, 108, .08); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: .001ms !important;
+  }
 }

@@ -95,6 +95,17 @@ export default function App() {
 
   const toggleTheme = () => setTheme((v) => (v === 'dark' ? 'light' : 'dark'));
 
+  // The orbit around the plate moves only when the reader has not asked for
+  // less motion. The rest of the movement is CSS and stops on its own.
+  const [motion, setMotion] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const sync = () => setMotion(!mq.matches);
+    sync();
+    mq.addEventListener('change', sync);
+    return () => mq.removeEventListener('change', sync);
+  }, []);
+
   // Every step is a new screen, and the browser keeps the old scroll offset when
   // the content swaps. Step 1 is much taller than step 2 because of the map, so
   // Continue used to drop you at the bottom of the page instead of the top of
@@ -207,7 +218,7 @@ export default function App() {
           </button>
           <div>
             <div className="wordmark">
-              UbiMap <em>NASA Space Apps 2026</em>
+              UbiMap <em>NASA Space Apps Hackathon 2026</em>
             </div>
             <p>{t(lang, 'tagline')}</p>
           </div>
@@ -326,10 +337,25 @@ export default function App() {
 
             <div className="hero-plate">
               <svg className="orbit" viewBox="0 0 400 300" fill="none" aria-hidden="true">
-                <ellipse cx="200" cy="150" rx="198" ry="88" stroke="currentColor" strokeWidth="1" />
-                <ellipse cx="200" cy="150" rx="152" ry="60" stroke="currentColor" strokeWidth="1" opacity=".5" />
-                <circle cx="398" cy="150" r="3.5" fill="currentColor" />
-                <circle cx="352" cy="90" r="2.5" fill="currentColor" opacity=".75" />
+                <path
+                  id="orbit-track"
+                  d="M2 150a198 88 0 1 0 396 0a198 88 0 1 0-396 0"
+                  stroke="currentColor"
+                  strokeWidth="1"
+                />
+                <path
+                  d="M48 150a152 60 0 1 0 304 0a152 60 0 1 0-304 0"
+                  stroke="currentColor"
+                  strokeWidth="1"
+                  opacity=".5"
+                />
+                {motion && (
+                  <circle r="3.5" fill="currentColor">
+                    <animateMotion dur="52s" repeatCount="indefinite">
+                      <mpath href="#orbit-track" />
+                    </animateMotion>
+                  </circle>
+                )}
               </svg>
               <section className="plate">
                 <img
